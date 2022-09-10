@@ -44,6 +44,7 @@ class AlumniController extends Controller
     {
         return Alumni::findOrFail($id);
     }
+    
     /**
      * Update the specified resource in storage.
      *
