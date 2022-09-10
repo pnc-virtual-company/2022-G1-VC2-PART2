@@ -17,7 +17,6 @@ class AlumniController extends Controller
         //
         return Alumni::get();
     }
-
     /**
      * Store a newly created resource in storage.
      *
@@ -26,9 +25,16 @@ class AlumniController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $alumni = new Alumni();
+        $alumni->profile= $request->profile;
+        $alumni->batch= $request->batch;
+        $alumni->gender=$request->gender;
+        $alumni->phone=$request->phone;
+        $alumni->major=$request->major;
+        $alumni->user_id=$request->user_id;
+        $alumni->save();  
+        return response()->json(['status' => 'Created Alumni sucessfully']); 
     }
-
     /**
      * Display the specified resource.
      *
@@ -40,7 +46,6 @@ class AlumniController extends Controller
         //
         return Alumni::findOrFail($id);
     }
-
     /**
      * Update the specified resource in storage.
      *

@@ -2,7 +2,9 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\controllers\UserController;
 use App\Http\Controllers\AlumniController;
+
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -16,6 +18,8 @@ use App\Http\Controllers\AlumniController;
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
-Route::put('alumni/{id}',[AlumniController::class, "update"]);
 Route::get('alumnis',[AlumniController::class, "index"]);
 Route::get('alumni/{id}',[AlumniController::class, "show"]);
+Route:: post ("users", [UserController::class, "createUser"]);
+Route:: post ("alumni", [AlumniController::class, "store"]);
+Route::put('alumni/{id}',[AlumniController::class, "update"]);
