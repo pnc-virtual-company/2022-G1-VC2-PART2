@@ -14,7 +14,8 @@ class AlumniController extends Controller
      */
     public function index()
     {
-        return Alumni::all();
+        //
+        return Alumni::get();
     }
     /**
      * Store a newly created resource in storage.
@@ -63,8 +64,9 @@ public function updateProfile(Request $request,$id){
      * @param  \App\Models\Alumni  $alumni
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Request $request, $id)
     {
+        //
         return Alumni::findOrFail($id);
     }
     /**
@@ -78,12 +80,10 @@ public function updateProfile(Request $request,$id){
     {
         //
         $alumni =Alumni::findOrFail($id);
-        $alumni->profile = $request->file('profile')->hashName();
         $alumni->batch = $request->batch;
         $alumni->gender = $request->gender;
         $alumni->phone = $request->phone;
         $alumni->major = $request->major;
-        $alumni->user_id = $request->user_id;
         $alumni->save();
         return response()->json(["message"=>"Alumni updated", 'data'=>$alumni],200);
     }
