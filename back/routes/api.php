@@ -19,6 +19,9 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 Route::put('alumni/{id}',[AlumniController::class, "update"]);
+Route::put('alumniprofile/{id}',[AlumniController::class, "updateProfile"]);
+
+Route::get('alumnis',[AlumniController::class, "index"]);
+Route::get('alumni/{id}',[AlumniController::class, "show"]);
 Route:: post ("users", [UserController::class, "createUser"]);
 Route:: post ("alumni", [AlumniController::class, "store"]);
-Route::put('alumni/{id}',[AlumniController::class, "update"]);

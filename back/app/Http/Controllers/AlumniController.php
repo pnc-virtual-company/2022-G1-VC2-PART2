@@ -14,7 +14,8 @@ class AlumniController extends Controller
      */
     public function index()
     {
-        return Alumni::all();
+        //
+        return Alumni::get();
     }
     /**
      * Store a newly created resource in storage.
@@ -31,17 +32,41 @@ class AlumniController extends Controller
         $alumni->phone=$request->phone;
         $alumni->major=$request->major;
         $alumni->user_id=$request->user_id;
-        $alumni->save();  
-        return response()->json(['status' => 'Created Alumni sucessfully']); 
+// ================================================================ Upload Image===============================
+        $path = public_path('images/Alumni');
+        if ( ! file_exists($path) ) {
+            mkdir($path, 0777, true);
+        }
+        $file = $request->file('profile');
+        $fileName = uniqid() . '_' . trim($file->getClientOriginalName());
+        $alumni->profile = $fileName;
+        $file->move($path, $fileName);
+        $alumni->save();
+        return response()->json(['status' => 'Created Alumni sucessfully']);
     }
+// =================================================================Update profile==============================
+public function updateProfile(Request $request,$id){
+    $alumni = Alumni::find($id);
+    $path = public_path('images/Alumni');
+    if ( ! file_exists($path) ) {
+        mkdir($path, 0777, true);
+    }
+    $file = $request->file('profile');
+    $fileName = uniqid() . '_' . trim($file->getClientOriginalName());
+    $alumni->profile = $fileName;
+    $file->move($path, $fileName);
+    $alumni->save();
+    return response()->json(["message"=>"updateProfile",'data'=>$alumni],200);
+}
     /**
      * Display the specified resource.
      *
      * @param  \App\Models\Alumni  $alumni
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Request $request, $id)
     {
+        //
         return Alumni::findOrFail($id);
     }
     
@@ -56,12 +81,10 @@ class AlumniController extends Controller
     {
         //
         $alumni =Alumni::findOrFail($id);
-        $alumni->profile = $request->file('profile')->hashName();
         $alumni->batch = $request->batch;
         $alumni->gender = $request->gender;
         $alumni->phone = $request->phone;
         $alumni->major = $request->major;
-        $alumni->user_id = $request->user_id;
         $alumni->save();
         return response()->json(["message"=>"Alumni updated", 'data'=>$alumni],200);
     }
