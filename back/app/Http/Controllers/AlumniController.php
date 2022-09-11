@@ -67,6 +67,7 @@ public function updateAlumniPrifile(Request $request, $id){
         //
         return Alumni::findOrFail($id);
     }
+    
     /**
      * Update the specified resource in storage.
      *
