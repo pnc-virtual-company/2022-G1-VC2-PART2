@@ -17,9 +17,9 @@
               <p>Major:</p>
             </div>
             <div>
-              <p>Sreymao</p>
-              <p>Female</p>
-              <p>Web</p>
+              <p>{{user.first_name}}</p>
+              <p>{{alumni.gender}}</p>
+              <p>{{alumni.major}}</p>
             </div>
           </div>
           <div class="w-[50%] flex">
@@ -29,9 +29,9 @@
               <p>Tel:</p>
             </div>
             <div>
-              <p>Vorn</p>
-              <p>2022</p>
-              <p>0964743586</p>
+              <p>{{user.last_name}}</p>
+              <p>{{alumni.batch}}</p>
+              <p>{{alumni.phone}}</p>
             </div>
           </div>
         </div>
@@ -40,7 +40,7 @@
             <p>Email:</p>
           </div>
           <div>
-            <p>sreymao.vorn2004@gmail.com</p>
+            <p>{{user.email}}</p>
           </div>
         </div>
       </div>
@@ -48,7 +48,31 @@
   </template>
   
   <script>
-  export default {};
+  import axios from "@/axios-http"
+export default {
+  data(){
+    return {
+      apiURL:"alumni/1",
+      alumni:[],
+      user:[]
+    }
+  },
+
+  methods:{
+    getDataFromApi(){
+      axios.get(this.apiURL).then((res)=>{
+        this.alumni = res.data;
+        this.user=res.data.user
+        console.log(this.user);
+      });
+    },
+  },
+
+  mounted() {
+        this.getDataFromApi();
+
+    },
+};
   </script>
   
   <style>

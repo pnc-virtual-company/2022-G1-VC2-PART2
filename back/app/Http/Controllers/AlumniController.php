@@ -15,7 +15,7 @@ class AlumniController extends Controller
     public function index()
     {
         //
-        return Alumni::get();
+        return Alumni::with('user')->get();
     }
     /**
      * Store a newly created resource in storage.
@@ -65,7 +65,7 @@ public function updateAlumniPrifile(Request $request, $id){
     public function show(Request $request, $id)
     {
         //
-        return Alumni::findOrFail($id);
+        return Alumni::with('user')->findOrFail($id);
     }
     
     /**
