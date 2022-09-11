@@ -1,16 +1,14 @@
 <template>
-  <div class="home">
-    <img alt="Vue logo" src="../assets/logo.png" width="100">
-    <Welcome/>
-  </div>
+  <ProfileAlumni></ProfileAlumni>
 </template>
+
 <script>
 // @ is an alias to /src
-import Welcome from '@/components/WelcomeView';
+import ProfileAlumni from "../components/profile/ProfileAlumni.vue"
 export default {
   name: 'HomeView',
   components: {
-    Welcome
+    ProfileAlumni
   }
 }
 </script>
