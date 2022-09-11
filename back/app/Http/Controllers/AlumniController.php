@@ -32,9 +32,30 @@ class AlumniController extends Controller
         $alumni->phone=$request->phone;
         $alumni->major=$request->major;
         $alumni->user_id=$request->user_id;
-        $alumni->save();  
-        return response()->json(['status' => 'Created Alumni sucessfully']); 
+// ================================================================ Upload Image===============================
+        $path = public_path('images/Alumni');
+        if ( ! file_exists($path) ) {
+            mkdir($path, 0777, true);
+        }
+        $file = $request->file('profile');
+        $fileName = uniqid() . '_' . trim($file->getClientOriginalName());
+        $alumni->profile = $fileName;
+        $file->move($path, $fileName);
+        $alumni->save();
+        return response()->json(['status' => 'Created Alumni sucessfully']);
     }
+// =================================================================Update profile==============================
+public function updateAlumniPrifile(Request $request, $id){
+    $request->validate([
+        'profile'=>'image|mimes:jpg,png,jpeg,gif|max:19999',
+    ]);
+    $request->file('profile')->store('public/images');
+
+    $profile = Alumni::findOrFail($id);
+    $profile->profile = $request->file('profile')->hashName();
+    $profile->save();
+    return response()->json(['message'=> 'Profile Updated'], 201);
+}
     /**
      * Display the specified resource.
      *
@@ -46,6 +67,7 @@ class AlumniController extends Controller
         //
         return Alumni::findOrFail($id);
     }
+    
     /**
      * Update the specified resource in storage.
      *
