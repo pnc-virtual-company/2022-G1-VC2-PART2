@@ -20,7 +20,7 @@
             <div class="absolute ml-24 text-center">
                 <div class="flex">
                     <div class="w-40">
-                        <img class=" rounded-full h-40 mt-[-130px]  border border-b-1 border-gray-400" src="https://play-lh.googleusercontent.com/qm3XcIvP6BOFnS_bK0Jjey7od3adNl3d_c7JyzyNmMUs1yvbiXoWfyhCaP8NQG9CUwE=w526-h296-rw" alt="">
+                        <img v-if="user.profile" class=" rounded-full h-40 mt-[-130px]  border border-b-1 border-gray-400" :src="'http://127.0.0.1:8000/images/profile/'+ user.profile" alt="">
                     </div>
                     <div>
                         <input @change="tageImage" id="profile-upload" type="file" accept="image/*" hidden>
@@ -38,55 +38,38 @@
         </div>
         <div class="flex justify-between mt-8 items-start">
             <div class="w-[32%] bg-blue-200 p-3 rounded mt-14">
-                <CardSkills></CardSkills>
+                <CardSkills />
             </div>
             <div class="w-[64%]">
-                <CardInfo></CardInfo>
+                <CardInfo :user="user" @getData="getUser" />
                 <CardExper :edu="edu">Education Background</CardExper>
                 <CardExper :experiences="experiences">Work Experiences</CardExper>
             </div>
         </div>
 
     </div>
-    <div v-if="isUpdate" class="flex items-center w-full p-4 bg-[#23242986] fixed h-full top-0 z-100">
-      <form @submit.prevent="saveUpload" enctype="multipart/form-data" class="bg-white rounded p-5 mt-5 m-auto text-center">
-          <div class="flex items-center justify-between mb-4 text-lg">
-                <p></p>
-              <p class="font-semibold">Upload Profile</p>
-              <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 cursor-pointer" viewBox="0 0 20 20" fill="currentColor" @click="isUploaded=false">
-                  <path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd" />
-              </svg>
-          </div>
-          <div class="profile">
-              <img class="w-50 h-50" :src="profile">
-          </div>
-          <div class="w-full mt-5">
-              <button type="submit" class="btn bg-[#22bbea] rounded p-2 text-white w-full">
-                  Save Change
-              </button>
-          </div>
-      </form>
-    </div>
-    <!-- <update-profile-view></update-profile-view> -->
+    <update-profile-view v-if="isUpdate" :profile="profile" @save-upload="saveUpload"></update-profile-view>
 </section>
 
 </template>
 
 <script>
+import axios from '../../axios-http'
 import CardInfo from "../CardInfo.vue"
 import CardSkills from "../skills/CardSkills.vue"
 import CardExper from "../CardExper.vue"
-// import updateProfileView from "../profile/UpdateProfileView.vue";
+import updateProfileView from "../profile/UpdateProfileView.vue";
 export default {
     components:{
         CardInfo,
         CardSkills,
         CardExper,
-        // "update-profile-view":updateProfileView,
+        "update-profile-view":updateProfileView,
         
     },
     data() {
         return {
+            user: {},
             edu: [
                 {school: 'Passerelles Numeriques Cambodia', degree: "Associat's degree", major: 'Information Technology', start_year: 2020, end_year: 2022, src: 'https://previews.123rf.com/images/anthonycz/anthonycz1612/anthonycz161200005/68815871-school-vector-icon-isolated-building-on-white-background.jpg'},
                 {school: 'Passerelles Numeriques Cambodia', degree: "Associat's degree", major: 'Information Technology', start_year: 2020, end_year: 2022, src: 'https://previews.123rf.com/images/anthonycz/anthonycz1612/anthonycz161200005/68815871-school-vector-icon-isolated-building-on-white-background.jpg'},
@@ -114,18 +97,23 @@ export default {
         let formData = new FormData();
         formData.append("profile", this.image);
         formData.append("_method", "PUT");
-        // axios.post("/student/reset_profile/" + 1, formData).then((res) => {
-        //     console.log(res);
-        // });
+        axios.post("/alumniprofile/" + 12, formData).then((res) => {
+            console.log(res);
+            this.getUser();
+            this.isUpdate=false;
+        });
+        },
+        getUser() {
+            axios.get('/alumni/12').then(res=> {
+                this.user = res.data;
+            })
+        }
     },
-    }
 
+    mounted() {
+        this.getUser();
+    },
 };
 </script>
 
-<style scoped>
-    .profile img{
-        width: 20rem;
-        height: 20rem;
-    }
-</style>
+
