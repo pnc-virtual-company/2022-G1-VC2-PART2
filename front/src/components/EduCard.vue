@@ -1,5 +1,5 @@
 <template>
-    <div class="flex justify-between mt-2 p-2 border-b-[1px] border-gray-400">
+    <div class="flex justify-between mt-2 p-2 border-b-[1px] border-[#a9aaaaa3]">
         <div class="flex items-center">
         <div class="w-16 h-16">
             <img class="w-16 h-16 rounded-full border border-1 border-gray-400" :src="image" alt="">

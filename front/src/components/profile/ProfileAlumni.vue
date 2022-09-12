@@ -18,7 +18,7 @@
             <div class="absolute ml-24 text-center">
                 <div class="flex">
                     <div class="w-40">
-                        <img class=" rounded-full h-40 mt-[-130px]  border border-b-1 border-gray-400" src="https://play-lh.googleusercontent.com/qm3XcIvP6BOFnS_bK0Jjey7od3adNl3d_c7JyzyNmMUs1yvbiXoWfyhCaP8NQG9CUwE=w526-h296-rw" alt="">
+                        <img class=" rounded-full h-40 mt-[-130px]  border border-b-1 border-[#22bbea]" src="https://play-lh.googleusercontent.com/qm3XcIvP6BOFnS_bK0Jjey7od3adNl3d_c7JyzyNmMUs1yvbiXoWfyhCaP8NQG9CUwE=w526-h296-rw" alt="">
                     </div>
                     <div class="">
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-8 h-8 bg-gray-300 p-1 rounded-full ml-[-40px] mt-[-16px]">
@@ -31,7 +31,7 @@
             </div>
         </div>
         <div class="flex justify-between mt-8 items-start">
-            <div class="w-[32%] bg-blue-200 p-3 rounded mt-14">
+            <div class="w-[32%] border border-1 border-[#22bbea] p-3 rounded mt-14">
                 <CardSkills />
             </div>
             <div class="w-[64%]">
@@ -70,7 +70,7 @@ export default {
     },
     methods:{
         getUser() {
-            axios.get('/alumniuser/1').then(res=> {
+            axios.get('/alumni/1').then(res=> {
                 this.user = res.data;
             })
         }

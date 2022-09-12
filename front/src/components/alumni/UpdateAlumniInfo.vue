@@ -50,7 +50,7 @@
                     <input v-model="phone"
                         class="block appearance-none w-full bg-white border border-gray-400 px-4 py-2 pr-8 rounded shadow leading-tight  focus:shadow-outline focus:outline-[#22bbea]"
                         :class="{ 'border-red-500 bg-red-100': is_phone}"
-                        id="phone" type="text" maxlength="10" placeholder="Tel...">
+                        id="phone" type="text" placeholder="Tel...">
                 </div>
                 <div class="text-red-500 text-sm mb-2 m-1">{{sms_erorr_phone}}</div>
                 <div class=" flex">
@@ -120,12 +120,12 @@
                 <div class="flex mb-3">
                     <div class="flex justify-end w-full ">
                         <button @click="$emit('closePopup')"
-                            class="bg-gray-400 hover:bg-gray-500  text-white py-1 px-3  rounded focus:outline-none focus:shadow-outline"
+                            class="bg-[#ff9933] hover:bg-[#f69432]  text-white py-2 px-8  rounded focus:outline-none focus:shadow-outline"
                             type="button"> 
                             Cancel
                         </button>
                         <button @click="updateInfo"
-                            class="bg-[#22bbea] hover:bg-[#23afda] mx-2 text-white py-1 px-5 rounded focus:outline-none focus:shadow-outline"
+                            class="bg-[#22bbea] hover:bg-[#23afda] mx-2 text-white py-2 px-10 rounded focus:outline-none focus:shadow-outline"
                             type="button">
                             Save
                         </button>
