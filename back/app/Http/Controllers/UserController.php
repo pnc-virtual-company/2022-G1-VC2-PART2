@@ -1,9 +1,9 @@
 <?php
-
 namespace App\Http\Controllers;
-
 use Illuminate\Http\Request;
 use App\Models\User;
+use App\Models\Alumni;
+use Illuminate\Support\Facades\DB;
 
 class UserController extends Controller
 {
@@ -14,7 +14,7 @@ class UserController extends Controller
      */
     public function index()
     {
-        //
+        return User::get();
     }
 
     /**
@@ -25,18 +25,75 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
+        $user = new User();
+        $user->first_name = $request->first_name;
+        $user->last_name = $request->last_name;
+        $user->email = $request->email;
+        $user->password = bcrypt($request->password);
+        $user->role = $request->role;
+        $user->save();
+
+        $alumni = new Alumni();
+        $alumni->user_id = $user->id;
+        $alumni->profile = $request->profile;
+        $alumni->coverimage = $request->coverimage;
+        $alumni->gender = $request->gender;
+        $alumni->phone = $request->phone;
+        $alumni->batch = $request->batch;
+        $alumni->major = $request->major;
+        $alumni->save();
+        return Response()->json(['message'=> 'successful'],200);
+    }
+
+// =========================================================Upload Profile
+
+    public function uploadAlumniProfile(Request $request, $id){
+        $alumni = Alumni::find($id);
+        $path = public_path('images/profile');
+        if ( ! file_exists($path) ) {
+            mkdir($path, 0777, true);
+        }
+        $file = $request->file('profile');
+        $fileName = uniqid() . '_' . trim($file->getClientOriginalName());
+        $alumni->profile = $fileName;
+        $file->move($path, $fileName);
+        $alumni->save();
+        return response()->json(['status' => 'Upload profile sucessfully'],200);
 
     }
 
+// =========================================================uploadcorver
+
+public function uploadAlumniCover(Request $request, $id){
+    
+    $alumni = Alumni::find($id);
+    $path = public_path('images/Cover');
+    if ( ! file_exists($path) ) {
+        mkdir($path, 0777, true);
+    }
+    $file = $request->file('coverimage');
+    $fileName = uniqid() . '_' . trim($file->getClientOriginalName());
+    $alumni->coverimage = $fileName;
+    $file->move($path, $fileName);
+    $alumni->save();
+    return response()->json(['status' => 'Upload coverimage sucessfully']);
+}
+// =========================================================Get Alumni by Id
     /**
      * Display the specified resource.
      *
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function showAlumni($id)
     {
-        //
+        $alumni = DB::table('users')
+        ->join('alumnis', 'users.id', '=', 'alumnis.user_id')
+        ->where('users.id', '=', $id)
+        ->get(['users.*', 'alumnis.*'])
+        ->first();
+        return $alumni;
+        // return User::with("alumnis").get();
     }
 
     /**
@@ -48,16 +105,20 @@ class UserController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
-        $user =User::findOrFail($id);
+        $user = User::findOrFail($id);
         $user->first_name = $request->first_name;
         $user->last_name = $request->last_name;
         $user->email = $request->email;
-        $user->password = bcrypt($request->password);
-        $user->role = $request->role;
         $user->save();
+
+        $alumni = Alumni::where('user_id', $id) -> update([
+            'batch' => $request->batch,
+            'gender' => $request->gender,
+            'major' => $request->major,
+            'phone' => $request->phone,
+        ]);
+        return Response()->json(['message'=> 'successful'],200);
     }
-    
 
     /**
      * Remove the specified resource from storage.
@@ -68,18 +129,5 @@ class UserController extends Controller
     public function destroy($id)
     {
         //
-    }
-
-    public function createUser(Request $request)
-    {
-       
-        $user = new User();
-        $user->first_name = $request->first_name;
-        $user->last_name = $request->last_name;
-        $user->email = $request->email;
-        $user->password = bcrypt($request->password);
-        $user->role = $request->role;
-        $user->save();
-        return response()->json(["message"=>"User Created", 'data'=>$user],200);
     }
 }
