@@ -33,7 +33,7 @@ class AlumniController extends Controller
         $alumni->phone=$request->phone;
         $alumni->major=$request->major;
         $alumni->user_id=$request->user_id;
-// ================================================================ Upload Image===============================
+// ================ Upload Image===============================
         $path = public_path('images/Alumni');
         if ( ! file_exists($path) ) {
             mkdir($path, 0777, true);
@@ -45,7 +45,7 @@ class AlumniController extends Controller
         $alumni->save();
         return response()->json(['status' => 'Upload profile  sucessfully']);
     }
-// =============================================================== Upload coverimage ===========================
+// ========= Upload coverimage ===========================
     public function uploadAlumniCover(Request $request, $id){
         $alumni = Alumni::find($id);
         $path = public_path('images/Cover');
@@ -59,14 +59,13 @@ class AlumniController extends Controller
         $alumni->save();
         return response()->json(['status' => 'Upload coverimage sucessfully']);
     }
-// =================================================================Update profile==============================
+// ==========Update profile==============================
 public function updateAlumniProfile(Request $request, $id){
     
     $request->validate([
         'profile'=>'image|mimes:jpg,png,jpeg,gif|max:19999',
     ]);
     $request->file('profile')->store('public/profiles');
-
     $profile = Alumni::findOrFail($id);
     $profile->profile = $request->file('profile')->hashName();
 
