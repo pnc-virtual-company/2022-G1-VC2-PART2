@@ -14,7 +14,6 @@ class AlumniController extends Controller
      */
     public function index()
     {
-        //
         return Alumni::get();
     }
     /**
@@ -27,6 +26,7 @@ class AlumniController extends Controller
     {
         $alumni = new Alumni();
         $alumni->profile= $request->profile;
+        $alumni->coverimage= $request->coverimage;
         $alumni->batch= $request->batch;
         $alumni->gender=$request->gender;
         $alumni->phone=$request->phone;
@@ -42,17 +42,33 @@ class AlumniController extends Controller
         $alumni->profile = $fileName;
         $file->move($path, $fileName);
         $alumni->save();
-        return response()->json(['status' => 'Created Alumni sucessfully']);
+        return response()->json(['status' => 'Upload profile  sucessfully']);
+    }
+// =============================================================== Upload coverimage ===========================
+    public function uploadAlumniCover(Request $request, $id){
+        $alumni = Alumni::find($id);
+        $path = public_path('images/Cover');
+        if ( ! file_exists($path) ) {
+            mkdir($path, 0777, true);
+        }
+        $file = $request->file('coverimage');
+        $fileName = uniqid() . '_' . trim($file->getClientOriginalName());
+        $alumni->coverimage = $fileName;
+        $file->move($path, $fileName);
+        $alumni->save();
+        return response()->json(['status' => 'Upload coverimage sucessfully']);
     }
 // =================================================================Update profile==============================
-public function updateAlumniPrifile(Request $request, $id){
+public function updateAlumniProfile(Request $request, $id){
+    
     $request->validate([
         'profile'=>'image|mimes:jpg,png,jpeg,gif|max:19999',
     ]);
-    $request->file('profile')->store('public/images');
+    $request->file('profile')->store('public/profiles');
 
     $profile = Alumni::findOrFail($id);
     $profile->profile = $request->file('profile')->hashName();
+
     $profile->save();
     return response()->json(['message'=> 'Profile Updated'], 201);
 }
@@ -64,7 +80,6 @@ public function updateAlumniPrifile(Request $request, $id){
      */
     public function show(Request $request, $id)
     {
-        //
         return Alumni::findOrFail($id);
     }
     
@@ -77,7 +92,6 @@ public function updateAlumniPrifile(Request $request, $id){
      */
     public function update(Request $request, $id)
     {
-        //
         $alumni =Alumni::findOrFail($id);
         $alumni->batch = $request->batch;
         $alumni->gender = $request->gender;
