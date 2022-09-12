@@ -2,8 +2,8 @@
   <section class="sticky top-0	bg-white">
     <nav class="border-b-2 border-gray-300 p-3 pl-6 pr-6 relative">
       <div class="flex items-center justify-between w-full">
-        <div class="w-1/5 flex">
-          <router-link to="/" class="flex hover:border-b-0">
+        <div class="w-1/5 flex nav-left">
+          <router-link to="/" class="flex hover:border-b-0 ">
             <img class="w-30 h-10 mr-3" src="../../assets/pncLogo.jpg" alt="" />
             <img class="w-30 h-10" src="../../assets/alumniLogo.jpg" alt="" />
           </router-link>
@@ -22,7 +22,7 @@
           </li>
         </ul>
 
-        <ul class="w-1/5 flex justify-end">
+        <ul class="w-1/5 flex justify-end nav-right">
           <li class="text-sm font-bold text-gray-800">
             <router-link to="/alumni-profile" class="font-bold p-1 hover:border-b-0 p-0">
               <img class="w-30 h-10" src="../../assets/logo.png" alt="" />
@@ -90,6 +90,9 @@ export default {
   }
   a , nav a.router-link-exact-active{
     color: #fff;
+  }
+  .nav-right , .nav-left{
+    width: 30%;
   }
 }
 </style>
