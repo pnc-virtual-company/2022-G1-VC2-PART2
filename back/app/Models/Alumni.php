@@ -18,4 +18,7 @@ class Alumni extends Model
     public function Workexperience(){
         return $this->hasmany(Workexperience::class);
     }
+    public function user(){
+        return $this->belongsTo(User::class);
+    }
 }
