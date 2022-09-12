@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Workexperience;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+
 
 class WorkexperienceController extends Controller
 {
@@ -39,9 +41,10 @@ class WorkexperienceController extends Controller
      * @param  \App\Models\Workexperience  $workexperience
      * @return \Illuminate\Http\Response
      */
-    public function show(Workexperience $workexperience)
+    public function show(Request $request,$id)
     {
-        //
+        return Workexperience::with("companies")->find($id);
+
     }
 
     /**
@@ -59,7 +62,7 @@ class WorkexperienceController extends Controller
         $workexperience->alumni_id= $request->alumni_id;
         $workexperience->company_id= $request->company_id;
         $workexperience->save();
-        return response()->json(['message'=> 'Created workexperience successfully']);
+        return response()->json(['message'=> 'update workexperience successfully']);
     }
 
     /**

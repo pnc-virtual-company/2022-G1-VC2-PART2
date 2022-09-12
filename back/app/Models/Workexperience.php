@@ -9,7 +9,7 @@ use Illuminate\Database\Eloquent\Model;
 class Workexperience extends Model
 {
     use HasFactory;
-    public function Company(){
+    public function companies(){
         return $this->belongsTo(Company::class);
     }
     

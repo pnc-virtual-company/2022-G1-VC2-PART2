@@ -32,10 +32,10 @@
         </div>
         <div class="flex justify-between mt-8 items-start">
             <div class="w-[32%] bg-blue-200 p-3 rounded mt-14">
-                <CardSkills></CardSkills>
+                <CardSkills />
             </div>
             <div class="w-[64%]">
-                <CardInfo></CardInfo>
+                <CardInfo :user="user" @getData="getUser" />
                 <CardExper :edu="edu">Education Background</CardExper>
                 <CardExper :experiences="experiences">Work Experiences</CardExper>
             </div>
@@ -45,6 +45,7 @@
 </template>
 
 <script>
+import axios from '../../axios-http'
 import CardInfo from "../CardInfo.vue"
 import CardSkills from "../skills/CardSkills.vue"
 import CardExper from "../CardExper.vue"
@@ -56,6 +57,7 @@ export default {
     },
     data() {
         return {
+            user: {},
             edu: [
                 {school: 'Passerelles Numeriques Cambodia', degree: "Associat's degree", major: 'Information Technology', start_year: 2020, end_year: 2022, src: 'https://previews.123rf.com/images/anthonycz/anthonycz1612/anthonycz161200005/68815871-school-vector-icon-isolated-building-on-white-background.jpg'},
                 {school: 'Passerelles Numeriques Cambodia', degree: "Associat's degree", major: 'Information Technology', start_year: 2020, end_year: 2022, src: 'https://previews.123rf.com/images/anthonycz/anthonycz1612/anthonycz161200005/68815871-school-vector-icon-isolated-building-on-white-background.jpg'},
@@ -65,7 +67,18 @@ export default {
                 {company_name: 'Sourceamax Asia', position: 'Front End Developer', start_year: 2020, end_year: 2020, src: 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAOEAAADhCAMAAAAJbSJIAAAAFVBMVEUAAAD///+lpaWtra2pqalra2udnZ3XsOkrAAACH0lEQVR4nO3ZQXLjMAwEwKzj5P9PzkEnlywuAIm0SfccUdAIfUop/vq3er5efUD3EM4fwvlDOH8It6Wr01v1cHxoiZCQsGcItyVCQsKeIdyWCAkJe4ZwWyKcTHi557VmQkJCQkJCQkJCQkJCQkLCxh0nJ4RXhpCwNiG8MoSEtcn7CvuFkJCQkJCQ8KOEV/UQDg9huqco/L5t+T45aVx2QvfQUxTud2qTSHMthISE0UmkuRZCQsLoJNJcCyEhYXQSaa5lAuHJQkLC9YUDvvFfLOwXQsJGD+GgXPV2QsJ+eReh/+pHJ5HmWggJCaOT0GWlQkJCQkJCQsIphI2dSAgJ1xeu/43fL4TpHsLh+SDh/ozIpNVDOCiEo4Tr/45fe32qmZCQ8PXCxk4khISE0UmkuRZCQsLoJNJcywTCk4WEhOsL1//G7xdCwkYP4aBc9XZCwn55F+H6v+Pvd2qTSHMthISE0UnoslIhISEhISEh4RTCxk4khITrC9f/xu8XwnQP4fB8kHB/RmTS6iEcFMJRwud/u3/ut8fcfwJPvafw+c59V3EPPDWT8LaruBESrixs7ERCSEhImG3Oh5CQ8ALhfjkyISQkJCQkJLxQ+Dz/E0ZSf/tBD2EqhKnL0k8e9BCmQpi6LP3kQQ9hKoSpy9JPHvQQpkKYuiz95EEPYSqEqcvSTx70EKbyu6v4rV+WfvKgpyVcLITzh3D+EM4fwvnzB/6pXTl+Bj9xAAAAAElFTkSuQmCC'},
             ]
         }
-    }
+    },
+    methods:{
+        getUser() {
+            axios.get('/alumniuser/1').then(res=> {
+                this.user = res.data;
+            })
+        }
+    },
+
+    mounted() {
+        this.getUser();
+    },
 };
 </script>
 

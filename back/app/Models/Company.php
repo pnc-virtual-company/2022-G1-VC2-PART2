@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Company extends Model
 {
     use HasFactory;
-    public function Workexperience(){
-        return $this->hasmany(Workexperience::class);
+    public function workexperience(){
+        return $this->hasMany(Workexperience::class);
     }
 }

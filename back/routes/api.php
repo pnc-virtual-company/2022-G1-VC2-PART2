@@ -3,7 +3,6 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\controllers\UserController;
-use App\Http\Controllers\AlumniController;
 use App\Http\Controllers\CompanyController;
 use App\Http\Controllers\WorkexperienceController;
 
@@ -17,25 +16,30 @@ use App\Http\Controllers\WorkexperienceController;
 | is assigned the "api" middleware group. Enjoy building your API!
 |
 */
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
-});
+// Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
+//     return $request->user();
+// });
 
 // ===============================================================Create 
-Route:: post ("user", [UserController::class, "store"]);
-Route:: post ("alumni", [AlumniController::class, "store"]);
-Route:: post ("company", [CompanyController::class, "store"]);
+
+Route:: post ('useralumni', [UserController::class, "store"]);
+Route:: post ('company', [CompanyController::class, "store"]);
 Route:: post ("workexperience", [WorkexperienceController::class, "store"]);
-Route::put('alumnicover/{id}',[AlumniController::class, "uploadAlumniCover"]);
 
 // =================================================================Update
 
-Route::put('alumni/{id}',[AlumniController::class, "update"]);
-Route::put('alumniprofile/{id}',[AlumniController::class, "updateAlumniProfile"]);
-Route::put('company/{id}',[AlumniController::class, "update"]);
+Route::put ("alumniprofile/{id}", [UserController::class, "uploadAlumniProfile"]);
+Route::put('alumnicover/{id}',[UserController::class, "uploadAlumniCover"]);
+
+Route::put('alumni/{id}',[UserController::class, "update"]);
 Route::put('workexperience/{id}',[WorkexperienceController::class, "update"]);
+Route::put('company/{id}',[CompanyController::class, "update"]);
+
 
 // =================================================================Get
-Route::get('alumnis',[AlumniController::class, "index"]);
-Route::get('alumni/{id}',[AlumniController::class, "show"]);
-Route::get('company',[AlumniController::class, "index"]);
+
+Route::get('alumni/{id}',[UserController::class, "showAlumni"]);
+Route::get('workexperience',[WorkexperienceController::class,"index"]);
+Route::get('workexperience/{id}',[WorkexperienceController::class,"show"]);
+Route::get('users/{id}',[UserController::class,"showAlumni"]);
+Route::get("company/{id}",[CompanyController::class,"show"]);
