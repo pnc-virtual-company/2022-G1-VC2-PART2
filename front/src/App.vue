@@ -1,6 +1,6 @@
 <template>
   <section>
-    <navbar-view></navbar-view>
+    <navbar-view ></navbar-view>
     <router-view />
   </section>
 </template>
@@ -23,6 +23,6 @@ nav a.router-link-exact-active {
   color: #ff9933;
 }
 nav a:hover {
-  border-bottom: 2px solid #ff9933;
+  color: #ff9933;
 }
 </style>

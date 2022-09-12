@@ -1,35 +1,95 @@
 <template>
-  <section>
-    <nav class="w-full h-12 flex border-b-2 border-gray-300 pt-8 pb-8">
-      <div class="w-1/4 h-full flex items-center ml-5">
-        <img class="w-30 h-10 mr-3" src="../../assets/pncLogo.jpg" alt="" />
-        <img class="w-30 h-10" src="../../assets/alumniLogo.jpg" alt="" />
-      </div>
-      <div class="w-2/4 h-full flex items-center justify-center">
-        <ul class="flex justify-between p-1">
-          <li class="p-3">
-            <router-link to="/" class="font-bold p-1">HOME </router-link>
+  <section class="sticky top-0	bg-white">
+    <nav class="border-b-2 border-gray-300 p-3 pl-6 pr-6 relative">
+      <div class="flex items-center justify-between w-full">
+        <div class="w-1/5 flex">
+          <router-link to="/" class="flex hover:border-b-0">
+            <img class="w-30 h-10 mr-3" src="../../assets/pncLogo.jpg" alt="" />
+            <img class="w-30 h-10" src="../../assets/alumniLogo.jpg" alt="" />
+          </router-link>
+        </div>
+
+        <!-- Mobile Menu open: "block", Menu closed: "hidden" -->
+        <ul
+          :class="showMenu ? 'flex' : 'hidden'"
+          class="left-0 nav-menu flex-col mt-8 space-y-4 md:flex md:space-y-0 md:flex-row md:items-center md:space-x-10 md:mt-0 w-2/5 flex justify-center"
+        >
+          <li class="text-sm font-bold text-gray-800" @click="showMenu = !showMenu">
+            <router-link to="/" class="font-bold p-1">HOME</router-link>
           </li>
-          <li class="p-3">
-            <router-link to="/alumni-profile" class="font-bold p-1">PROFILE </router-link>
+          <li class="text-sm font-bold text-gray-800" @click="showMenu = !showMenu">
+            <router-link to="/alumni-profile" class="font-bold p-1">PROFILE</router-link>
           </li>
         </ul>
-      </div>
-      <div class="w-1/4 h-full flex items-center justify-end">
-        <ul class="flex justify-between items-center p-1">
-          <li class="p-3 flex items-center">
-            <a href="#" class="hover:border-transparent">
+
+        <ul class="w-1/5 flex justify-end">
+          <li class="text-sm font-bold text-gray-800">
+            <router-link to="/alumni-profile" class="font-bold p-1 hover:border-b-0 p-0">
               <img class="w-30 h-10" src="../../assets/logo.png" alt="" />
-            </a>
-            <a href="#" class="font-bold p-1 hover:border-transparent">Tim Bin</a>
+            </router-link>
           </li>
-          <li class="p-3">
-            <a href="#" class="font-bold p-1 hover:border-transparent">
-              <i class="fa fa-sign-out fa-2x text-blue-400"></i>
-            </a>
+          <li class="text-sm font-bold text-gray-800 flex items-center username">
+            <router-link to="/alumni-profile" class="font-bold p-1 hover:border-b-0">
+              Vansao Hang
+            </router-link>
+          </li>
+          <li class="text-sm font-bold text-gray-800">
+            <router-link
+              to="/alumni-profile"
+              class="font-bold p-1 hover:border-b-0 flex items-center"
+            >
+              <i class="fa fa-sign-out fa-2x text-blue-400 ml-2 mt-1"></i>
+            </router-link>
+          </li>
+
+          <li class="text-sm font-bold text-gray-800 flex items-center">
+            <!-- Mobile menu button -->
+            <div @click="showMenu = !showMenu" class="flex md:hidden">
+              <button type="button" class="">
+                <svg viewBox="0 0 24 24" class="w-6 h-6 fill-current">
+                  <path
+                    fill-rule="evenodd"
+                    d="M4 5h16a1 1 0 0 1 0 2H4a1 1 0 1 1 0-2zm0 6h16a1 1 0 0 1 0 2H4a1 1 0 0 1 0-2zm0 6h16a1 1 0 0 1 0 2H4a1 1 0 0 1 0-2z"
+                  ></path>
+                </svg>
+              </button>
+            </div>
           </li>
         </ul>
       </div>
     </nav>
   </section>
 </template>
+<script>
+export default {
+  data() {
+    return {
+      showMenu: false,
+    };
+  },
+};
+</script>
+<style scoped>
+
+@media screen and (max-width: 768px) {
+  .nav-menu {
+    width: 100%;
+    background: #1a8eb1;
+    position: absolute;
+    margin-top: 8rem;
+    padding: 10px;
+    text-align: left;
+    padding-left: 1.5rem;
+  }
+  .nav-menu li {
+    width: 95%;
+    border-bottom: 1px solid #fff;
+  }
+  .username {
+    display: none;
+  }
+  a , nav a.router-link-exact-active{
+    color: #fff;
+  }
+}
+</style>
