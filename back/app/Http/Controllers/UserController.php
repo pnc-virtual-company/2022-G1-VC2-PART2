@@ -4,6 +4,7 @@ use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\Alumni;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\File;
 
 class UserController extends Controller
 {
@@ -50,10 +51,15 @@ class UserController extends Controller
     public function uploadAlumniProfile(Request $request, $id){
         $alumni = Alumni::find($id);
         $path = public_path('images/profile');
-        if ( ! file_exists($path) ) {
-            mkdir($path, 0777, true);
+        
+        if ($alumni->profile !== 'female.jpg' && $alumni->profile !== 'male.png') {
+            $previousProfilePublicPath = public_path('images/profile/' . $alumni->profile);
+
+            if(File::exists($previousProfilePublicPath)){
+                File::delete($previousProfilePublicPath);
+            }
         }
-        $file = $request->file('profile');
+        $file = $request->profile;
         $fileName = uniqid() . '_' . trim($file->getClientOriginalName());
         $alumni->profile = $fileName;
         $file->move($path, $fileName);

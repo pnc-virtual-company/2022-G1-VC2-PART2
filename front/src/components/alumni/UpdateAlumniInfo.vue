@@ -50,7 +50,7 @@
                     <input v-model="phone"
                         class="block appearance-none w-full bg-white border border-gray-400 px-4 py-2 pr-8 rounded shadow leading-tight  focus:shadow-outline focus:outline-[#22bbea]"
                         :class="{ 'border-red-500 bg-red-100': is_phone}"
-                        id="phone" type="text" placeholder="Tel...">
+                        id="phone" type="tel" placeholder="Tel..." required>
                 </div>
                 <div class="text-red-500 text-sm mb-2 m-1">{{sms_erorr_phone}}</div>
                 <div class=" flex">

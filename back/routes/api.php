@@ -22,7 +22,7 @@ use App\Http\Controllers\WorkexperienceController;
 
 // ===============================================================Create 
 
-Route:: post ('useralumni', [UserController::class, "store"]);
+Route::post('useralumni', [UserController::class, "store"]);
 Route:: post ('company', [CompanyController::class, "store"]);
 Route:: post ("workexperience", [WorkexperienceController::class, "store"]);
 
