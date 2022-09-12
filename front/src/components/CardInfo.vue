@@ -69,7 +69,7 @@
         this.isEdit = true;
       },
       updateInfo(alumni) {
-        axios.put('/alumniuser/1', alumni).then(res => {
+        axios.put('/alumniuser/12', alumni).then(res => {
             console.log(res);
             this.$emit('getData');
             this.isEdit = false;
