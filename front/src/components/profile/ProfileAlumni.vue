@@ -64,7 +64,6 @@
                 ></FormEditExper>
             </div>
         </div>
-        <update-profile-view v-if="isUpdate" @isUpdate="isUpdate=false" :profile="profile" @save-upload="saveUpload"></update-profile-view>
     </div>
     <update-cover-view v-if="isUpdateCover" @cancelUpdate="isUpdateCover=false" :cover="cover" @save-cover="saveCover"></update-cover-view>
     <update-profile-view v-if="isUpdate" @isUpdate="isUpdate=false" :profile="profile" @save-upload="saveUpload"></update-profile-view>
@@ -155,7 +154,7 @@ export default {
         let formData = new FormData();
         formData.append("profile", this.image);
         formData.append("_method", "PUT");
-        axios.post("/alumniprofile/" + 12, formData).then((res) => {
+        axios.post("/alumniprofile/" + 1, formData).then((res) => {
             console.log(res);
             this.getUser();
             this.isUpdate=false;
@@ -165,13 +164,13 @@ export default {
         let formData = new FormData();
         formData.append("coverimage", this.image);
         formData.append("_method", "PUT");
-        axios.post("/alumnicover/" + 12, formData).then(() => {
+        axios.post("/alumnicover/" + 1, formData).then(() => {
             this.getUser();
             this.isUpdateCover=false;
         });
         },
         getUser() {
-            axios.get('/alumni/12').then(res=> {
+            axios.get('/alumni/1').then(res=> {
                 this.user = res.data;
             })
         },
