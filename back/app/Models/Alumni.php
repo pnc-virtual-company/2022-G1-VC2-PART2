@@ -21,5 +21,13 @@ class Alumni extends Model
     public function user(){
         return $this->belongsTo(User::class);
     }
-
+    public function Education(){
+        return $this->hasmany(Education::class);
+    }
+    public function Skill(){
+        return $this->hasmany(Skill::class);
+    }
+    public function AlumniSkill(){
+        return $this->hasmany(AlumniSkill::class);
+    }
 }
