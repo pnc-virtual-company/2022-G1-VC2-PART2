@@ -16,7 +16,6 @@
       <card-skill>PHP</card-skill>
       <card-skill>VueJS</card-skill>
       <card-skill>Python</card-skill>
-  
     </div>
   
   </template>

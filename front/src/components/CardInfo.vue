@@ -1,5 +1,5 @@
 <template>
-  <div class="bg-blue-200 p-3 rounded">
+  <div class="bg-blue-200 p-3 rounded" v-if="user!=null">
     <div class="flex justify-between">
       <h1 class="font-bold text-lg">General Information</h1>
       <div @click="isEditInfo" class="hover:cursor-pointer">
@@ -53,7 +53,7 @@
   import FormEdit from './alumni/UpdateAlumniInfo.vue'
   export default {
     emits: ['getData'],
-    props: ['user'],
+    props: {user:Object},
     components:{
       'edit-info': FormEdit,
     },

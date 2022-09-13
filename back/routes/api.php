@@ -30,16 +30,13 @@ Route:: post ("workexperience", [WorkexperienceController::class, "store"]);
 
 Route::put ("alumniprofile/{id}", [UserController::class, "uploadAlumniProfile"]);
 Route::put('alumnicover/{id}',[UserController::class, "uploadAlumniCover"]);
-
 Route::put('alumni/{id}',[UserController::class, "update"]);
 Route::put('workexperience/{id}',[WorkexperienceController::class, "update"]);
 Route::put('company/{id}',[CompanyController::class, "update"]);
-
 
 // =================================================================Get
 
 Route::get('alumni/{id}',[UserController::class, "showAlumni"]);
 Route::get('workexperience',[WorkexperienceController::class,"index"]);
-Route::get('workexperience/{id}',[WorkexperienceController::class,"show"]);
-Route::get('users/{id}',[UserController::class,"showAlumni"]);
-Route::get("company/{id}",[CompanyController::class,"show"]);
+Route::get('workexperience/{alumni_id}',[WorkexperienceController::class,"show"]);
+Route::get("companies",[CompanyController::class,"index"]);

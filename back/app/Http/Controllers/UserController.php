@@ -93,7 +93,6 @@ public function uploadAlumniCover(Request $request, $id){
         ->get(['users.*', 'alumnis.*'])
         ->first();
         return $alumni;
-        // return User::with("alumnis").get();
     }
 
     /**
