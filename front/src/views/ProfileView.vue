@@ -1,5 +1,14 @@
 <template>
-    <div class="alumni-profile">
-        <h1>Alumni Profile !</h1>
-    </div>
+  <ProfileAlumni></ProfileAlumni>
 </template>
+
+<script>
+// @ is an alias to /src
+import ProfileAlumni from "../components/profile/ProfileAlumni.vue"
+export default {
+  name: 'HomeView',
+  components: {
+    ProfileAlumni
+  }
+}
+</script>

@@ -22,10 +22,10 @@
           </li>
         </ul>
 
-        <ul class="w-1/5 flex justify-end nav-right">
+        <ul class="w-1/5 flex justify-end items-center nav-right">
           <li class="text-sm font-bold text-gray-800">
-            <router-link to="/alumni-profile" class="font-bold p-1 hover:border-b-0 p-0">
-              <img class="w-10 h-10" src="../../assets/logo.png" alt="" />
+            <router-link to="/alumni-profile" class="font-bold hover:border-b-0">
+              <img class="w-10 h-10 rounded-full" :src="'http://127.0.0.1:8000/images/profile/'+profile"/>
             </router-link>
           </li>
           <li class="text-sm font-bold text-gray-800 flex items-center username">
@@ -38,7 +38,7 @@
               to="/alumni-profile"
               class="font-bold p-1 hover:border-b-0 flex items-center"
             >
-              <i class="fa fa-sign-out fa-2x text-blue-400 ml-2 mt-1"></i>
+              <i class="fa fa-sign-out fa-2x text-blue-400 ml-1"></i>
             </router-link>
           </li>
 
@@ -61,12 +61,23 @@
   </section>
 </template>
 <script>
+import axios from "../../axios-http"
 export default {
+
   data() {
     return {
       showMenu: false,
+      profile:{}
     };
   },
+  methods:{
+    getuser(){
+      axios.get("alumni/1").then(res => {this.profile = res.data.profile});
+    }
+  },
+  mounted(){
+    this.getuser()
+  }
 };
 </script>
 <style scoped>
