@@ -2,7 +2,7 @@
     <div class="flex justify-between border-b-[1px] border-[#a9aaaaa3]">
       <h1 class="font-bold text-lg">Skills</h1>
       <div>
-        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6 text-white shadow bg-[#22bbea] rounded-full">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6 hover:cursor-pointer text-white shadow bg-[#22bbea] rounded-full">
           <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
         </svg>
       </div>
