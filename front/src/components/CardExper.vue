@@ -1,5 +1,5 @@
 <template>
-    <div class="bg-blue-200 p-3 rounded mt-4">
+    <div class="border-[2px] border-[#22bbea] p-3 rounded mt-4">
         <div class="flex justify-between">
             <h1 class="font-bold text-lg"><slot></slot></h1>
             <div @click="$emit('formInputStatus', 'Add')">
