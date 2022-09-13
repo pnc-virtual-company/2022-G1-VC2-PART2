@@ -1,72 +1,199 @@
 <template>
+    <section>
     <div class="w-[90%] m-auto">
         <div >
-            <div>
-                <div class="w-full">
-                    <img class="w-full h-52 border border-1 border-gray-300" src="https://img.freepik.com/free-photo/hand-painted-watercolor-background-with-sky-clouds-shape_24972-1095.jpg?w=900&t=st=1662803337~exp=1662803937~hmac=cf60bab2657205cd3fee65a76ce66d234eb8ec4d516ec6f7c62257a2cfefd8d5" alt="">
+            <div class="relative">
+                <div class="w-full h-52">
+                    <img v-if=" !isUpdateCover && user.coverimage != null" class="w-full h-full  border border-1 border-gray-300" :src="'http://127.0.0.1:8000/images/Cover/'+ user.coverimage" alt="">
+                    <img v-else class="w-full h-52 border border-1 border-gray-300" :src="cover" alt="">
                 </div>
-                <div class="flex justify-end mt-[-40px]">
-                    <div class="flex bg-gray-200 px-4 py-1 rounded-md mr-2">
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6 text-gray-500">
-                            <path stroke-linecap="round" stroke-linejoin="round" d="M6.827 6.175A2.31 2.31 0 015.186 7.23c-.38.054-.757.112-1.134.175C2.999 7.58 2.25 8.507 2.25 9.574V18a2.25 2.25 0 002.25 2.25h15A2.25 2.25 0 0021.75 18V9.574c0-1.067-.75-1.994-1.802-2.169a47.865 47.865 0 00-1.134-.175 2.31 2.31 0 01-1.64-1.055l-.822-1.316a2.192 2.192 0 00-1.736-1.039 48.774 48.774 0 00-5.232 0 2.192 2.192 0 00-1.736 1.039l-.821 1.316z" />
-                            <path stroke-linecap="round" stroke-linejoin="round" d="M16.5 12.75a4.5 4.5 0 11-9 0 4.5 4.5 0 019 0zM18.75 10.5h.008v.008h-.008V10.5z" />
-                        </svg>
-                        <p class="ml-2 text-gray-500">Edit cover photo</p>
-                    </div>
+                <div v-if="isUpdateCover" class="flex justify-end mt-[-60px] absolute right-0" >
+                    <button @click="isUpdateCover = !isUpdateCover" class="btn w-[8rem] bg-[#ff9933] text-white rounded p-2 mr-3">
+                        Cancel
+                    </button>
+                    <button @click="saveCover()" class="btn w-[8rem] bg-[#22bbea] rounded p-2 text-white mr-5">
+                        Save Change
+                    </button>
+                </div>
+                <div v-else class="flex justify-end mt-[-40px]">
+                    <input @change="tageImage($event,'cover')" id="cover-upload" type="file" accept="image/*" hidden>
+                    <label for="cover-upload">
+                        <div class="flex bg-white px-4 py-1 rounded-md mr-2">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6 font-medium ">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M6.827 6.175A2.31 2.31 0 015.186 7.23c-.38.054-.757.112-1.134.175C2.999 7.58 2.25 8.507 2.25 9.574V18a2.25 2.25 0 002.25 2.25h15A2.25 2.25 0 0021.75 18V9.574c0-1.067-.75-1.994-1.802-2.169a47.865 47.865 0 00-1.134-.175 2.31 2.31 0 01-1.64-1.055l-.822-1.316a2.192 2.192 0 00-1.736-1.039 48.774 48.774 0 00-5.232 0 2.192 2.192 0 00-1.736 1.039l-.821 1.316z" />
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M16.5 12.75a4.5 4.5 0 11-9 0 4.5 4.5 0 019 0zM18.75 10.5h.008v.008h-.008V10.5z" />
+                            </svg>
+                            <p class="ml-2 font-medium ">Edit cover photo</p>
+                        </div>
+                    </label>
                 </div>
             </div>
-            <div class="absolute ml-24 text-center">
-                <div class="flex">
-                    <div class="w-40">
-                        <img class=" rounded-full h-40 mt-[-130px]  border border-b-1 border-gray-400" src="https://play-lh.googleusercontent.com/qm3XcIvP6BOFnS_bK0Jjey7od3adNl3d_c7JyzyNmMUs1yvbiXoWfyhCaP8NQG9CUwE=w526-h296-rw" alt="">
-                    </div>
-                    <div class="">
+        </div>
+        <div class="absolute ml-24 text-center">
+            <div class="flex">
+                <div class="w-40">
+                    <img v-if="user.profile" class=" rounded-full h-40 mt-[-130px]  border border-b-1 border-[#22bbea]" :src="'http://127.0.0.1:8000/images/profile/'+ user.profile" alt="">
+                </div>
+                <div>
+                    <input @change="tageImage($event,'profile')" id="profile-upload" type="file" accept="image/*" hidden>
+                    <label for="profile-upload">
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-8 h-8 bg-gray-300 p-1 rounded-full ml-[-40px] mt-[-16px]">
                             <path stroke-linecap="round" stroke-linejoin="round" d="M6.827 6.175A2.31 2.31 0 015.186 7.23c-.38.054-.757.112-1.134.175C2.999 7.58 2.25 8.507 2.25 9.574V18a2.25 2.25 0 002.25 2.25h15A2.25 2.25 0 0021.75 18V9.574c0-1.067-.75-1.994-1.802-2.169a47.865 47.865 0 00-1.134-.175 2.31 2.31 0 01-1.64-1.055l-.822-1.316a2.192 2.192 0 00-1.736-1.039 48.774 48.774 0 00-5.232 0 2.192 2.192 0 00-1.736 1.039l-.821 1.316z" />
                             <path stroke-linecap="round" stroke-linejoin="round" d="M16.5 12.75a4.5 4.5 0 11-9 0 4.5 4.5 0 019 0zM18.75 10.5h.008v.008h-.008V10.5z" />
                         </svg>
-                    </div>
+                    </label>
                 </div>
-                <h1 class="font-bold text-xl">Sreymao Vorn</h1>
             </div>
-        </div>
+            <h1 class="font-bold text-xl">Sreymao Vorn</h1>
+        </div>        
         <div class="flex justify-between mt-8 items-start">
             <div class="w-[32%] bg-blue-200 p-3 rounded mt-14">
-                <CardSkills></CardSkills>
+                <CardSkills />
             </div>
             <div class="w-[64%]">
-                <CardInfo></CardInfo>
+                <CardInfo :user="user" @getData="getUser" />
                 <CardExper :edu="edu">Education Background</CardExper>
-                <CardExper :experiences="experiences">Work Experiences</CardExper>
+                <CardExper 
+                :experiences="experiences" 
+                @cardEditor="editWorkExper"
+                @formInputStatus="formInputStatus">Work Experiences</CardExper>
+                <!-- form be able to add work experience's alumni -->
+                <FormAddExper 
+                v-if="formStatus=='Add'"
+                :companies="companies"
+                @formInputStatus="formInputStatus"
+                @addAlumniExper="addAlumniExper"
+                ></FormAddExper>
+                <FormEditExper
+                v-if="formStatus=='Edit' && experiences!=null"
+                @formInputStatus="formInputStatus"  
+                :companies="companies" 
+                :experience="experiences[indexExper]"
+                @saveEditExper="saveEditExper"
+                ></FormEditExper>
             </div>
         </div>
+        <update-profile-view v-if="isUpdate" @isUpdate="isUpdate=false" :profile="profile" @save-upload="saveUpload"></update-profile-view>
     </div>
-
+</section>
 </template>
-
 <script>
+import FormEditExper from "../FormInput/FormEditExper.vue"
+import FormAddExper from "../FormInput/FormAddExper.vue"
+import axios from '../../axios-http'
 import CardInfo from "../CardInfo.vue"
 import CardSkills from "../skills/CardSkills.vue"
 import CardExper from "../CardExper.vue"
+import updateProfileView from "../profile/UpdateProfileView.vue";
 export default {
     components:{
         CardInfo,
         CardSkills,
-        CardExper
+        CardExper,
+        FormAddExper,
+        "update-profile-view":updateProfileView,
+        FormEditExper
     },
     data() {
         return {
+            user: {},
             edu: [
                 {school: 'Passerelles Numeriques Cambodia', degree: "Associat's degree", major: 'Information Technology', start_year: 2020, end_year: 2022, src: 'https://previews.123rf.com/images/anthonycz/anthonycz1612/anthonycz161200005/68815871-school-vector-icon-isolated-building-on-white-background.jpg'},
                 {school: 'Passerelles Numeriques Cambodia', degree: "Associat's degree", major: 'Information Technology', start_year: 2020, end_year: 2022, src: 'https://previews.123rf.com/images/anthonycz/anthonycz1612/anthonycz161200005/68815871-school-vector-icon-isolated-building-on-white-background.jpg'},
             ],
             experiences: [
-                {company_name: 'Sourceamax Asia', position: 'Front End Developer', start_year: 2020, end_year: 2020, src: 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAOEAAADhCAMAAAAJbSJIAAAAFVBMVEUAAAD///+lpaWtra2pqalra2udnZ3XsOkrAAACH0lEQVR4nO3ZQXLjMAwEwKzj5P9PzkEnlywuAIm0SfccUdAIfUop/vq3er5efUD3EM4fwvlDOH8It6Wr01v1cHxoiZCQsGcItyVCQsKeIdyWCAkJe4ZwWyKcTHi557VmQkJCQkJCQkJCQkJCQkLCxh0nJ4RXhpCwNiG8MoSEtcn7CvuFkJCQkJCQ8KOEV/UQDg9huqco/L5t+T45aVx2QvfQUxTud2qTSHMthISE0UmkuRZCQsLoJNJcCyEhYXQSaa5lAuHJQkLC9YUDvvFfLOwXQsJGD+GgXPV2QsJ+eReh/+pHJ5HmWggJCaOT0GWlQkJCQkJCQsIphI2dSAgJ1xeu/43fL4TpHsLh+SDh/ozIpNVDOCiEo4Tr/45fe32qmZCQ8PXCxk4khISE0UmkuRZCQsLoJNJcywTCk4WEhOsL1//G7xdCwkYP4aBc9XZCwn55F+H6v+Pvd2qTSHMthISE0UnoslIhISEhISEh4RTCxk4khITrC9f/xu8XwnQP4fB8kHB/RmTS6iEcFMJRwud/u3/ut8fcfwJPvafw+c59V3EPPDWT8LaruBESrixs7ERCSEhImG3Oh5CQ8ALhfjkyISQkJCQkJLxQ+Dz/E0ZSf/tBD2EqhKnL0k8e9BCmQpi6LP3kQQ9hKoSpy9JPHvQQpkKYuiz95EEPYSqEqcvSTx70EKbyu6v4rV+WfvKgpyVcLITzh3D+EM4fwvnzB/6pXTl+Bj9xAAAAAElFTkSuQmCC'},
-                {company_name: 'Sourceamax Asia', position: 'Front End Developer', start_year: 2020, end_year: 2020, src: 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAOEAAADhCAMAAAAJbSJIAAAAFVBMVEUAAAD///+lpaWtra2pqalra2udnZ3XsOkrAAACH0lEQVR4nO3ZQXLjMAwEwKzj5P9PzkEnlywuAIm0SfccUdAIfUop/vq3er5efUD3EM4fwvlDOH8It6Wr01v1cHxoiZCQsGcItyVCQsKeIdyWCAkJe4ZwWyKcTHi557VmQkJCQkJCQkJCQkJCQkLCxh0nJ4RXhpCwNiG8MoSEtcn7CvuFkJCQkJCQ8KOEV/UQDg9huqco/L5t+T45aVx2QvfQUxTud2qTSHMthISE0UmkuRZCQsLoJNJcCyEhYXQSaa5lAuHJQkLC9YUDvvFfLOwXQsJGD+GgXPV2QsJ+eReh/+pHJ5HmWggJCaOT0GWlQkJCQkJCQsIphI2dSAgJ1xeu/43fL4TpHsLh+SDh/ozIpNVDOCiEo4Tr/45fe32qmZCQ8PXCxk4khISE0UmkuRZCQsLoJNJcywTCk4WEhOsL1//G7xdCwkYP4aBc9XZCwn55F+H6v+Pvd2qTSHMthISE0UnoslIhISEhISEh4RTCxk4khITrC9f/xu8XwnQP4fB8kHB/RmTS6iEcFMJRwud/u3/ut8fcfwJPvafw+c59V3EPPDWT8LaruBESrixs7ERCSEhImG3Oh5CQ8ALhfjkyISQkJCQkJLxQ+Dz/E0ZSf/tBD2EqhKnL0k8e9BCmQpi6LP3kQQ9hKoSpy9JPHvQQpkKYuiz95EEPYSqEqcvSTx70EKbyu6v4rV+WfvKgpyVcLITzh3D+EM4fwvnzB/6pXTl+Bj9xAAAAAElFTkSuQmCC'},
-            ]
+                {name: 'Sourceamax Asia', position: 'Front End Developer', start_year: '2020-02', end_year: '2020-02', src: 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAOEAAADhCAMAAAAJbSJIAAAAFVBMVEUAAAD///+lpaWtra2pqalra2udnZ3XsOkrAAACH0lEQVR4nO3ZQXLjMAwEwKzj5P9PzkEnlywuAIm0SfccUdAIfUop/vq3er5efUD3EM4fwvlDOH8It6Wr01v1cHxoiZCQsGcItyVCQsKeIdyWCAkJe4ZwWyKcTHi557VmQkJCQkJCQkJCQkJCQkLCxh0nJ4RXhpCwNiG8MoSEtcn7CvuFkJCQkJCQ8KOEV/UQDg9huqco/L5t+T45aVx2QvfQUxTud2qTSHMthISE0UmkuRZCQsLoJNJcCyEhYXQSaa5lAuHJQkLC9YUDvvFfLOwXQsJGD+GgXPV2QsJ+eReh/+pHJ5HmWggJCaOT0GWlQkJCQkJCQsIphI2dSAgJ1xeu/43fL4TpHsLh+SDh/ozIpNVDOCiEo4Tr/45fe32qmZCQ8PXCxk4khISE0UmkuRZCQsLoJNJcywTCk4WEhOsL1//G7xdCwkYP4aBc9XZCwn55F+H6v+Pvd2qTSHMthISE0UnoslIhISEhISEh4RTCxk4khITrC9f/xu8XwnQP4fB8kHB/RmTS6iEcFMJRwud/u3/ut8fcfwJPvafw+c59V3EPPDWT8LaruBESrixs7ERCSEhImG3Oh5CQ8ALhfjkyISQkJCQkJLxQ+Dz/E0ZSf/tBD2EqhKnL0k8e9BCmQpi6LP3kQQ9hKoSpy9JPHvQQpkKYuiz95EEPYSqEqcvSTx70EKbyu6v4rV+WfvKgpyVcLITzh3D+EM4fwvnzB/6pXTl+Bj9xAAAAAElFTkSuQmCC'},
+                {name: 'Sourceamax Asia', position: 'Front End Developer', start_year: '2020-02', end_year: '2020-02', src: 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAOEAAADhCAMAAAAJbSJIAAAAFVBMVEUAAAD///+lpaWtra2pqalra2udnZ3XsOkrAAACH0lEQVR4nO3ZQXLjMAwEwKzj5P9PzkEnlywuAIm0SfccUdAIfUop/vq3er5efUD3EM4fwvlDOH8It6Wr01v1cHxoiZCQsGcItyVCQsKeIdyWCAkJe4ZwWyKcTHi557VmQkJCQkJCQkJCQkJCQkLCxh0nJ4RXhpCwNiG8MoSEtcn7CvuFkJCQkJCQ8KOEV/UQDg9huqco/L5t+T45aVx2QvfQUxTud2qTSHMthISE0UmkuRZCQsLoJNJcCyEhYXQSaa5lAuHJQkLC9YUDvvFfLOwXQsJGD+GgXPV2QsJ+eReh/+pHJ5HmWggJCaOT0GWlQkJCQkJCQsIphI2dSAgJ1xeu/43fL4TpHsLh+SDh/ozIpNVDOCiEo4Tr/45fe32qmZCQ8PXCxk4khISE0UmkuRZCQsLoJNJcywTCk4WEhOsL1//G7xdCwkYP4aBc9XZCwn55F+H6v+Pvd2qTSHMthISE0UnoslIhISEhISEh4RTCxk4khITrC9f/xu8XwnQP4fB8kHB/RmTS6iEcFMJRwud/u3/ut8fcfwJPvafw+c59V3EPPDWT8LaruBESrixs7ERCSEhImG3Oh5CQ8ALhfjkyISQkJCQkJLxQ+Dz/E0ZSf/tBD2EqhKnL0k8e9BCmQpi6LP3kQQ9hKoSpy9JPHvQQpkKYuiz95EEPYSqEqcvSTx70EKbyu6v4rV+WfvKgpyVcLITzh3D+EM4fwvnzB/6pXTl+Bj9xAAAAAElFTkSuQmCC'},
+                ],
+            isUpdate: false,
+            isUpdateCover: false,
+            image:'',
+            profile:'',
+            cover:'',
+            formStatus:null,
+            indexExper:null,
+            companies:null,
+            alumni_id:null,
         }
-    }
+    },
+
+    methods:{
+        //Form for Add or Edit work experience's alumni
+        formInputStatus(status){
+            this.formStatus=status;
+        },
+
+        addAlumniExper(newExper){
+            newExper['alumni_id']=this.alumni_id;
+            this.experiences.push(newExper)
+            axios.post("workexperience", newExper).then(res => {return res.data});
+            this.getAlumniExperiences()
+        },
+        editWorkExper(workExper){
+            this.formStatus=workExper.status
+            this.indexExper=workExper.index
+        },
+        
+        saveEditExper(experience){
+            experience['_method']='PUT'
+            console.log(experience);
+            axios.post("workexperience/" + this.experiences[this.indexExper].id , experience)
+            .then(res => {return res.data;})
+            this.getAlumniExperiences()
+            experience['src']=this.imgWorkExper
+            this.experiences[this.indexExper]=experience
+        },
+        updateProfile(){
+            console.log("updateProfile called   with profile: ")
+        },
+        tageImage(event, update){
+            this.image = event.target.files[0];
+            if(update == "profile"){
+                this.isUpdate = true;
+                this.profile = URL.createObjectURL(event.target.files[0]);
+            }else{
+                this.isUpdateCover = true;
+                this.cover = URL.createObjectURL(event.target.files[0]);
+            }
+        },
+        saveUpload() {
+        let formData = new FormData();
+        formData.append("profile", this.image);
+        formData.append("_method", "PUT");
+        axios.post("/alumniprofile/" + 1, formData).then((res) => {
+            console.log(res);
+            this.getUser();
+            this.isUpdate=false;
+        });
+        },
+        saveCover() {
+        let formData = new FormData();
+        formData.append("coverimage", this.image);
+        formData.append("_method", "PUT");
+        axios.post("/alumnicover/" + 1, formData).then(() => {
+            this.getUser();
+            this.isUpdateCover=false;
+        });
+        },
+        getUser() {
+            axios.get('/alumni/1').then(res=> {
+                this.user = res.data;
+            })
+        },
+
+        getAlumniExperiences(){
+            axios.get('workexperience/1').then(res => {this.experiences = res.data, this.alumni_id=res.data[0].alumni_id});
+        },
+        getCompanies(){
+            axios.get('companies').then(res => {this.companies = res.data});
+        }
+    },
+    mounted() {
+        this.getUser();
+        this.getAlumniExperiences();
+        this.getCompanies();
+    },
 };
 </script>
 
-<style></style>
+

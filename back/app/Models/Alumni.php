@@ -30,4 +30,10 @@ class Alumni extends Model
     public function AlumniSkill(){
         return $this->hasmany(AlumniSkill::class);
     }
+
+    protected $hidden = [
+        'created_at',
+        'updated_at',
+    ];
+
 }

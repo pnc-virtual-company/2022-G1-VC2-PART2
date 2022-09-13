@@ -11,4 +11,9 @@ class Company extends Model
     public function workexperience(){
         return $this->hasMany(Workexperience::class);
     }
+
+    protected $hidden = [
+        'created_at',
+        'updated_at',
+    ];
 }
