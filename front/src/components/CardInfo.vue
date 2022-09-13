@@ -14,7 +14,7 @@
           <div class="w-[30%]">
             <p class="p-1 mb-2">First Name:</p>
             <p class="p-1 mb-2">Gender:</p>
-            <p class="p-1 mb-2">Major:</p>
+            <p class="p-1 mb-2">Specilization:</p>
           </div>
           <div class="w-[60%]">
             <p class="border-b-[1px] border-[#a9aaaaa3] w-full px-2 py-1 mb-2">{{user.first_name}}</p>
