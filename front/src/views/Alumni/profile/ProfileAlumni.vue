@@ -72,12 +72,12 @@
 <script>
 import FormEditExper from "../FormInput/FormEditExper.vue"
 import FormAddExper from "../FormInput/FormAddExper.vue"
-import axios from '../../axios-http'
-import CardInfo from "../CardInfo.vue"
+import axios from '@/axios-http'
+import CardInfo from "../CardView/CardInfo.vue"
 import CardSkills from "../skills/CardSkills.vue"
-import CardExper from "../CardExper.vue"
-import updateProfileView from "../profile/UpdateProfileView.vue";
-import UpdateCoverView from "../profile/UpdateCoverView.vue";
+import CardExper from "../CardView/CardExper.vue"
+import updateProfileView from "./UpdateProfileView.vue";
+import UpdateCoverView from "./UpdateCoverView.vue";
 export default {
     components:{
         CardInfo,

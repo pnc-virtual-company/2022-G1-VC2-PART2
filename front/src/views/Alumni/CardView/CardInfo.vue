@@ -49,8 +49,8 @@
 </template>>
   
 <script>
-  import axios from '../axios-http'
-  import FormEdit from './alumni/UpdateAlumniInfo.vue'
+  import axios from '@/axios-http'
+  import FormEdit from '../FormInput/UpdateAlumniInfo.vue'
   export default {
     emits: ['getData'],
     props: {user:Object},

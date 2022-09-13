@@ -1,6 +1,6 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import HomeView from "@/views/HomeView"
-import AlumniProfile from "@/views/ProfileView"
+import AlumniProfile from "@/views/Alumni/AlumniView"
 const routes = [
   {
     path: '/',

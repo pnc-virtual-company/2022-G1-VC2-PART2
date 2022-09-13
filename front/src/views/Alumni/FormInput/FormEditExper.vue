@@ -41,7 +41,7 @@
     </section>
 </template>
 <script>
-import error from "../ErrorView.vue"
+import error from "@/components/ErrorView.vue"
 export default({
     components:{error,},
     props:["experience", "companies"],
