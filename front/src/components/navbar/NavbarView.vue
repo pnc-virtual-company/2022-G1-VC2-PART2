@@ -3,9 +3,9 @@
     <nav class="border-b-2 border-gray-300 p-3 pl-6 pr-6 relative">
       <div class="flex items-center justify-between w-full">
         <div class="w-1/5 flex nav-left">
-          <router-link to="/" class="flex hover:border-b-0 ">
-            <img class="w-30 h-10 mr-3" src="../../assets/pncLogo.jpg" alt="" />
-            <img class="w-30 h-10" src="../../assets/alumniLogo.jpg" alt="" />
+          <router-link to="/" class="flex items-center hover:border-b-0 ">
+            <img class="w-30 h-10 " src="@/assets/pncLogo.jpg" alt="" />
+            <img class="w-30 h-8 mx-3" src="@/assets/alumniLogo.jpg" alt="" />
           </router-link>
         </div>
 
@@ -25,7 +25,7 @@
         <ul class="w-1/5 flex justify-end nav-right">
           <li class="text-sm font-bold text-gray-800">
             <router-link to="/alumni-profile" class="font-bold p-1 hover:border-b-0 p-0">
-              <img class="w-30 h-10" src="../../assets/logo.png" alt="" />
+              <img class="w-10 h-10" src="../../assets/logo.png" alt="" />
             </router-link>
           </li>
           <li class="text-sm font-bold text-gray-800 flex items-center username">
