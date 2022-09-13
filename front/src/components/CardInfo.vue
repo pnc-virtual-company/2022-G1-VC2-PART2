@@ -11,24 +11,24 @@
     <div class="p-2">
       <div class="flex">
         <div class="w-[50%] flex">
-          <div class="w-[30%]">
+          <div class="w-[36%]">
             <p class="p-1 mb-2">First Name:</p>
             <p class="p-1 mb-2">Gender:</p>
-            <p class="p-1 mb-2">Specilization:</p>
+            <p class="p-1 mb-2">Specialization:</p>
           </div>
-          <div class="w-[60%]">
+          <div class="w-[54%]">
             <p class="border-b-[1px] border-[#a9aaaaa3] w-full px-2 py-1 mb-2">{{user.first_name}}</p>
-            <p class="border-b-[1px] border-[#a9aaaaa3] w-full px-2 py-1 mb-2">{{user.gender}}</p>
+            <p class="border-b-[1px] border-[#a9aaaaa3] w-full px-2 py-1 mb-2">{{gender}}</p>
             <p class="border-b-[1px] border-[#a9aaaaa3] w-full px-2 py-1 mb-2">{{user.major}}</p>
           </div>
         </div>
         <div class="w-[50%] flex">
-          <div class="w-[30%]">
+          <div class="w-[36%]">
             <p class="p-1 mb-2">Last Name:</p>
             <p class="p-1 mb-2">Batch:</p>
             <p class="p-1 mb-2">Tel:</p>
           </div>
-          <div class="w-[60%]">
+          <div class="w-[54%]">
             <p class="border-b-[1px] border-[#a9aaaaa3] w-full px-2 py-1 mb-2">{{user.last_name}}</p>
             <p class="border-b-[1px] border-[#a9aaaaa3] w-full px-2 py-1 mb-2">{{user.batch}}</p>
             <p class="border-b-[1px] border-[#a9aaaaa3] w-full px-2 py-1 mb-2">{{user.phone}}</p>
@@ -36,10 +36,10 @@
         </div>
       </div>
       <div class="flex">
-        <div class="w-[15%]">
+        <div class="w-[18%]">
           <p class="p-1">Email:</p>
         </div>
-        <div class="w-[80%]">
+        <div class="w-[77%]">
           <p class="border-b-[1px] border-[#a9aaaaa3] w-full px-2 py-1">{{user.email}}</p>
         </div>
       </div>
@@ -58,6 +58,13 @@
       'edit-info': FormEdit,
     },
     computed: {
+      gender() {
+        if(this.user.gender == 'F') {
+          return 'Female';
+        }else {
+          return 'Male';
+        }
+      }
     },
     data() {
       return {
