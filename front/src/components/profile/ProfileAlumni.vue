@@ -17,18 +17,9 @@
         <div >
             <div class="relative">
                 <div class="w-full h-52">
-                    <img v-if=" !isUpdateCover && user.coverimage != null" class="w-full h-full  border border-1 border-gray-300" :src="'http://127.0.0.1:8000/images/Cover/'+ user.coverimage" alt="">
-                    <img v-else class="w-full h-52 border border-1 border-gray-300" :src="cover" alt="">
+                    <img v-if="user.coverimage != null" class="w-full h-full  border border-1 border-gray-300" :src="'http://127.0.0.1:8000/images/Cover/'+ user.coverimage" alt="">
                 </div>
-                <div v-if="isUpdateCover" class="flex justify-end mt-[-60px] absolute right-0" >
-                    <button @click="isUpdateCover = !isUpdateCover" class="btn w-[8rem] bg-[#ff9933] text-white rounded p-2 mr-3">
-                        Cancel
-                    </button>
-                    <button @click="saveCover()" class="btn w-[8rem] bg-[#22bbea] rounded p-2 text-white mr-5">
-                        Save Change
-                    </button>
-                </div>
-                <div v-else class="flex justify-end mt-[-40px]">
+                <div class="flex justify-end mt-[-40px]">
                     <input @change="tageImage($event,'cover')" id="cover-upload" type="file" accept="image/*" hidden>
                     <label for="cover-upload">
                         <div class="flex bg-white px-4 py-1 rounded-md mr-2">
@@ -74,6 +65,7 @@
         </div>
 
     </div>
+    <update-cover-view v-if="isUpdateCover" @cancelUpdate="isUpdateCover=false" :cover="cover" @save-cover="saveCover"></update-cover-view>
     <update-profile-view v-if="isUpdate" @isUpdate="isUpdate=false" :profile="profile" @save-upload="saveUpload"></update-profile-view>
 </section>
 
@@ -87,12 +79,14 @@ import CardInfo from "../CardInfo.vue"
 import CardSkills from "../skills/CardSkills.vue"
 import CardExper from "../CardExper.vue"
 import updateProfileView from "../profile/UpdateProfileView.vue";
+import UpdateCoverView from "../profile/UpdateCoverView.vue";
 export default {
     components:{
         CardInfo,
         CardSkills,
         CardExper,
         "update-profile-view":updateProfileView,
+        "update-cover-view":UpdateCoverView,
         
         FormExper,
         FormEditExper
@@ -154,7 +148,7 @@ export default {
         let formData = new FormData();
         formData.append("profile", this.image);
         formData.append("_method", "PUT");
-        axios.post("/alumniprofile/" + 1, formData).then((res) => {
+        axios.post("/alumniprofile/" + 12, formData).then((res) => {
             console.log(res);
             this.getUser();
             this.isUpdate=false;
@@ -164,13 +158,13 @@ export default {
         let formData = new FormData();
         formData.append("coverimage", this.image);
         formData.append("_method", "PUT");
-        axios.post("/alumnicover/" + 1, formData).then(() => {
+        axios.post("/alumnicover/" + 12, formData).then(() => {
             this.getUser();
             this.isUpdateCover=false;
         });
         },
         getUser() {
-            axios.get('/alumni/1').then(res=> {
+            axios.get('/alumni/12').then(res=> {
                 this.user = res.data;
             })
         }
