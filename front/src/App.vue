@@ -4,6 +4,7 @@
     <router-view />
   </section>
 </template>
+<<<<<<< HEAD
 <script>
 import NavbarVue from "./components/navbar/NavbarView.vue";
 export default {
@@ -25,4 +26,15 @@ nav a.router-link-exact-active {
 nav a:hover {
   color: #ff9933;
 }
+=======
+
+<script>
+export default {
+  name: 'HomeView',
+}
+</script>
+
+<style>
+
+>>>>>>> alumni-profile
 </style>
