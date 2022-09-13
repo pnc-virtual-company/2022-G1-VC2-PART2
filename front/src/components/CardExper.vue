@@ -18,7 +18,7 @@
         <div v-if="experiences">
             <edu-card v-for="(experience, i) in infoWork" 
             :key="experience" :image="imgExper" 
-            @click="$emit('cardEditor', {status:'Edit', index:i})">
+            @edit="$emit('cardEditor', {status:'Edit', index:i})">
                 <h1 class="font-semibold">{{experience.position}}</h1>
                 <p class="text-sm leading-3">{{experience.name}}</p>
                 <p class="text-[13px] font-medium">{{experience.start_year}} - {{experience.end_year}}</p>
