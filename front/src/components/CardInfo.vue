@@ -53,7 +53,7 @@
   import FormEdit from './alumni/UpdateAlumniInfo.vue'
   export default {
     emits: ['getData'],
-    props: ['user'],
+    props: {user:Object},
     components:{
       'edit-info': FormEdit,
     },
