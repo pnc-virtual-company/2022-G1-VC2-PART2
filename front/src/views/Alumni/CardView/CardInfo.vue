@@ -14,7 +14,7 @@
           <div class="w-[36%]">
             <p class="p-1 mb-2">First Name:</p>
             <p class="p-1 mb-2">Gender:</p>
-            <p class="p-1 mb-2">Specialization:</p>
+            <p class="p-1 mb-2">Major:</p>
           </div>
           <div class="w-[54%]">
             <p class="border-b-[1px] border-[#a9aaaaa3] w-full px-2 py-1 mb-2">{{user.first_name}}</p>
@@ -29,7 +29,7 @@
             <p class="p-1 mb-2">Tel:</p>
           </div>
           <div class="w-[54%]">
-            <p class="border-b-[1px] border-[#a9aaaaa3] w-full px-2 py-1 mb-2">{{user.last_name}}</p>
+            <p class="border-b-[1px] border-[#a9aaaaa3] w-full px-2 py-1 mb-2 ">{{user.last_name}}</p>
             <p class="border-b-[1px] border-[#a9aaaaa3] w-full px-2 py-1 mb-2">{{user.batch}}</p>
             <p class="border-b-[1px] border-[#a9aaaaa3] w-full px-2 py-1 mb-2">{{user.phone}}</p>
           </div>
@@ -61,8 +61,10 @@
       gender() {
         if(this.user.gender == 'F') {
           return 'Female';
-        }else {
+        }else if (this.user.gender == "M"){
           return 'Male';
+        }else {
+          return "Others";
         }
       }
     },
@@ -76,7 +78,7 @@
         this.isEdit = true;
       },
       updateInfo(alumni) {
-        axios.put('/alumni/12', alumni).then(res => {
+        axios.put('/alumni/1', alumni).then(res => {
             console.log(res);
             this.$emit('getData');
             this.isEdit = false;

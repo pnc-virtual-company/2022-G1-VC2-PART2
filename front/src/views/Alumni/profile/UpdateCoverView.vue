@@ -19,7 +19,7 @@
                     Select
                     </p>
                 </label>
-                <button @click="$emit('save-cover')" class="btn bg-blue rounded p-2 text-white w-[8rem] cursor:pointer">
+                <button @click="$emit('save-cover')" class="btn bg-skyblue rounded p-2 text-white w-[8rem] cursor:pointer">
                     Save Change
                 </button>
             </div>

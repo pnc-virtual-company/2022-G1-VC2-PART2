@@ -12,7 +12,7 @@
               <img class="w-[20rem] h-[20rem] object-cover object-center" :src="profile">
           </div>
           <div class="w-full mt-5">
-              <button type="submit" class="btn bg-[#22bbea] rounded p-2 text-white w-full">
+              <button type="submit" class="btn bg-skyblue rounded p-2 text-white w-full">
                   Save Change
               </button>
           </div>
