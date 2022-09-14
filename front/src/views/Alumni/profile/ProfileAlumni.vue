@@ -127,7 +127,7 @@ export default {
         },
         
         saveEditExper(experience){
-            axios.put("http://127.0.0.1:8000/api/workexperience/" + this.experiences[this.indexExper].id , experience).then(res => {
+            axios.put("workexperience/" + this.experiences[this.indexExper].id , experience).then(res => {
                 console.log(res)
                 this.getAlumniExperiences()
             });
@@ -149,7 +149,7 @@ export default {
         let formData = new FormData();
         formData.append("profile", this.image);
         formData.append("_method", "PUT");
-        axios.post("http://127.0.0.1:8000/api/alumniprofile/" + 1, formData).then((res) => {
+        axios.post("alumniprofile/" + 1, formData).then((res) => {
             console.log(res);
             this.getUser();
             this.isUpdate=false;
@@ -159,25 +159,25 @@ export default {
         let formData = new FormData();
         formData.append("coverimage", this.image);
         formData.append("_method", "PUT");
-        axios.post("http://127.0.0.1:8000/api/alumnicover/" + 1, formData).then(() => {
+        axios.post("alumnicover/" + 1, formData).then(() => {
             this.getUser();
             this.isUpdateCover=false;
         });
         },
         getUser() {
-            axios.get('http://127.0.0.1:8000/api/alumni/1').then(res=> {
+            axios.get('alumni/1').then(res=> {
                 this.user = res.data;
             })
         },
 
         getAlumniExperiences(){
-            axios.get('http://127.0.0.1:8000/api/workexperience/1').then(res => {
+            axios.get('workexperience/1').then(res => {
                 this.experiences = res.data, 
                 this.alumni_id=res.data[0].alumni_id
             });
         },
         getCompanies(){
-            axios.get('http://127.0.0.1:8000/api/companies').then(res => {
+            axios.get('companies').then(res => {
                 this.companies = res.data
             });
         }
