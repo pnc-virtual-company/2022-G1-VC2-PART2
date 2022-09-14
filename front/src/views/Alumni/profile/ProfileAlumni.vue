@@ -139,18 +139,17 @@ export default {
             this.image = event.target.files[0];
             if(update == "profile"){
                 this.isUpdate = true;
-                this.profile = URL.createObjectURL(event.target.files[0]);
+                this.profile = URL.createObjectURL(this.image);
             }else{
                 this.isUpdateCover = true;
-                this.cover = URL.createObjectURL(event.target.files[0]);
+                this.cover = URL.createObjectURL(this.image);
             }
         },
         saveUpload() {
         let formData = new FormData();
         formData.append("profile", this.image);
         formData.append("_method", "PUT");
-        axios.post("alumniprofile/" + 1, formData).then((res) => {
-            console.log(res);
+        axios.post("alumniprofile/" + 1, formData).then(() => {
             this.getUser();
             this.isUpdate=false;
         });
