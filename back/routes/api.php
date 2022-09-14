@@ -25,7 +25,18 @@ use App\Http\Controllers\AlumniSkillController;
 //     return $request->user();
 // });
 
-// ===============================================================Create 
+// =====================User login===============================
+
+Route::post('login',[UserController::class, "login"]);
+
+// ======================Private user============================
+Route::group(['middleware'=>['auth:sanctum']],function(){
+
+    Route::post('logout',[UserController::class, "logOut"]);
+});
+
+
+// =======================Create New===============================
 
 Route::post('useralumni', [UserController::class, "store"]);
 Route:: post ('company', [CompanyController::class, "store"]);
@@ -36,7 +47,7 @@ Route:: post ("alumniSkill", [AlumniSkillController::class, "store"]);
 Route:: post ("univercity", [UnivercityController::class, "store"]);
 Route:: post ("education", [EducationController::class, "store"]);
 
-// =================================================================Update
+// =========================Update====================================
 
 Route::put ("alumniprofile/{id}", [UserController::class, "uploadAlumniProfile"]);
 Route::put('alumnicover/{id}',[UserController::class, "uploadAlumniCover"]);
@@ -49,7 +60,7 @@ Route:: put ("education", [EducationController::class, "update"]);
 Route:: put ("skill", [SkillController::class, "update"]);
 Route:: put ("alumniSkill", [AlumniSkillController::class, "update"]);
 
-// =================================================================Get
+// ===========================Get========================================
 
 Route::get('alumni/{id}',[UserController::class, "showAlumni"]);
 Route::get('workexperience',[WorkexperienceController::class,"index"]);

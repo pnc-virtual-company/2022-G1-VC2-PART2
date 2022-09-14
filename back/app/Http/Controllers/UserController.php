@@ -5,9 +5,31 @@ use App\Models\User;
 use App\Models\Alumni;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
 {
+
+    public function login(Request $request)
+    {
+        $user = User::where('email', $request->email)->first();
+
+        if (!$user || !Hash::check($request->password, $user->password)) {
+            return response()->json(['message' => 'Invalid password or email'], 401);
+        }
+        $token = $user->createToken('mytoken')->plainTextToken;
+        return response()->json([
+            'user' => $user,
+            'token' => $token,
+        ]);
+    }
+
+    public function logOut(){
+        Auth()->user()->tokens()->delete();
+        return Response()->json(['message'=>'has been removed'], 200);
+    }
+  
+
     /**
      * Display a listing of the resource.
      *
