@@ -72,7 +72,7 @@
 <script>
 import FormEditExper from "../FormInput/FormEditExper.vue"
 import FormAddExper from "../FormInput/FormAddExper.vue"
-import axios from '@/axios-http'
+import axios from '../../../axios-http'
 import CardInfo from "../CardView/CardInfo.vue"
 import CardSkills from "../skills/CardSkills.vue"
 import CardExper from "../CardView/CardExper.vue"
@@ -127,16 +127,14 @@ export default {
         },
         
         saveEditExper(experience){
-            axios.put("workexperience/" + this.experiences[this.indexExper].id , experience).then(res => {
+            axios.put("http://127.0.0.1:8000/api/workexperience/" + this.experiences[this.indexExper].id , experience).then(res => {
                 console.log(res)
                 this.getAlumniExperiences()
             });
             experience['src']=this.imgWorkExper
             this.experiences[this.indexExper]=experience
         },
-        updateProfile(){
-            console.log("updateProfile called   with profile: ")
-        },
+
         tageImage(event, update){
             this.image = event.target.files[0];
             if(update == "profile"){
@@ -151,7 +149,7 @@ export default {
         let formData = new FormData();
         formData.append("profile", this.image);
         formData.append("_method", "PUT");
-        axios.post("/alumniprofile/" + 1, formData).then((res) => {
+        axios.post("http://127.0.0.1:8000/api/alumniprofile/" + 1, formData).then((res) => {
             console.log(res);
             this.getUser();
             this.isUpdate=false;
@@ -161,25 +159,25 @@ export default {
         let formData = new FormData();
         formData.append("coverimage", this.image);
         formData.append("_method", "PUT");
-        axios.post("/alumnicover/" + 1, formData).then(() => {
+        axios.post("http://127.0.0.1:8000/api/alumnicover/" + 1, formData).then(() => {
             this.getUser();
             this.isUpdateCover=false;
         });
         },
         getUser() {
-            axios.get('/alumni/1').then(res=> {
+            axios.get('http://127.0.0.1:8000/api/alumni/1').then(res=> {
                 this.user = res.data;
             })
         },
 
         getAlumniExperiences(){
-            axios.get('workexperience/1').then(res => {
+            axios.get('http://127.0.0.1:8000/api/workexperience/1').then(res => {
                 this.experiences = res.data, 
                 this.alumni_id=res.data[0].alumni_id
             });
         },
         getCompanies(){
-            axios.get('companies').then(res => {
+            axios.get('http://127.0.0.1:8000/api/companies').then(res => {
                 this.companies = res.data
             });
         }

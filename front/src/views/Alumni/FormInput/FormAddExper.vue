@@ -37,7 +37,7 @@
     </div>
 </template>
 <script>
-import error from "@/components/ErrorView.vue"
+import error from "../../../components/ErrorView.vue"
 export default({
     components:{error,},
     props:["companies"],

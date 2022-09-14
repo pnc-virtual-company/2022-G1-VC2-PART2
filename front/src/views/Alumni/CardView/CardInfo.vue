@@ -49,7 +49,7 @@
 </template>>
   
 <script>
-  import axios from '@/axios-http'
+  import axios from '../../../axios-http'
   import FormEdit from '../FormInput/UpdateAlumniInfo.vue'
   export default {
     emits: ['getData'],

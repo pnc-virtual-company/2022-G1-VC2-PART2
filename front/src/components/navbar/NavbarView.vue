@@ -4,8 +4,8 @@
       <div class="flex items-center justify-between w-full">
         <div class="w-1/5 flex nav-left">
           <router-link to="/" class="flex items-center hover:border-b-0 ">
-            <img class="w-30 h-10 " src="@/assets/pncLogo.jpg" alt="" />
-            <img class="w-30 h-8 mx-3" src="@/assets/alumniLogo.jpg" alt="" />
+            <img class="w-30 h-10 " src="../../assets/pncLogo.jpg" alt="" />
+            <img class="w-30 h-8 mx-3" src="../../assets/alumniLogo.jpg" alt="" />
           </router-link>
         </div>
 
@@ -72,7 +72,7 @@ export default {
   },
   methods:{
     getuser(){
-      axios.get("alumni/1").then(res => {this.profile = res.data.profile});
+      axios.get("http://127.0.0.1:8000/api/alumni/1").then(res => {this.profile = res.data.profile});
     }
   },
   mounted(){
