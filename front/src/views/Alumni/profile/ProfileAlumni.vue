@@ -1,10 +1,10 @@
 <template>
     <section>
-    <div class="w-[90%] m-auto">
+    <div class="w-[80%] m-auto">
         <div >
             <div class="relative">
                 <div class="w-full h-52">
-                    <img v-if="user.coverimage != null" class="w-full h-full  border border-1 border-gray-300" :src="'http://127.0.0.1:8000/images/Cover/'+ user.coverimage" alt="">
+                    <img v-if="user.coverimage != null" class="w-full h-full  border border-1 border-gray-300 object-cover object-center" :src="'http://127.0.0.1:8000/images/Cover/'+ user.coverimage" alt="">
                 </div>
                 <div class="flex justify-end mt-[-40px]">
                     <input @change="tageImage($event,'cover')" id="cover-upload" type="file" accept="image/*" hidden>
@@ -23,7 +23,7 @@
         <div class="absolute ml-24 text-center">
             <div class="flex">
                 <div class="w-40">
-                    <img v-if="user.profile" class=" rounded-full h-40 mt-[-130px]  border border-b-1 border-[#22bbea]" :src="'http://127.0.0.1:8000/images/profile/'+ user.profile" alt="">
+                    <img v-if="user.profile" class="w-full rounded-full h-40 mt-[-130px] object-cover border-[1px] border-skyblue" :src="'http://127.0.0.1:8000/images/profile/'+ user.profile" alt="">
                 </div>
                 <div>
                     <input @change="tageImage($event,'profile')" id="profile-upload" type="file" accept="image/*" hidden>
@@ -38,7 +38,7 @@
             <h1 class="font-bold text-xl">{{user.first_name}} {{user.last_name}}</h1>
         </div>        
         <div class="flex justify-between mt-8 items-start">
-            <div class="w-[32%] border-[2px] border-[#22bbea] p-3 rounded mt-14">
+            <div class="w-[32%] border-[2px] border-skyblue p-3 rounded mt-14">
                 <CardSkills />
             </div>
             <div class="w-[64%]">

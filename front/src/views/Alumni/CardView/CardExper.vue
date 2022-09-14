@@ -1,9 +1,9 @@
 <template>
-    <div class="border-[2px] border-[#22bbea] p-3 rounded mt-4">
+    <div class="border-[2px] border-skyblue p-3 rounded mt-4">
         <div class="flex justify-between">
             <h1 class="font-bold text-lg"><slot></slot></h1>
             <div @click="$emit('formInputStatus', 'Add')">
-                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6 hover:cursor-pointer shadow bg-[#22bbea] text-white rounded-full">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6 hover:cursor-pointer shadow bg-skyblue text-white rounded-full">
                 <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15"/>
                 </svg>
             </div>

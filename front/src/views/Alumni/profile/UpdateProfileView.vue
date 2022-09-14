@@ -1,6 +1,6 @@
 <template>
     <div class="flex items-center w-full p-4 bg-[#23242986] fixed h-full top-0 z-100">
-      <form @submit.prevent="$emit('save-upload')" enctype="multipart/form-data" class="bg-white rounded p-5 mt-5 m-auto text-center">
+      <form @submit.prevent="$emit('save-upload')" enctype="multipart/form-data" class="bg-white rounded p-5 mt-24 m-auto text-center">
           <div class="flex items-center justify-between mb-4 text-lg">
                 <p></p>
               <p class="font-semibold">Upload Profile</p>
@@ -9,7 +9,7 @@
               </svg>
           </div>
           <div class="border-[1px] border-gray-300">
-              <img class="w-[22rem] h-[22rem]" :src="profile">
+              <img class="w-[20rem] h-[20rem] object-cover object-center" :src="profile">
           </div>
           <div class="w-full mt-5">
               <button type="submit" class="btn bg-[#22bbea] rounded p-2 text-white w-full">

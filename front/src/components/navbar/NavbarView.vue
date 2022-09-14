@@ -1,5 +1,5 @@
 <template>
-  <section class="sticky top-0	bg-white">
+  <section class="sticky top-0 z-10	bg-white">
     <nav class="border-b-2 border-gray-300 p-3 pl-6 pr-6 relative">
       <div class="flex items-center justify-between w-full">
         <div class="w-1/5 flex nav-left">
@@ -25,12 +25,12 @@
         <ul class="w-1/5 flex justify-end items-center nav-right">
           <li class="text-sm font-bold text-gray-800">
             <router-link to="/alumni-profile" class="font-bold hover:border-b-0">
-              <img class="w-10 h-10 rounded-full" :src="'http://127.0.0.1:8000/images/profile/'+profile"/>
+              <img class="w-10 h-10 border-[1px] border-skyblue rounded-full object-cover" :src="'http://127.0.0.1:8000/images/profile/'+user.profile"/>
             </router-link>
           </li>
           <li class="text-sm font-bold text-gray-800 flex items-center username">
             <router-link to="/alumni-profile" class="font-bold p-1 hover:border-b-0">
-              Vansao Hang
+              {{user.first_name}} {{user.last_name}}
             </router-link>
           </li>
           <li class="text-sm font-bold text-gray-800">
@@ -67,12 +67,14 @@ export default {
   data() {
     return {
       showMenu: false,
-      profile:{}
+      user:{}
     };
   },
   methods:{
     getuser(){
-      axios.get("http://127.0.0.1:8000/api/alumni/1").then(res => {this.profile = res.data.profile});
+      axios.get("/alumni/1").then(res => {
+        this.user = res.data
+      });
     }
   },
   mounted(){
