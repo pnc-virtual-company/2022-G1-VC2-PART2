@@ -43,7 +43,7 @@
             </div>
             <div class="w-[64%]">
                 <CardInfo :user="user" @getData="getUser" />
-                <!-- <CardExper :edu="edu">Education Background</CardExper> -->
+                <edu-card-view :edu="edu"></edu-card-view>
                 <CardExper 
                 :experiences="experiences" 
                 @cardEditor="editWorkExper"
@@ -76,6 +76,7 @@ import axios from '../../../axios-http'
 import CardInfo from "../CardView/CardInfo.vue"
 import CardSkills from "../skills/CardSkills.vue"
 import CardExper from "../CardView/CardExper.vue"
+import EduCard from '../CardView/EduCard.vue'
 import updateProfileView from "./UpdateProfileView.vue";
 import UpdateCoverView from "./UpdateCoverView.vue";
 export default {
@@ -86,6 +87,7 @@ export default {
         FormAddExper,
         "update-profile-view":updateProfileView,
         "update-cover-view":UpdateCoverView,
+        'edu-card-view': EduCard,
         FormEditExper
     },
     data() {
@@ -175,13 +177,15 @@ export default {
                 this.companies = res.data
             });
         },
+
+        // ++++++++++++ ALUMNI EDUCATION +++++++++++++ //
         getAlumniEdu(){
             axios.get('alumniEdu/1').then(res => {
                 this.edu = res.data
             });
         }
 
-        // ++++++++++++  GET ALUMNI EDUCATION +++++++++++++ //
+
     },
     mounted() {
         this.getUser();
