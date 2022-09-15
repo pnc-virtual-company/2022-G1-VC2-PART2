@@ -104,7 +104,7 @@ export default {
             formStatus:null,
             indexExper:null,
             companies:null,
-            alumni_id:null,
+            alumni_id:1,
         }
     },
 
@@ -171,20 +171,27 @@ export default {
 
         getAlumniExperiences(){
             axios.get('workexperience/1').then(res => {
-                this.experiences = res.data, 
-                this.alumni_id=res.data[0].alumni_id
+                this.experiences = res.data
             });
         },
         getCompanies(){
             axios.get('companies').then(res => {
                 this.companies = res.data
             });
+        },
+        getAlumniEdu(){
+            axios.get('alumniEdu/1').then(res => {
+                this.edu = res.data
+            });
         }
+
+        // ++++++++++++  GET ALUMNI EDUCATION +++++++++++++ //
     },
     mounted() {
         this.getUser();
         this.getAlumniExperiences();
         this.getCompanies();
+        this.getAlumniEdu();
     },
 };
 </script>

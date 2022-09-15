@@ -9,10 +9,10 @@ class AlumniSkill extends Model
 {
     use HasFactory;
 
-    public function Skill(){
+    public function skill(){
         return $this->belongsTo(Skill::class);
     }
-    public function Alumni(){
+    public function alumni(){
         return $this->belongsTo(Alumni::class);
     }
 }
