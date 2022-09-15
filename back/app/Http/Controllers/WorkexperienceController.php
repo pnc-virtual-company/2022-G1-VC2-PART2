@@ -26,7 +26,7 @@ class WorkexperienceController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function addExperience(Request $request)
     {
         $workexperience = new Workexperience();
         $workexperience->start_year= $request->start_year;

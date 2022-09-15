@@ -10,10 +10,9 @@ class Education extends Model
     use HasFactory;
 
     public function university(){
-        return $this->belongsTo(Univercity::class);
+        return $this->belongsTo(University::class);
     }
     protected $casts = [
         'created_at' => 'datetime:Y/m/d',
     ];
-
 }

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Education;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class EducationController extends Controller
 {
@@ -54,7 +55,11 @@ class EducationController extends Controller
      */
     public function getAlumniEdu(Request $request,$id)
     {
-        return Education::where('alumni_id', $id)->get();
+        $edu = DB::table('education')
+        ->join('universities', 'education.university_id', '=', 'universities.id')
+        ->where('education.alumni_id', '=', $id)
+        ->get();
+        return $edu;
     }
 
     /**

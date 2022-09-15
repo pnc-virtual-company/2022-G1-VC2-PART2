@@ -19,7 +19,7 @@ class DatabaseSeeder extends Seeder
             'last_name' => '',
             'email' => 'admin123@gmail.com',
             'password' => 'admIn123',
-            'role' => 'alumni',
+            'role' => 'admin',
         ]);
     }
 }

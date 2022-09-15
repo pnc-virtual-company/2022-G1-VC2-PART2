@@ -43,11 +43,11 @@
             </div>
             <div class="w-[64%]">
                 <CardInfo :user="user" @getData="getUser" />
-                <CardExper :edu="edu">Education Background</CardExper>
+                <!-- <CardExper :edu="edu">Education Background</CardExper> -->
                 <CardExper 
                 :experiences="experiences" 
                 @cardEditor="editWorkExper"
-                @formInputStatus="formInputStatus">Work Experiences</CardExper>
+                @formInputStatus="formInputStatus"></CardExper>
                 <!-- form be able to add work experience's alumni -->
                 <FormAddExper 
                 v-if="formStatus=='Add'"
@@ -91,10 +91,7 @@ export default {
     data() {
         return {
             user: {},
-            edu: [
-                {school: 'Passerelles Numeriques Cambodia', degree: "Associat's degree", major: 'Information Technology', start_year: 2020, end_year: 2022, src: 'https://previews.123rf.com/images/anthonycz/anthonycz1612/anthonycz161200005/68815871-school-vector-icon-isolated-building-on-white-background.jpg'},
-                // {school: 'Passerelles Numeriques Cambodia', degree: "Associat's degree", major: 'Information Technology', start_year: 2020, end_year: 2022, src: 'https://previews.123rf.com/images/anthonycz/anthonycz1612/anthonycz161200005/68815871-school-vector-icon-isolated-building-on-white-background.jpg'},
-            ],
+            edu: [],
             experiences: [],
             isUpdate: false,
             isUpdateCover: false,
@@ -117,7 +114,6 @@ export default {
         addAlumniExper(newExper){
             newExper['alumni_id']=this.alumni_id;
             axios.post("workexperience", newExper).then(res => {
-                console.log(res);
                 this.getAlumniExperiences()
             });
         },

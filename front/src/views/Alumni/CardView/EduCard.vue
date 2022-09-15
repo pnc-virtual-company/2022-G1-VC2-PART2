@@ -1,22 +1,59 @@
 <template>
-    <div class="flex justify-between mt-2 p-2 border-b-[1px] border-[#a9aaaaa3]">
-        <div class="flex items-center">
-            <div class="w-16 h-16">
-                <img class="w-16 h-16 rounded-full border-[1px] border-gray-400 object-cover" :src="image" alt="">
-            </div>
-            <div class="ml-4">
-                <slot></slot>
+    <div class="border-[2px] border-skyblue p-3 rounded mt-4">
+        <div class="flex justify-between">
+            <h1 class="font-bold text-lg">Education</h1>
+            <div @click="$emit('formInputStatus', 'Add')">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6 hover:cursor-pointer shadow bg-skyblue text-white rounded-full">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15"/>
+                </svg>
             </div>
         </div>
-        <div>
-            <svg xmlns="http://www.w3.org/2000/svg" @click="$emit('edit')" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6 hover:cursor-pointer hover:font-lg">
-                <path stroke-linecap="round" stroke-linejoin="round" d="M6.75 12a.75.75 0 11-1.5 0 .75.75 0 011.5 0zM12.75 12a.75.75 0 11-1.5 0 .75.75 0 011.5 0zM18.75 12a.75.75 0 11-1.5 0 .75.75 0 011.5 0z" />
-            </svg>
+        <edu-card v-for="education of education" :key="education" :image="imgEdu">
+            <h1 class="font-semibold">{{education.name}}</h1>
+            <p class="text-sm leading-3">{{education.degree}}, {{education.major}}</p>
+            <p class="text-[13px] font-medium">{{education.start_date}} - {{education.end_date}}</p>
+        </edu-card>
+        <div class="text-center mt-2">
+            <span v-if="!isMore" @click="isShow=true; isMore=true" class="font-semibold hover:cursor-pointer">show more</span>
+            <span v-if="isMore" @click="isShow=false; isMore=false" class="font-semibold hover:cursor-pointer">show less</span>
         </div>
-    </div>
+    </div>      
 </template>
+
 <script>
-    export default {
-        props: ['image']
-    };
-    </script>
+import EduCard from "./EduCard.vue"
+export default {
+    components:{
+      'edu-card': EduCard,
+    },
+    props: ['edu', 'experiences'],
+    data(){
+        return {
+            imgEdu: 'https://previews.123rf.com/images/anthonycz/anthonycz1612/anthonycz161200005/68815871-school-vector-icon-isolated-building-on-white-background.jpg',
+            imgExper: 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAOEAAADhCAMAAAAJbSJIAAAAFVBMVEUAAAD///+lpaWtra2pqalra2udnZ3XsOkrAAACH0lEQVR4nO3ZQXLjMAwEwKzj5P9PzkEnlywuAIm0SfccUdAIfUop/vq3er5efUD3EM4fwvlDOH8It6Wr01v1cHxoiZCQsGcItyVCQsKeIdyWCAkJe4ZwWyKcTHi557VmQkJCQkJCQkJCQkJCQkLCxh0nJ4RXhpCwNiG8MoSEtcn7CvuFkJCQkJCQ8KOEV/UQDg9huqco/L5t+T45aVx2QvfQUxTud2qTSHMthISE0UmkuRZCQsLoJNJcCyEhYXQSaa5lAuHJQkLC9YUDvvFfLOwXQsJGD+GgXPV2QsJ+eReh/+pHJ5HmWggJCaOT0GWlQkJCQkJCQsIphI2dSAgJ1xeu/43fL4TpHsLh+SDh/ozIpNVDOCiEo4Tr/45fe32qmZCQ8PXCxk4khISE0UmkuRZCQsLoJNJcywTCk4WEhOsL1//G7xdCwkYP4aBc9XZCwn55F+H6v+Pvd2qTSHMthISE0UnoslIhISEhISEh4RTCxk4khITrC9f/xu8XwnQP4fB8kHB/RmTS6iEcFMJRwud/u3/ut8fcfwJPvafw+c59V3EPPDWT8LaruBESrixs7ERCSEhImG3Oh5CQ8ALhfjkyISQkJCQkJLxQ+Dz/E0ZSf/tBD2EqhKnL0k8e9BCmQpi6LP3kQQ9hKoSpy9JPHvQQpkKYuiz95EEPYSqEqcvSTx70EKbyu6v4rV+WfvKgpyVcLITzh3D+EM4fwvnzB/6pXTl+Bj9xAAAAAElFTkSuQmCC',
+            isShow: false,
+            isMore: false,
+        }
+    },
+    computed: {
+        educations() {
+            if(this.edu && this.isShow) {
+                return this.edu;
+            }else {
+                return this.edu.slice(0,2);
+            }
+        },
+        infoWork() {
+            if(this.experiences && this.isShow) {
+                return this.experiences;
+            }else {
+                return this.experiences.slice(0,2)
+            }
+        }
+    },
+};
+</script>
+
+<style>
+
+</style>
