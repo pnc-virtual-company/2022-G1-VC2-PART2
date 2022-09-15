@@ -65,7 +65,6 @@ class UserController extends Controller
         $file->move($path, $fileName);
         $alumni->save();
         return response()->json(['status' => 'Upload profile sucessfully'],200);
-
     }
 
 // =========================================================uploadcorver

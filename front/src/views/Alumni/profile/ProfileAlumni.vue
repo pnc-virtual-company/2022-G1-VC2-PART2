@@ -45,8 +45,9 @@
                 <CardInfo :user="user" @getData="getUser" />
 
                 <!-- +++++++++++ Alumni Education +++++++++++++ -->
-                <edu-card-view :edu="edu" @is-add-edu="isAddEdu=true"></edu-card-view>
+                <edu-card-view :edu="edu" @is-add-edu="isAddEdu=true" @isEdit-edu="isEditEduction"></edu-card-view>
                 <FormAddEduView  v-if="isAddEdu" :universities="universities" @addEdu="addEducation" @cancelAdd="isAddEdu=false" ></FormAddEduView>
+                <edit-edu-view v-if="isEditEdu" :universities="universities" :education="education" @editEdu="editEducation" @cancelEdit="isEditEdu=false"></edit-edu-view>
 
                 <CardExper 
                 :experiences="experiences" 
@@ -82,6 +83,7 @@ import CardSkills from "../skills/CardSkills.vue"
 import CardExper from "../CardView/CardExper.vue"
 import EduCard from '../CardView/EduCard.vue'
 import FormAddEduView from "../FormInput/FormAddEduView.vue"
+import FormEditEduView from "../FormInput/FormEditEduView.vue"
 import updateProfileView from "./UpdateProfileView.vue";
 import UpdateCoverView from "./UpdateCoverView.vue";
 export default {
@@ -93,6 +95,7 @@ export default {
         "update-profile-view":updateProfileView,
         "update-cover-view":UpdateCoverView,
         'edu-card-view': EduCard,
+        'edit-edu-view': FormEditEduView,
         FormAddEduView,
         FormEditExper
     },
@@ -112,6 +115,9 @@ export default {
             universities:null,
             alumni_id:1,
             isAddEdu:false,
+            isEditEdu:false,
+            education:{},
+            
         }
     },
 
@@ -201,6 +207,18 @@ export default {
             axios.post("education", newEdu).then(() => {
                 this.getAlumniEdu();
                 this.isAddEdu = false;
+            });
+        },
+        isEditEduction(education){
+            this.isEditEdu = true;
+            this.education = education;
+        },
+        editEducation(newEdu,edu_id){
+            // console.log(newEdu)
+            axios.put("education/"+edu_id, newEdu).then(() => {
+
+                this.getAlumniEdu();
+                this.isEditEdu = false;
             });
         },
     },
