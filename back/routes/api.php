@@ -2,7 +2,7 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-use App\Http\controllers\UserController;
+use App\Http\Controllers\UserController;
 use App\Http\Controllers\CompanyController;
 use App\Http\Controllers\WorkexperienceController;
 use App\Http\Controllers\UnivercityController;
@@ -56,3 +56,8 @@ Route::get('workexperience',[WorkexperienceController::class,"index"]);
 Route::get('workexperience/{id}',[WorkexperienceController::class,"show"]);
 Route::get("company/{id}",[CompanyController::class,"show"]);
 Route::get("companies",[CompanyController::class,"index"]);
+Route::get("alumniSkill/{alumni_id}",[AlumniSkillController::class,"show"]);
+Route::get("skills",[SkillController::class,"index"]);
+
+//=========================Delete
+Route::delete('alumniSkill/{id}', [AlumniSkillController::class, "destroy"]);

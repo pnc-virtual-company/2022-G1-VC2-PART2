@@ -15,6 +15,7 @@ class SkillController extends Controller
     public function index()
     {
         //
+        return Skill::get();
     }
 
     /**
@@ -55,16 +56,5 @@ class SkillController extends Controller
         $skill->name = $request->name;
         $skill->save();
         return response()->json(['message'=> 'successfully']);
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\Skill  $skill
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(Skill $skill)
-    {
-        //
     }
 }
