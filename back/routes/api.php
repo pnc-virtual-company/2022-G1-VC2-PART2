@@ -56,5 +56,14 @@ Route::get('alumni/{id}',[UserController::class, "showAlumni"]);
 Route::get('workexperience',[WorkexperienceController::class,"index"]);
 Route::get('workexperience/{id}',[WorkexperienceController::class,"show"]);
 Route::get("company/{id}",[CompanyController::class,"show"]);
+<<<<<<< HEAD
 Route::get("companies",[CompanyController::class,"getAllCompanies"]);
 Route:: get ("universities", [UniversityController::class, "getUniversities"]);
+=======
+Route::get("companies",[CompanyController::class,"index"]);
+Route::get("alumniSkill/{alumni_id}",[AlumniSkillController::class,"show"]);
+Route::get("skills",[SkillController::class,"index"]);
+
+//=========================Delete
+Route::delete('alumniSkill/{id}', [AlumniSkillController::class, "destroy"]);
+>>>>>>> 44ed40f241a6119efc9d7422951e871d9ecdd163

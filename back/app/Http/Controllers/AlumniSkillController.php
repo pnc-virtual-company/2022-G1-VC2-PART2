@@ -15,6 +15,7 @@ class AlumniSkillController extends Controller
     public function index()
     {
         //
+        return AlumniSkill::get();
     }
 
     /**
@@ -39,9 +40,15 @@ class AlumniSkillController extends Controller
      * @param  \App\Models\AlumniSkill  $alumniSkill
      * @return \Illuminate\Http\Response
      */
-    public function show(AlumniSkill $alumniSkill)
+    public function show(Request $request, $alumni_id)
     {
         //
+        $alumniExperience = alumniSkill::join('alumnis', 'alumnis.id', '=', 'alumni_skills.alumni_id')
+        ->join('skills', 'skills.id', '=', 'alumni_skills.skill_id')
+        ->where('alumni_skills.alumni_id', '=', $alumni_id)
+        ->orderBy('alumni_skills.created_at', 'desc')
+        ->get(['skills.name','alumni_skills.*'])->all();
+        return $alumniExperience;
     }
 
     /**
@@ -66,8 +73,9 @@ class AlumniSkillController extends Controller
      * @param  \App\Models\AlumniSkill  $alumniSkill
      * @return \Illuminate\Http\Response
      */
-    public function destroy(AlumniSkill $alumniSkill)
+    public function destroy(Request $request, $id)
     {
         //
+        return ALumniSkill::destroy($id);
     }
 }
