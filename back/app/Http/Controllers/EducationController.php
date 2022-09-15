@@ -58,7 +58,9 @@ class EducationController extends Controller
         $edu = DB::table('education')
         ->join('universities', 'education.university_id', '=', 'universities.id')
         ->where('education.alumni_id', '=', $id)
-        ->get();
+        ->get()
+        ->reverse()
+        ->values();
         return $edu;
     }
 

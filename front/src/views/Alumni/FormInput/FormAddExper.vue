@@ -24,7 +24,7 @@
                 <input v-model="end_year" type="date" class="block p-2 w-full outline-none text-gray-900 bg-gray-300 rounded-sm border border-gray-300 sm:text-xs focus:ring-skyblue">
             </div>
         </div>
-        <error class="text-center" v-if="messError!=null">{{messError}}</error>
+        <error v-if="messError!=null">{{messError}}</error>
             <div class="btn-controller flex justify-end">
                 <button @click="$emit('formInputStatus', null)" class="bg-orange text-white font-bold py-1 mx-2 px-4 rounded">
                     Cancel
@@ -67,11 +67,7 @@ export default({
             }else {
                 this.messError="Your input is invalid, please check your input!!"
             }
-        },
-        addCompany(company){
-            console.log(company)
-        }
-        
+        },      
     }
 })
 </script>

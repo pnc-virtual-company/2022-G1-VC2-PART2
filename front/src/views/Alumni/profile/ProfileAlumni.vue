@@ -43,7 +43,11 @@
             </div>
             <div class="w-[64%]">
                 <CardInfo :user="user" @getData="getUser" />
-                <edu-card-view :edu="edu"></edu-card-view>
+
+                <!-- +++++++++++ Alumni Education +++++++++++++ -->
+                <edu-card-view :edu="edu" @is-add-edu="isAddEdu=true"></edu-card-view>
+                <FormAddEduView  v-if="isAddEdu" :universities="universities" @addEdu="addEducation" @cancelAdd="isAddEdu=false" ></FormAddEduView>
+
                 <CardExper 
                 :experiences="experiences" 
                 @cardEditor="editWorkExper"
@@ -77,6 +81,7 @@ import CardInfo from "../CardView/CardInfo.vue"
 import CardSkills from "../skills/CardSkills.vue"
 import CardExper from "../CardView/CardExper.vue"
 import EduCard from '../CardView/EduCard.vue'
+import FormAddEduView from "../FormInput/FormAddEduView.vue"
 import updateProfileView from "./UpdateProfileView.vue";
 import UpdateCoverView from "./UpdateCoverView.vue";
 export default {
@@ -88,6 +93,7 @@ export default {
         "update-profile-view":updateProfileView,
         "update-cover-view":UpdateCoverView,
         'edu-card-view': EduCard,
+        FormAddEduView,
         FormEditExper
     },
     data() {
@@ -103,7 +109,9 @@ export default {
             formStatus:null,
             indexExper:null,
             companies:null,
+            universities:null,
             alumni_id:1,
+            isAddEdu:false,
         }
     },
 
@@ -183,15 +191,25 @@ export default {
             axios.get('alumniEdu/1').then(res => {
                 this.edu = res.data
             });
-        }
-
-
+        },
+        getUniversities(){
+            axios.get('universities').then(res => {
+                this.universities = res.data
+            });
+        },
+        addEducation(newEdu){
+            axios.post("education", newEdu).then(() => {
+                this.getAlumniEdu();
+                this.isAddEdu = false;
+            });
+        },
     },
     mounted() {
         this.getUser();
         this.getAlumniExperiences();
         this.getCompanies();
         this.getAlumniEdu();
+        this.getUniversities();
     },
 };
 </script>

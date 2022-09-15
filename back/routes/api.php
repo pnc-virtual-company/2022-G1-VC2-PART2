@@ -56,4 +56,5 @@ Route::get('alumni/{id}',[UserController::class, "showAlumni"]);
 Route::get('workexperience',[WorkexperienceController::class,"index"]);
 Route::get('workexperience/{id}',[WorkexperienceController::class,"show"]);
 Route::get("company/{id}",[CompanyController::class,"show"]);
-Route::get("companies",[CompanyController::class,"index"]);
+Route::get("companies",[CompanyController::class,"getAllCompanies"]);
+Route:: get ("universities", [UniversityController::class, "getUniversities"]);

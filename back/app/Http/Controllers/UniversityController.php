@@ -12,9 +12,9 @@ class UniversityController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function getUniversities()
     {
-        //
+        return University::get();
     }
 
     /**
