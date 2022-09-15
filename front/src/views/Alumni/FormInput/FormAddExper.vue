@@ -34,12 +34,14 @@
                 </button>
             </div>
         </div>
+        <addCompanyworkex @add-company="addCompany"/>
     </div>
 </template>
 <script>
 import error from "../../../components/Widget/ErrorView.vue"
+
 export default({
-    components:{error,},
+    components:{error},
     props:["companies"],
     data(){
         return {
@@ -65,6 +67,9 @@ export default({
             }else {
                 this.messError="Your input is invalid, please check your input!!"
             }
+        },
+        addCompany(company){
+            console.log(company)
         }
         
     }
