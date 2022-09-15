@@ -5,7 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\CompanyController;
 use App\Http\Controllers\WorkexperienceController;
-use App\Http\Controllers\UnivercityController;
+use App\Http\Controllers\UniversityController;
 use App\Http\Controllers\EducationController;
 use App\Http\Controllers\SkillController;
 use App\Http\Controllers\AlumniSkillController;
@@ -28,13 +28,14 @@ use App\Http\Controllers\AlumniSkillController;
 // ===============================================================Create 
 
 Route::post('useralumni', [UserController::class, "store"]);
-Route:: post ('company', [CompanyController::class, "store"]);
-Route:: post ("workexperience", [WorkexperienceController::class, "store"]);
+Route:: post ('company', [CompanyController::class, "createCompany"]);
+Route:: post ("workexperience", [WorkexperienceController::class, "addExperience"]);
 
 Route:: post ("skill", [SkillController::class, "store"]);
 Route:: post ("alumniSkill", [AlumniSkillController::class, "store"]);
-Route:: post ("univercity", [UnivercityController::class, "store"]);
-Route:: post ("education", [EducationController::class, "store"]);
+Route:: post ("university/create", [UniversityController::class, "createUniversity"]);
+Route:: post ("education", [EducationController::class, "AddEducation"]);
+Route:: get ("alumniEdu/{alumni_id}", [EducationController::class, "getAlumniEdu"]);
 
 // =================================================================Update
 
@@ -44,7 +45,7 @@ Route::put('alumni/{id}',[UserController::class, "update"]);
 Route::put('workexperience/{id}',[WorkexperienceController::class, "update"]);
 Route::put('company/{id}',[CompanyController::class, "update"]);
 
-Route:: put ("univercity", [UnivercityController::class, "update"]);
+Route:: put ("university", [UniversityController::class, "update"]);
 Route:: put ("education", [EducationController::class, "update"]);
 Route:: put ("skill", [SkillController::class, "update"]);
 Route:: put ("alumniSkill", [AlumniSkillController::class, "update"]);

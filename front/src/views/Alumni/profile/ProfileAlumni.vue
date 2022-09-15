@@ -43,11 +43,11 @@
             </div>
             <div class="w-[64%]">
                 <CardInfo :user="user" @getData="getUser" />
-                <CardExper :edu="edu">Education Background</CardExper>
+                <edu-card-view :edu="edu"></edu-card-view>
                 <CardExper 
                 :experiences="experiences" 
                 @cardEditor="editWorkExper"
-                @formInputStatus="formInputStatus">Work Experiences</CardExper>
+                @formInputStatus="formInputStatus"></CardExper>
                 <!-- form be able to add work experience's alumni -->
                 <FormAddExper 
                 v-if="formStatus=='Add'"
@@ -76,6 +76,7 @@ import axios from '../../../axios-http'
 import CardInfo from "../CardView/CardInfo.vue"
 import CardSkills from "../skills/CardSkills.vue"
 import CardExper from "../CardView/CardExper.vue"
+import EduCard from '../CardView/EduCard.vue'
 import updateProfileView from "./UpdateProfileView.vue";
 import UpdateCoverView from "./UpdateCoverView.vue";
 export default {
@@ -86,15 +87,13 @@ export default {
         FormAddExper,
         "update-profile-view":updateProfileView,
         "update-cover-view":UpdateCoverView,
+        'edu-card-view': EduCard,
         FormEditExper
     },
     data() {
         return {
             user: {},
-            edu: [
-                {school: 'Passerelles Numeriques Cambodia', degree: "Associat's degree", major: 'Information Technology', start_year: 2020, end_year: 2022, src: 'https://previews.123rf.com/images/anthonycz/anthonycz1612/anthonycz161200005/68815871-school-vector-icon-isolated-building-on-white-background.jpg'},
-                // {school: 'Passerelles Numeriques Cambodia', degree: "Associat's degree", major: 'Information Technology', start_year: 2020, end_year: 2022, src: 'https://previews.123rf.com/images/anthonycz/anthonycz1612/anthonycz161200005/68815871-school-vector-icon-isolated-building-on-white-background.jpg'},
-            ],
+            edu: [],
             experiences: [],
             isUpdate: false,
             isUpdateCover: false,
@@ -104,7 +103,7 @@ export default {
             formStatus:null,
             indexExper:null,
             companies:null,
-            alumni_id:null,
+            alumni_id:1,
         }
     },
 
@@ -117,7 +116,6 @@ export default {
         addAlumniExper(newExper){
             newExper['alumni_id']=this.alumni_id;
             axios.post("workexperience", newExper).then(res => {
-                console.log(res);
                 this.getAlumniExperiences()
             });
         },
@@ -139,18 +137,17 @@ export default {
             this.image = event.target.files[0];
             if(update == "profile"){
                 this.isUpdate = true;
-                this.profile = URL.createObjectURL(event.target.files[0]);
+                this.profile = URL.createObjectURL(this.image);
             }else{
                 this.isUpdateCover = true;
-                this.cover = URL.createObjectURL(event.target.files[0]);
+                this.cover = URL.createObjectURL(this.image);
             }
         },
         saveUpload() {
         let formData = new FormData();
         formData.append("profile", this.image);
         formData.append("_method", "PUT");
-        axios.post("alumniprofile/" + 1, formData).then((res) => {
-            console.log(res);
+        axios.post("alumniprofile/" + 1, formData).then(() => {
             this.getUser();
             this.isUpdate=false;
         });
@@ -172,20 +169,29 @@ export default {
 
         getAlumniExperiences(){
             axios.get('workexperience/1').then(res => {
-                this.experiences = res.data, 
-                this.alumni_id=res.data[0].alumni_id
+                this.experiences = res.data
             });
         },
         getCompanies(){
             axios.get('companies').then(res => {
                 this.companies = res.data
             });
+        },
+
+        // ++++++++++++ ALUMNI EDUCATION +++++++++++++ //
+        getAlumniEdu(){
+            axios.get('alumniEdu/1').then(res => {
+                this.edu = res.data
+            });
         }
+
+
     },
     mounted() {
         this.getUser();
         this.getAlumniExperiences();
         this.getCompanies();
+        this.getAlumniEdu();
     },
 };
 </script>

@@ -15,20 +15,20 @@ class Alumni extends Model
         'phone',
         'major',
     ];
-    public function Workexperience(){
-        return $this->hasmany(Workexperience::class);
+    public function workexperience(){
+        return $this->hasMany(Workexperience::class);
     }
     public function user(){
         return $this->belongsTo(User::class);
     }
-    public function Education(){
-        return $this->hasmany(Education::class);
+    public function education(){
+        return $this->hasMany(Education::class);
     }
-    public function Skill(){
-        return $this->hasmany(Skill::class);
+    public function skill(){
+        return $this->hasMany(Skill::class);
     }
-    public function AlumniSkill(){
-        return $this->hasmany(AlumniSkill::class);
+    public function alumniSkill(){
+        return $this->hasMany(AlumniSkill::class);
     }
 
     protected $hidden = [

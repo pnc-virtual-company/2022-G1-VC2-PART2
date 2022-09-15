@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Education;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class EducationController extends Controller
 {
@@ -23,15 +24,14 @@ class EducationController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function AddEducation(Request $request)
     {
         $education = new Education();
-        $education->School_name = $request->School_name;
         $education->start_date= $request->start_date;
         $education->end_date= $request->end_date;
-        $education->Bachelor= $request->Bachelor;
+        $education->degree= $request->degree;
         $education->alumni_id= $request->alumni_id;
-        $education->univercity_id= $request->univercity_id;
+        $education->university_id= $request->university_id;
         $education->save();
         return response()->json(['status' => ' sucessfully'],200);
     }   
@@ -45,7 +45,21 @@ class EducationController extends Controller
      */
     public function show(Education $education)
     {
-        //
+        
+    }
+    /**
+     * Display the specified resource.
+     *
+     * @param  \App\Models\Education  $education
+     * @return \Illuminate\Http\Response
+     */
+    public function getAlumniEdu(Request $request,$id)
+    {
+        $edu = DB::table('education')
+        ->join('universities', 'education.university_id', '=', 'universities.id')
+        ->where('education.alumni_id', '=', $id)
+        ->get();
+        return $edu;
     }
 
     /**

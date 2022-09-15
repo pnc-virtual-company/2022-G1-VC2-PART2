@@ -23,12 +23,13 @@ class CompanyController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function createCompany(Request $request)
     {
         $company = new Company();
         $company->name = $request->name;
-        $company->email = $request->email;
         $company->address=$request->address;
+        $request->file('profile')->store('images/profile');
+        $company->profile = $request->file("profile")->hashName();
         $company->save();
         return response()->json(['message'=> 'Created company successfully']);
     }
@@ -55,7 +56,7 @@ class CompanyController extends Controller
     {
         $company = Company::findOrFail($id);
         $company->name = $request->name;
-        $company->email = $request->email;
+        $company->name = $request->name;
         $company->address=$request->address;
         $company->save();
         return response()->json(["message"=>"company updated"]);
