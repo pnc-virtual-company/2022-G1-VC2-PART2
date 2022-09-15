@@ -1,9 +1,9 @@
 <template>
-  <section class="z-[100] fixed left-0 top-0 w-full h-full bg-white">
-    <div class="flex h-full items-center bg-skyblue">
-      <img src="../../assets/login2.png" alt="logo" class="w-[30%] m-auto" />
-      <div class="rounded mb-4 w-[40%] m-auto mt-[30px]">
-        <form class="p-5 bg-sky-50 rounded">
+  <section class="z-[100] fixed left-0 top-0 w-full h-full bg-slate-300">
+    <div class="flex h-full items-center bg-skyblue mr-10">
+      <img src="../../assets/login2.png" alt="logo" class="w-[50%] m-auto" />
+      <div class="rounded mb-4 w-[35%] m-auto mt-[1px]">
+        <form class="p-5 bg-[#CCE7F6] rounded mr-50 h-full">
           <img
             src="../../assets/alumni.png"
             alt="logo"
@@ -11,9 +11,9 @@
           />
           <h1 class="text-2xl font-semibold text-center p-1">LOGIN ALUMNI</h1>
 
-          <div class="mb-6 relative">
+          <div class="mb-2 relative">
             <label class="block text-gray-700 text-lg mb-1" for="password">
-              Email *
+              Email <span class="text-red-600">*</span>
             </label>
             <input
               class="appearance-none border border-gray-400 rounded w-full py-2 px-3 text-gray-700 mb-1 leading-tight focus:outline-primary focus:shadow-outline"
@@ -36,7 +36,7 @@
             </svg>
             <div class="mb-1 relative">
               <label class="block text-gray-700 text-lg mb-1" for="username">
-                Password *
+                Password <span class="text-red-600">*</span>
               </label>
               <input
                 class="appearance-none border border-gray-400 rounded w-full py-2 px-3 text-gray-700 mb-1 leading-tight focus:outline-primary focus:shadow-outline"
@@ -95,7 +95,7 @@
             </router-link>
           </div>
           <button
-            class="bg-blue-500 hover:bg-blue-700 text-white py-2 w-full px-4 rounded focus:outline-primary focus:shadow-outline"
+            class="bg-[#22bbea] text-white py-2 w-full rounded focus:outline-primary focus:shadow-outline"
             type="submit"
           >
             Login
