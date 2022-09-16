@@ -1,14 +1,17 @@
 <template>
   <section>
     <navbar-view ></navbar-view>
+    <form-login></form-login>
     <router-view />
   </section>
 </template>
 <script>
 import NavbarVue from "./components/navbar/NavbarView.vue";
+import FormLogin from "./views/Login&Logout/LoginView.vue";
 export default {
   components: {
     "navbar-view": NavbarVue,
+    "form-login": FormLogin
   },
 };
 </script>
