@@ -66,6 +66,13 @@ class UserController extends Controller
         $alumni->major = $request->major;
         $alumni->save();
         return Response()->json(['message'=> 'successful'],200);
+
+        $ero = new Ero();
+        $ero->user_name = $request-> user_name;
+        $ero->email = $request->email;
+        $ero->password=bcsqrt($request->password);
+        $ero->save();
+        return Response()->json(['message'=> 'successful'],200);
     }
 
 // =========================================================Upload Profile
