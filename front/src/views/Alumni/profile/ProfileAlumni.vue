@@ -46,21 +46,21 @@
                 <edu-card-view :edu="edu"></edu-card-view>
                 <CardExper 
                 :experiences="experiences" 
-                @cardEditor="editWorkExper"
-                @formInputStatus="formInputStatus"></CardExper>
+                @editor="editWorkExper"
+                @clickPopUp="popUp"></CardExper>
                 <!-- form be able to add work experience's alumni -->
                 <FormAddExper 
-                v-if="formStatus=='Add'"
+                v-if="isPopUp=='Add'"
                 :companies="companies"
-                @formInputStatus="formInputStatus"
+                @clickPopUp="popUp"
                 @addAlumniExper="addAlumniExper"
                 ></FormAddExper>
                 <FormEditExper
-                v-if="formStatus=='Edit' && experiences!=null"
-                @formInputStatus="formInputStatus"  
+                v-if="isPopUp=='Edit'"
+                @clickPopUp="popUp"  
                 :companies="companies" 
-                :experience="experiences[indexExper]"
-                @saveEditExper="saveEditExper"
+                :experience="editExperience"
+                @edit-workExper="saveEditExper"
                 ></FormEditExper>
             </div>
         </div>
@@ -95,13 +95,13 @@ export default {
             user: {},
             edu: [],
             experiences: [],
+            editExperience:{},
             isUpdate: false,
             isUpdateCover: false,
             image:'',
             profile:'',
             cover:'',
-            formStatus:null,
-            indexExper:null,
+            isPopUp:null,
             companies:null,
             alumni_id:1,
         }
@@ -109,28 +109,24 @@ export default {
 
     methods:{
         //Form for Add or Edit work experience's alumni
-        formInputStatus(status){
-            this.formStatus=status;
+        popUp(opup){
+            this.isPopUp=opup;
         },
-
         addAlumniExper(newExper){
             newExper['alumni_id']=this.alumni_id;
-            axios.post("workexperience", newExper).then(res => {
+            axios.post("workexperience", newExper).then(() => {
                 this.getAlumniExperiences()
             });
         },
-        editWorkExper(workExper){
-            this.formStatus=workExper.status
-            this.indexExper=workExper.index
+        editWorkExper(experience){
+            this.isPopUp='Edit'
+            this.editExperience=experience;
         },
         
         saveEditExper(experience){
-            axios.put("workexperience/" + this.experiences[this.indexExper].id , experience).then(res => {
-                console.log(res)
+            axios.put("workexperience/" + this.editExperience.id , experience).then(() => {
                 this.getAlumniExperiences()
             });
-            experience['src']=this.imgWorkExper
-            this.experiences[this.indexExper]=experience
         },
 
         tageImage(event, update){

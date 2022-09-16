@@ -31,6 +31,8 @@ class WorkexperienceController extends Controller
         $workexperience = new Workexperience();
         $workexperience->start_year= $request->start_year;
         $workexperience->end_year= $request->end_year;
+        $workexperience->start_month= $request->start_month;
+        $workexperience->end_month= $request->end_month;
         $workexperience->position= $request->position;
         $workexperience->alumni_id= $request->alumni_id;
         $workexperience->company_id= $request->company_id;
@@ -66,6 +68,8 @@ class WorkexperienceController extends Controller
         $workexperience = Workexperience::findOrFail($id);
         $workexperience->start_year= $request->start_year;
         $workexperience->end_year= $request->end_year;
+        $workexperience->start_month= $request->start_month;
+        $workexperience->end_month= $request->end_month;
         $workexperience->position= $request->position;
         $workexperience->company_id= $request->company_id;
         $workexperience->save();

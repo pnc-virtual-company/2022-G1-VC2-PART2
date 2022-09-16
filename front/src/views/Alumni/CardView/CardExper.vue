@@ -2,7 +2,7 @@
     <div class="border-[2px] border-skyblue p-3 rounded mt-4">
         <div class="flex justify-between">
             <h1 class="font-bold text-lg">Experiences</h1>
-            <div @click="$emit('formInputStatus', 'Add')">
+            <div @click="$emit('clickPopUp', 'Add')">
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6 hover:cursor-pointer shadow bg-skyblue text-white rounded-full">
                 <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15"/>
                 </svg>
@@ -16,11 +16,11 @@
                 <div class="ml-4">
                     <h1 class="font-semibold">{{experience.position}}</h1>
                     <p class="text-sm leading-3">{{experience.name}}</p>
-                    <p class="text-[13px] font-medium">{{experience.start_year}} - {{experience.end_year}}</p>
+                    <p class="text-[13px] font-medium">{{experience.start_month+'/'+ experience.start_year}} - {{experience.end_month==null? experience.end_year:experience.end_month+'/'+  experience.end_year}}</p>
                 </div>
             </div>
-            <div @click="$emit('cardEditor', {status:'Edit', index:i})">
-                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6 hover:cursor-pointer hover:font-lg">
+            <div>
+                <svg @click="$emit('editor', experience)" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6 hover:cursor-pointer hover:font-lg">
                     <path stroke-linecap="round" stroke-linejoin="round" d="M6.75 12a.75.75 0 11-1.5 0 .75.75 0 011.5 0zM12.75 12a.75.75 0 11-1.5 0 .75.75 0 011.5 0zM18.75 12a.75.75 0 11-1.5 0 .75.75 0 011.5 0z" />
                 </svg>
             </div>
