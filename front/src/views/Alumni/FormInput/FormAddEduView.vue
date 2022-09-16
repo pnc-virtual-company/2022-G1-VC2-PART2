@@ -5,12 +5,16 @@
       <h4 class="font-bold text-center text-white text-[20px]">Add Education</h4>
     </div>
     <div class="p-5">
-      <div class="w-[100%] my-2 p-2">
+      <!-- <div class="w-[100%] my-2 p-2">
             <label class="w-[12rem] text-start text-sm font-bold">University: </label>
             <select v-model="university_id" class="mt-2 block p-2 w-full outline-none text-gray-900 bg-gray-50 rounded-sm border border-gray-400 sm:text-xs focus:border-[#22bbea]" :class="{ 'border-red-500 bg-red-100': is_university}">
                 <option selected disabled class="text-gray-900" value="null">Choose university</option>
                 <option v-for:="university in universities" :value='university.id'>{{university.name}}</option>
             </select>
+      </div> -->
+      <div class="w-[100%] my-2 p-2">
+            <label class="w-[12rem] text-start text-sm font-bold">Degree: </label>
+            <input-university :universities="universities" @university-id="getUniversitID" @university-name="getUniversityName"></input-university>
       </div>
       <div class="w-[100%] my-2 p-2">
             <label class="w-[12rem] text-start text-sm font-bold">Degree: </label>
@@ -66,8 +70,11 @@
 </template>
 
 <script>
-
+import FormInputUniversity from './FormInputUniversity.vue';
 export default {
+  components:{
+    'input-university': FormInputUniversity,
+  },
   props: ["universities"],
   emits: ["addEdu", "cancelAdd"],
   data() {
@@ -88,6 +95,7 @@ export default {
       ],
       degrees: ["Associate", "Bachelor", "Master", "Doctorate"],
       university_id: null,
+      universityName: null,
       degree: "",
       start_month: "",
       start_year: "",
@@ -108,18 +116,28 @@ export default {
       this.messError = null;
       this.start_date = this.start_month + "/" + this.start_year;
       this.end_date = this.end_month + "/" + this.end_year;
-      if (this.validate()) {
-        let newEdu = {
-          start_month: this.start_month,
-          start_year: this.start_year,
-          end_month: this.end_month,
-          end_year: this.end_year,
-          degree: this.degree,
-          alumni_id: 1,
-          university_id: this.university_id,
-        };
-        this.$emit("addEdu", newEdu);
+      if (this.validate() ) {
+        if(this.university_id != null){
+          let newEdu = {
+            start_month: this.start_month,
+            start_year: this.start_year,
+            end_month: this.end_month,
+            end_year: this.end_year,
+            degree: this.degree,
+            alumni_id: 1,
+            university_id: this.university_id,
+          };
+          this.$emit("addEdu", newEdu);
+        }else{
+          // this.$emit('addUniversity', this.universityName)
+        }
       } 
+    },
+    getUniversitID(university_id){
+      this.university_id = university_id;
+    },
+    getUniversityName(universityName){
+      this.universityName = universityName;
     },
     validate() {
       this.is_university = false;

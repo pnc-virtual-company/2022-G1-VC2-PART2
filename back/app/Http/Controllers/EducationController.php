@@ -57,7 +57,7 @@ class EducationController extends Controller
      */
     public function getAlumniEdu(Request $request,$id)
     {
-        return Education::where('alumni_id',$id)->get()
+        return Education::with('university')->where('alumni_id',$id)->get()
         ->reverse()
         ->values();
     }
