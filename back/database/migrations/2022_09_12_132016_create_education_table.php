@@ -15,15 +15,16 @@ return new class extends Migration
     {
         Schema::create('education', function (Blueprint $table) {
             $table->id();
-            $table->date('start_date');
-            $table->string('end_date');
+            $table->string('start_month');
+            $table->string('start_year');
+            $table->string('end_month');
+            $table->string('end_year');
             $table->string('degree');
             $table->foreignId('alumni_id');
             $table->foreignId('university_id');
             $table->timestamps();
         });
     }
-
     /**
      * Reverse the migrations.
      *

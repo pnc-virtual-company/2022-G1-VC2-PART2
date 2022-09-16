@@ -5,14 +5,14 @@
             <h4 class="font-bold text-center">Edit Wrok experience</h4>
             <div v-if="companies!=null" class="w-[100%] my-2 flex items-center p-2">
                 <label class="mb-2 w-[12rem] text-start text-sm font-bold">Company Name: </label>
-                <select v-model="companyId" class="block p-2 w-full outline-none text-gray-900 bg-gray-100 rounded-sm border border-gray-300 sm:text-xs focus:ring-skyblue" :class="msError['require_error']?'border-red-200':''">
+                <select v-model="companyId" class="block p-2 w-full outline-none text-gray-900 bg-gray-100 rounded-sm border border-gray-300 sm:text-xs focus:ring-skyblue" :class="msError['require_error']?'border-red-300':''">
                     <option value="null" disabled class="text-gray-900">Choose a company</option>
                     <option v-for:= "company of companies" :value="company.id">{{company.name}}</option>
                 </select>
             </div>
             <div class="w-[100%] flex my-2 items-center p-2">
                 <label class="mb-2 w-[12rem] text-start text-sm font-bold">Position: </label>
-                <input v-model="position" type="text" placeholder="require*" class="block font-xl p-2 w-full outline-none text-gray-900 bg-gray-100 rounded-sm border border-gray-300 sm:text-xs focus:ring-skyblue" :class="msError['require_error']?'border-red-200':''">
+                <input v-model="position" type="text" placeholder="require*" class="block font-xl p-2 w-full outline-none text-gray-900 bg-gray-100 rounded-sm border border-gray-300 sm:text-xs focus:ring-skyblue" :class="msError['require_error']?'border-red-300':''">
             </div>
             <error class="text-xs relative ml-[32%] -mt-2" v-if="msError['pst_error']">{{msError['pst_error']}}</error>
 
@@ -24,13 +24,13 @@
                 <label class="mb-2 ml-2 w-[12rem] text-start text-sm font-bold">Start date</label>
                 <div class="date flex justify-between my-2 p-0">
                     <div class="w-[100%] mx-2 text-start">
-                        <select v-model="start_month" class="block p-2 w-full outline-none text-gray-900 bg-gray-50 rounded-sm border border-gray-300 sm:text-xs focus:ring-skyblue" :class="msError['require_error']?'border-red-200':''">
+                        <select v-model="start_month" class="block p-2 w-full outline-none text-gray-900 bg-gray-50 rounded-sm border border-gray-300 sm:text-xs focus:ring-skyblue" :class="msError['require_error']?'border-red-300':''">
                             <option value="" disabled>Month</option>
                             <option v-for:= "month of months" :value="month">{{month}}</option>
                         </select>
                     </div>
                     <div class="w-[100%] mx-2 text-start">
-                        <select v-model="start_year" class="block p-2 w-full outline-none text-gray-900 bg-gray-50 rounded-sm border border-gray-300 sm:text-xs focus:ring-skyblue" :class="msError['require_error']?'border-red-200':''">
+                        <select v-model="start_year" class="block p-2 w-full outline-none text-gray-900 bg-gray-50 rounded-sm border border-gray-300 sm:text-xs focus:ring-skyblue" :class="msError['require_error']?'border-red-300':''">
                             <option value="" disabled>Year</option>
                             <option v-for:= "year of years" :value="year">{{year}}</option>
                         </select>
@@ -42,13 +42,13 @@
                 <label class="mb-2 ml-2 w-[12rem] text-start text-sm font-bold">End date</label>
                 <div class="date flex justify-between my-2 p-0">
                     <div class="w-[100%] mx-2 text-start">
-                        <select v-model="end_month" class="block p-2 w-full outline-none text-gray-900 bg-gray-50 rounded-sm border border-gray-300 sm:text-xs focus:ring-skyblue" :class="msError['require_error']?'border-red-200':''">
+                        <select v-model="end_month" class="block p-2 w-full outline-none text-gray-900 bg-gray-50 rounded-sm border border-gray-300 sm:text-xs focus:ring-skyblue" :class="msError['require_error']?'border-red-300':''">
                             <option value="" disabled>Month</option>
                             <option v-for:= "month of months" :value="month">{{month}}</option>
                         </select>
                     </div>
                     <div class="w-[100%] mx-2 text-start">
-                        <select v-model="end_year" class="block p-2 w-full outline-none text-gray-900 bg-gray-50 rounded-sm border border-gray-300 sm:text-xs focus:ring-skyblue" :class="msError['require_error']?'border-red-200':''">
+                        <select v-model="end_year" class="block p-2 w-full outline-none text-gray-900 bg-gray-50 rounded-sm border border-gray-300 sm:text-xs focus:ring-skyblue" :class="msError['require_error']?'border-red-300':''">
                             <option value="PRESENT" disabled>Year</option>
                             <option v-for:= "year of years" :value="year">{{year}}</option>
                         </select>

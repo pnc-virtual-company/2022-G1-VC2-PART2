@@ -67,7 +67,6 @@
 </template>
 <script>
 import error from "../../../components/Widget/ErrorView.vue"
-
 export default({
     components:{error},
     props:["companies"],
@@ -88,7 +87,7 @@ export default({
     methods:{
         addWorkExper(){
             let workExper={}
-            if(this.companyId !="" && this.position !="" 
+            if(this.companyId !=null && this.position !="" 
             && this.start_year !="" && this.end_year !=""&&
             this.start_month !="" && this.end_month !="" && this.msError['pst_error']==''){
                 workExper={

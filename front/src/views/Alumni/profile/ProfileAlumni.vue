@@ -43,7 +43,12 @@
             </div>
             <div class="w-[64%]">
                 <CardInfo :user="user" @getData="getUser" />
-                <edu-card-view :edu="edu"></edu-card-view>
+
+                <!-- +++++++++++ Alumni Education +++++++++++++ -->
+                <edu-card-view :edu="edu" @is-add-edu="isAddEdu=true" @isEdit-edu="isEditEduction"></edu-card-view>
+                <FormAddEduView  v-if="isAddEdu" :universities="universities" @addEdu="addEducation" @cancelAdd="isAddEdu=false" ></FormAddEduView>
+                <edit-edu-view v-if="isEditEdu" :universities="universities" :education="education" @editEdu="editEducation" @cancelEdit="isEditEdu=false"></edit-edu-view>
+
                 <CardExper 
                 :experiences="experiences" 
                 @editor="editWorkExper"
@@ -77,6 +82,8 @@ import CardInfo from "../CardView/CardInfo.vue"
 import CardSkills from "../skills/CardSkills.vue"
 import CardExper from "../CardView/CardExper.vue"
 import EduCard from '../CardView/EduCard.vue'
+import FormAddEduView from "../FormInput/FormAddEduView.vue"
+import FormEditEduView from "../FormInput/FormEditEduView.vue"
 import updateProfileView from "./UpdateProfileView.vue";
 import UpdateCoverView from "./UpdateCoverView.vue";
 export default {
@@ -88,6 +95,8 @@ export default {
         "update-profile-view":updateProfileView,
         "update-cover-view":UpdateCoverView,
         'edu-card-view': EduCard,
+        'edit-edu-view': FormEditEduView,
+        FormAddEduView,
         FormEditExper
     },
     data() {
@@ -103,7 +112,11 @@ export default {
             cover:'',
             isPopUp:null,
             companies:null,
+            universities:null,
             alumni_id:1,
+            isAddEdu:false,
+            isEditEdu:false,
+            education:{},
         }
     },
 
@@ -124,6 +137,7 @@ export default {
         },
         
         saveEditExper(experience){
+            console.log(experience);
             axios.put("workexperience/" + this.editExperience.id , experience).then(() => {
                 this.getAlumniExperiences()
             });
@@ -145,8 +159,7 @@ export default {
         formData.append("_method", "PUT");
         axios.post("alumniprofile/" + 1, formData).then(() => {
             this.getUser();
-            this.isUpdate=false;
-        });
+            this.isUpdate=false;});
         },
         saveCover() {
         let formData = new FormData();
@@ -173,21 +186,40 @@ export default {
                 this.companies = res.data
             });
         },
-
         // ++++++++++++ ALUMNI EDUCATION +++++++++++++ //
         getAlumniEdu(){
             axios.get('alumniEdu/1').then(res => {
                 this.edu = res.data
             });
-        }
-
-
+        },
+        getUniversities(){
+            axios.get('universities').then(res => {
+                this.universities = res.data
+            });
+        },
+        addEducation(newEdu){
+            axios.post("education", newEdu).then(() => {
+                this.getAlumniEdu();
+                this.isAddEdu = false;
+            });
+        },
+        isEditEduction(education){
+            this.isEditEdu = true;
+            this.education = education;
+        },
+        editEducation(newEdu,edu_id){
+            axios.put("education/"+edu_id, newEdu).then(() => {
+                this.getAlumniEdu();
+                this.isEditEdu = false;
+            });
+        },
     },
     mounted() {
         this.getUser();
         this.getAlumniExperiences();
         this.getCompanies();
         this.getAlumniEdu();
+        this.getUniversities();
     },
 };
 </script>
