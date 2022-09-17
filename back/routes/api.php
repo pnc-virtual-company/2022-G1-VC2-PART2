@@ -35,9 +35,10 @@ Route::group(['middleware'=>['auth:sanctum']],function(){
     Route::post('logout',[UserController::class, "logOut"]);
 });
 
+// ======================Reset password==============================
+Route::put('resetPassword/{id}',[UserController::class, 'resetpassword']);
 
 // =======================Create New===============================
-
 Route::post('useralumni', [UserController::class, "store"]);
 Route:: post ('company', [CompanyController::class, "store"]);
 Route:: post ("workexperience", [WorkexperienceController::class, "store"]);

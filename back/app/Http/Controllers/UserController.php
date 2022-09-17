@@ -28,7 +28,17 @@ class UserController extends Controller
         Auth()->user()->tokens()->delete();
         return Response()->json(['message'=>'has been removed'], 200);
     }
-  
+
+    public function resetpassword(Request $request, $userId){
+        $user = User::find($userId);
+        if(Hash::check($request->oldpassword, $user->password)){
+            $user->password = Hash::make($request->newpassword);
+            $user->save();
+            return Response()->json(['massage'=>'user password have been change!']);
+        }else {
+            return Response()->json(['sms'=>"old password is not correct"]);
+        }
+    }
 
     /**
      * Display a listing of the resource.
