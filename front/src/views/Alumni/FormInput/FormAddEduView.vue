@@ -4,7 +4,7 @@
     <div class="w-full bg-skyblue p-2">
       <h4 class="font-bold text-center text-white text-[20px]">Add Education</h4>
     </div>
-    <div class="p-5">
+    <div class="pb-5 pl-5 pr-5">
       <!-- <div class="w-[100%] my-2 p-2">
             <label class="w-[12rem] text-start text-sm font-bold">University: </label>
             <select v-model="university_id" class="mt-2 block p-2 w-full outline-none text-gray-900 bg-gray-50 rounded-sm border border-gray-400 sm:text-xs focus:border-[#22bbea]" :class="{ 'border-red-500 bg-red-100': is_university}">
@@ -13,11 +13,19 @@
             </select>
       </div> -->
       <div class="w-[100%] my-2 p-2">
-            <label class="w-[12rem] text-start text-sm font-bold">Degree: </label>
+            <label class="w-[12rem] text-start text-sm font-medium">Universities </label>
             <input-university :universities="universities" @university-id="getUniversitID" @university-name="getUniversityName"></input-university>
       </div>
       <div class="w-[100%] my-2 p-2">
-            <label class="w-[12rem] text-start text-sm font-bold">Degree: </label>
+            <label class="w-[12rem] text-start text-sm font-medium">Major </label>
+            <select v-model="major" class="mt-2 block p-2 w-full outline-none text-gray-900 bg-gray-50 rounded-sm border border-gray-400 sm:text-xs focus:ring-blue-500 focus:border-[#22bbea]" :class="{ 'border-red-500 bg-red-100': is_degree}">
+                <option selected disabled class="text-gray-900" value="">Choose major</option>
+                <option :value="'WEB'">WEB</option>
+                <option :value="'SNA'">SNA</option>
+            </select>
+      </div>
+      <div class="w-[100%] my-2 p-2">
+            <label class="w-[12rem] text-start text-sm font-medium">Degree </label>
             <select v-model="degree" class="mt-2 block p-2 w-full outline-none text-gray-900 bg-gray-50 rounded-sm border border-gray-400 sm:text-xs focus:ring-blue-500 focus:border-[#22bbea]" :class="{ 'border-red-500 bg-red-100': is_degree}">
                 <option selected disabled class="text-gray-900" value="">Choose degree</option>
                 <option v-for:="deg in degrees" :value='deg'>{{deg}}</option>
@@ -26,7 +34,7 @@
         
       <div class="date flex justify-between my-2 p-0">
           <div class="w-[100%] mx-2 text-start">
-              <label class="w-[10rem] text-start text-sm font-bold">Start date: </label>
+              <label class="w-[10rem] text-start text-sm font-medium">Start date </label>
               <select v-model="start_month" class="block p-2 w-full outline-none text-gray-900  rounded-sm border border-gray-400 sm:text-xs focus:ring-blue-500 mt-2 mb-2 focus:border-[#22bbea]" :class="{ 'border-red-500 bg-red-100': is_start_month}">
                   <option selected disabled value="">Month</option>
                   <option v-for:="month in months" :value="month">{{month}}</option>
@@ -42,7 +50,7 @@
       </div>
       <div class="date flex justify-between my-2 p-0">
           <div class="w-[100%] mx-2 text-start">
-              <label class="w-[10rem] text-start text-sm font-bold">End Date (or expected) : </label>
+              <label class="w-[10rem] text-start text-sm font-medium">End Date (or expected)  </label>
               <select v-model="end_month" class="block p-2 w-full outline-none text-gray-900  rounded-sm border border-gray-400 sm:text-xs focus:ring-blue-500 mt-2 mb-2 focus:border-[#22bbea]" :class="{ 'border-red-500 bg-red-100': is_end_month}">
                   <option selected disabled value="">Month</option>
                   <option v-for:="month in months" :value="month">{{month}}</option>
@@ -96,6 +104,7 @@ export default {
       degrees: ["Associate", "Bachelor", "Master", "Doctorate"],
       university_id: null,
       universityName: null,
+      major: "",
       degree: "",
       start_month: "",
       start_year: "",
@@ -124,6 +133,7 @@ export default {
             end_month: this.end_month,
             end_year: this.end_year,
             degree: this.degree,
+            major: this.major,
             alumni_id: 1,
             university_id: this.university_id,
           };
@@ -138,6 +148,13 @@ export default {
     },
     getUniversityName(universityName){
       this.universityName = universityName;
+      if (this.universityName == "Passerelles numériques Cambodia"){
+        this.degrees = ['associate']
+        this.degree = 'associate';
+      }else{
+        this.degrees =["Associate", "Bachelor", "Master", "Doctorate"]
+        this.degree = '';
+      }
     },
     validate() {
       this.is_university = false;

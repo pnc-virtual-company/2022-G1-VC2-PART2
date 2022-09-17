@@ -20,6 +20,7 @@ return new class extends Migration
             $table->string('end_month');
             $table->string('end_year');
             $table->string('degree');
+            $table->string('major');
             $table->foreignId('alumni_id');
             $table->foreignId('university_id');
             $table->timestamps();

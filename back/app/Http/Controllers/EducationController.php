@@ -32,6 +32,7 @@ class EducationController extends Controller
         $education->end_month= $request->end_month;
         $education->end_year= $request->end_year;
         $education->degree= $request->degree;
+        $education->major= $request->major;
         $education->alumni_id= $request->alumni_id;
         $education->university_id= $request->university_id;
         $education->save();
@@ -77,6 +78,7 @@ class EducationController extends Controller
         $education->end_month= $request->end_month;
         $education->end_year= $request->end_year;
         $education->degree= $request->degree;
+        $education->major= $request->major;
         $education->university_id= $request->university_id;
         $education->save();
         return response()->json(['status' => ' sucessfully'],201);
