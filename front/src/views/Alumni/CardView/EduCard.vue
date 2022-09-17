@@ -9,13 +9,14 @@
             </div>
         </div>
         <div v-for:="(education, i) in educations"  class="flex justify-between mt-2 p-2 border-b-[1px] border-[#a9aaaaa3]">
+
             <div class="flex items-center">
                 <div class="w-16 h-16">
                     <img class="w-16 h-16 rounded-full border-[1px] border-gray-400 object-cover" :src="imgEdu" alt="">
                 </div>
                 <div class="ml-4">
                     <h1 class="font-semibold">{{education.degree}}</h1>
-                    <p class="text-sm leading-3 font-medium">{{education.name}}</p>
+                    <p class="text-sm leading-3 font-medium">{{education.university.name}}</p>
                     <p class="text-[13px] ">{{education.start_year}} - {{education.end_year}}</p>
                 </div>
             </div>

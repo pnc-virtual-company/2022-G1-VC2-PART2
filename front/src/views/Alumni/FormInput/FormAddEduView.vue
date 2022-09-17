@@ -1,19 +1,25 @@
 <template>
-<div tabindex="-1" class=" bg-[#000000b9] fixed  flex items-center z-50 md:inset-0 h-modal md:h-full">
-  <div class="modal bg-white h-auto shadow-md rounded mt-2 mb-10 m-auto w-[40%] z-10">
+<div v-if="!isAddUniver"  tabindex="-1" class=" bg-[#000000b9] fixed   z-50 md:inset-0 h-modal md:h-full">
+  <div  class="modal bg-white h-auto shadow-md rounded mt-2 mb-10 m-auto w-[40%] z-10">
     <div class="w-full bg-skyblue p-2">
       <h4 class="font-bold text-center text-white text-[20px]">Add Education</h4>
     </div>
-    <div class="p-5">
+    <div class="pb-5 pl-5 pr-5">
       <div class="w-[100%] my-2 p-2">
-            <label class="w-[12rem] text-start text-sm font-bold">University: </label>
-            <select v-model="university_id" class="mt-2 block p-2 w-full outline-none text-gray-900 bg-gray-50 rounded-sm border border-gray-400 sm:text-xs focus:border-[#22bbea]" :class="{ 'border-red-500 bg-red-100': is_university}">
-                <option selected disabled class="text-gray-900" value="null">Choose university</option>
-                <option v-for:="university in universities" :value='university.id'>{{university.name}}</option>
+            <label class="w-[12rem] text-start text-sm font-medium">Universities </label>
+            <input-university :universities="universities" @university-id="getUniversitID" @university-name="getUniversityName" @is-add-univer="isAddUniver = true"></input-university>
+      </div>
+      <div class="w-[100%] my-2 p-2">
+            <label class="w-[12rem] text-start text-sm font-medium">Major </label>
+            <input v-if="!isPNC" type="text" v-model="major" placeholder="name" class="mt-2 block p-2 w-full outline-none text-gray-900 bg-gray-50 rounded-sm border border-gray-400 sm:text-xs focus:ring-blue-500 focus:border-[#22bbea]" :class="{ 'border-red-500 bg-red-100': is_degree}">
+            <select v-else v-model="major" class="mt-2 block p-2 w-full outline-none text-gray-900 bg-gray-50 rounded-sm border border-gray-400 sm:text-xs focus:ring-blue-500 focus:border-[#22bbea]" :class="{ 'border-red-500 bg-red-100': is_degree}">
+                <option selected disabled class="text-gray-900" value="">Choose major</option>
+                <option :value="'WEB'">WEB</option>
+                <option :value="'SNA'">SNA</option>
             </select>
       </div>
       <div class="w-[100%] my-2 p-2">
-            <label class="w-[12rem] text-start text-sm font-bold">Degree: </label>
+            <label class="w-[12rem] text-start text-sm font-medium">Degree </label>
             <select v-model="degree" class="mt-2 block p-2 w-full outline-none text-gray-900 bg-gray-50 rounded-sm border border-gray-400 sm:text-xs focus:ring-blue-500 focus:border-[#22bbea]" :class="{ 'border-red-500 bg-red-100': is_degree}">
                 <option selected disabled class="text-gray-900" value="">Choose degree</option>
                 <option v-for:="deg in degrees" :value='deg'>{{deg}}</option>
@@ -22,7 +28,7 @@
         
       <div class="date flex justify-between my-2 p-0">
           <div class="w-[100%] mx-2 text-start">
-              <label class="w-[10rem] text-start text-sm font-bold">Start date: </label>
+              <label class="w-[10rem] text-start text-sm font-medium">Start date </label>
               <select v-model="start_month" class="block p-2 w-full outline-none text-gray-900  rounded-sm border border-gray-400 sm:text-xs focus:ring-blue-500 mt-2 mb-2 focus:border-[#22bbea]" :class="{ 'border-red-500 bg-red-100': is_start_month}">
                   <option selected disabled value="">Month</option>
                   <option v-for:="month in months" :value="month">{{month}}</option>
@@ -38,7 +44,7 @@
       </div>
       <div class="date flex justify-between my-2 p-0">
           <div class="w-[100%] mx-2 text-start">
-              <label class="w-[10rem] text-start text-sm font-bold">End Date (or expected) : </label>
+              <label class="w-[10rem] text-start text-sm font-medium">End Date (or expected)  </label>
               <select v-model="end_month" class="block p-2 w-full outline-none text-gray-900  rounded-sm border border-gray-400 sm:text-xs focus:ring-blue-500 mt-2 mb-2 focus:border-[#22bbea]" :class="{ 'border-red-500 bg-red-100': is_end_month}">
                   <option selected disabled value="">Month</option>
                   <option v-for:="month in months" :value="month">{{month}}</option>
@@ -62,12 +68,22 @@
       </div>
     </div>
   </div>
+
 </div>
+<div v-else>
+    <form-add-univer @is-added-univer="isAddedUniver" @cancelAddUniver="isAddUniver = false"></form-add-univer>
+  </div>
 </template>
 
 <script>
+import FormInputUniversity from './FormInputUniversity.vue';
+import FormAddUniver from './FormAddUniver.vue';
 
 export default {
+  components:{
+    'input-university': FormInputUniversity,
+    'form-add-univer': FormAddUniver,
+  },
   props: ["universities"],
   emits: ["addEdu", "cancelAdd"],
   data() {
@@ -88,6 +104,8 @@ export default {
       ],
       degrees: ["Associate", "Bachelor", "Master", "Doctorate"],
       university_id: null,
+      universityName: null,
+      major: "",
       degree: "",
       start_month: "",
       start_year: "",
@@ -101,6 +119,8 @@ export default {
       is_start_year: false,
       is_end_month: false,
       is_end_year: false,
+      isPNC : false,
+      isAddUniver: false,
     };
   },
   methods: {
@@ -108,18 +128,41 @@ export default {
       this.messError = null;
       this.start_date = this.start_month + "/" + this.start_year;
       this.end_date = this.end_month + "/" + this.end_year;
-      if (this.validate()) {
-        let newEdu = {
-          start_month: this.start_month,
-          start_year: this.start_year,
-          end_month: this.end_month,
-          end_year: this.end_year,
-          degree: this.degree,
-          alumni_id: 1,
-          university_id: this.university_id,
-        };
-        this.$emit("addEdu", newEdu);
+      if (this.validate() ) {
+        if(this.university_id != null){
+          let newEdu = {
+            start_month: this.start_month,
+            start_year: this.start_year,
+            end_month: this.end_month,
+            end_year: this.end_year,
+            degree: this.degree,
+            major: this.major,
+            alumni_id: 1,
+            university_id: this.university_id,
+          };
+          this.$emit("addEdu", newEdu);
+        }
       } 
+    },
+    getUniversitID(university_id){
+      this.university_id = university_id;
+    },
+    getUniversityName(universityName){
+      this.universityName = universityName;
+      if (this.universityName == "Passerelles numériques Cambodia"){
+        this.degrees = ['Associate']
+        this.degree = 'Associate';
+        this.isPNC = true;
+      }else{
+        this.degrees =["Associate", "Bachelor", "Master", "Doctorate"]
+        this.degree = '';
+        this.isPNC = false;
+        this.major = '';
+      }
+    },
+    isAddedUniver(universityName){
+      this.isAddUniver = false;
+      this.universityName = universityName;
     },
     validate() {
       this.is_university = false;
