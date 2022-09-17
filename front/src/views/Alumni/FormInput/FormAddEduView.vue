@@ -1,24 +1,18 @@
 <template>
-<div tabindex="-1" class=" bg-[#000000b9] fixed  flex items-center z-50 md:inset-0 h-modal md:h-full">
-  <div class="modal bg-white h-auto shadow-md rounded mt-2 mb-10 m-auto w-[40%] z-10">
+<div v-if="!isAddUniver"  tabindex="-1" class=" bg-[#000000b9] fixed   z-50 md:inset-0 h-modal md:h-full">
+  <div  class="modal bg-white h-auto shadow-md rounded mt-2 mb-10 m-auto w-[40%] z-10">
     <div class="w-full bg-skyblue p-2">
       <h4 class="font-bold text-center text-white text-[20px]">Add Education</h4>
     </div>
     <div class="pb-5 pl-5 pr-5">
-      <!-- <div class="w-[100%] my-2 p-2">
-            <label class="w-[12rem] text-start text-sm font-bold">University: </label>
-            <select v-model="university_id" class="mt-2 block p-2 w-full outline-none text-gray-900 bg-gray-50 rounded-sm border border-gray-400 sm:text-xs focus:border-[#22bbea]" :class="{ 'border-red-500 bg-red-100': is_university}">
-                <option selected disabled class="text-gray-900" value="null">Choose university</option>
-                <option v-for:="university in universities" :value='university.id'>{{university.name}}</option>
-            </select>
-      </div> -->
       <div class="w-[100%] my-2 p-2">
             <label class="w-[12rem] text-start text-sm font-medium">Universities </label>
-            <input-university :universities="universities" @university-id="getUniversitID" @university-name="getUniversityName"></input-university>
+            <input-university :universities="universities" @university-id="getUniversitID" @university-name="getUniversityName" @is-add-univer="isAddUniver = true"></input-university>
       </div>
       <div class="w-[100%] my-2 p-2">
             <label class="w-[12rem] text-start text-sm font-medium">Major </label>
-            <select v-model="major" class="mt-2 block p-2 w-full outline-none text-gray-900 bg-gray-50 rounded-sm border border-gray-400 sm:text-xs focus:ring-blue-500 focus:border-[#22bbea]" :class="{ 'border-red-500 bg-red-100': is_degree}">
+            <input v-if="!isPNC" type="text" v-model="major" placeholder="name" class="mt-2 block p-2 w-full outline-none text-gray-900 bg-gray-50 rounded-sm border border-gray-400 sm:text-xs focus:ring-blue-500 focus:border-[#22bbea]" :class="{ 'border-red-500 bg-red-100': is_degree}">
+            <select v-else v-model="major" class="mt-2 block p-2 w-full outline-none text-gray-900 bg-gray-50 rounded-sm border border-gray-400 sm:text-xs focus:ring-blue-500 focus:border-[#22bbea]" :class="{ 'border-red-500 bg-red-100': is_degree}">
                 <option selected disabled class="text-gray-900" value="">Choose major</option>
                 <option :value="'WEB'">WEB</option>
                 <option :value="'SNA'">SNA</option>
@@ -74,14 +68,21 @@
       </div>
     </div>
   </div>
+
 </div>
+<div v-else>
+    <form-add-univer @is-added-univer="isAddedUniver" @cancelAddUniver="isAddUniver = false"></form-add-univer>
+  </div>
 </template>
 
 <script>
 import FormInputUniversity from './FormInputUniversity.vue';
+import FormAddUniver from './FormAddUniver.vue';
+
 export default {
   components:{
     'input-university': FormInputUniversity,
+    'form-add-univer': FormAddUniver,
   },
   props: ["universities"],
   emits: ["addEdu", "cancelAdd"],
@@ -118,6 +119,8 @@ export default {
       is_start_year: false,
       is_end_month: false,
       is_end_year: false,
+      isPNC : false,
+      isAddUniver: false,
     };
   },
   methods: {
@@ -138,8 +141,6 @@ export default {
             university_id: this.university_id,
           };
           this.$emit("addEdu", newEdu);
-        }else{
-          // this.$emit('addUniversity', this.universityName)
         }
       } 
     },
@@ -149,12 +150,19 @@ export default {
     getUniversityName(universityName){
       this.universityName = universityName;
       if (this.universityName == "Passerelles numériques Cambodia"){
-        this.degrees = ['associate']
-        this.degree = 'associate';
+        this.degrees = ['Associate']
+        this.degree = 'Associate';
+        this.isPNC = true;
       }else{
         this.degrees =["Associate", "Bachelor", "Master", "Doctorate"]
         this.degree = '';
+        this.isPNC = false;
+        this.major = '';
       }
+    },
+    isAddedUniver(universityName){
+      this.isAddUniver = false;
+      this.universityName = universityName;
     },
     validate() {
       this.is_university = false;
