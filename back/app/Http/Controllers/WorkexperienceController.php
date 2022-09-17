@@ -52,7 +52,7 @@ class WorkexperienceController extends Controller
         ->join('companies', 'companies.id', '=', 'workexperiences.company_id')
         ->where('workexperiences.alumni_id', '=', $alumni_id)
         ->orderBy('workexperiences.created_at', 'desc')
-        ->get(['companies.name','workexperiences.*'])->all();
+        ->get(['companies.name','companies.profile','workexperiences.*'])->all();
         return $alumniExperience;
     }
 
