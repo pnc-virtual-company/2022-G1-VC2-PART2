@@ -10,11 +10,11 @@
                     <input @change="tageImage($event,'cover')" id="cover-upload" type="file" accept="image/*" hidden>
                     <label for="cover-upload">
                         <div class="flex bg-gray-200 px-4 py-1 rounded-md mr-2 hover:cursor-pointer">
-                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6 font-medium">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6 text-gray-600">
                                 <path stroke-linecap="round" stroke-linejoin="round" d="M6.827 6.175A2.31 2.31 0 015.186 7.23c-.38.054-.757.112-1.134.175C2.999 7.58 2.25 8.507 2.25 9.574V18a2.25 2.25 0 002.25 2.25h15A2.25 2.25 0 0021.75 18V9.574c0-1.067-.75-1.994-1.802-2.169a47.865 47.865 0 00-1.134-.175 2.31 2.31 0 01-1.64-1.055l-.822-1.316a2.192 2.192 0 00-1.736-1.039 48.774 48.774 0 00-5.232 0 2.192 2.192 0 00-1.736 1.039l-.821 1.316z" />
                                 <path stroke-linecap="round" stroke-linejoin="round" d="M16.5 12.75a4.5 4.5 0 11-9 0 4.5 4.5 0 019 0zM18.75 10.5h.008v.008h-.008V10.5z" />
                             </svg>
-                            <p class="ml-2 font-medium ">Edit cover photo</p>
+                            <p class="ml-2 text-gray-600">Edit cover photo</p>
                         </div>
                     </label>
                 </div>
@@ -44,9 +44,9 @@
             <div class="w-[64%]">
                 <CardInfo :user="user" @getData="getUser" />
                 <!-- +++++++++++ Alumni Education +++++++++++++ -->
-                <edu-card-view :edu="edu" @is-add-edu="isAddEdu=true" @isEdit-edu="isEditEduction"></edu-card-view>
-                <FormAddEduView  v-if="isAddEdu" :universities="universities" @addEdu="addEducation" @cancelAdd="isAddEdu=false" @added-new-univer="addedNewUniver"></FormAddEduView>
-                <edit-edu-view v-if="isEditEdu" :universities="universities" :education="education" @editEdu="editEducation" @cancelEdit="isEditEdu=false" @added-new-univer="addedNewUniver"></edit-edu-view>
+                <edu-card-view :edu="edu" @is-add-edu="isAddEdu=true" @isEdit-edu="isEditEduction" :alu_id="alu_id"></edu-card-view>
+                <FormAddEduView  v-if="isAddEdu" :universities="universities" @addEdu="addEducation" @cancelAdd="isAddEdu=false" @added-new-univer="addedNewUniver" :alu_id="alu_id"></FormAddEduView>
+                <edit-edu-view v-if="isEditEdu" :universities="universities" :education="education" @editEdu="editEducation" @cancelEdit="isEditEdu=false" @added-new-univer="addedNewUniver" :alu_id="alu_id"></edit-edu-view>
 
                 <CardExper 
                 :experiences="experiences" 
@@ -118,7 +118,6 @@ export default {
             isPopUp:null,
             companies:null,
             universities:null,
-            alumni_id:1,
             isAddEdu:false,
             isEditEdu:false,
             education:{},
@@ -131,7 +130,7 @@ export default {
             this.isPopUp=opup;
         },
         addAlumniExper(newExper){
-            newExper['alumni_id']=this.alumni_id;
+            newExper['alumni_id']=this.alu_id;
             axios.post("workexperience", newExper).then(() => {
                 this.getAlumniExperiences()
             });
@@ -149,13 +148,14 @@ export default {
 
         tageImage(event, update){
             this.image = event.target.files[0];
-            if(update == "profile"){
+            if(update == "profile" && this.image){
                 this.isUpdate = true;
                 this.profile = URL.createObjectURL(this.image);
             }else{
                 this.isUpdateCover = true;
                 this.cover = URL.createObjectURL(this.image);
             }
+
         },
         saveUpload() {
         let formData = new FormData();

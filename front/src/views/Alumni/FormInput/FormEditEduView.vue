@@ -6,7 +6,7 @@
         </div>
         <div class="p-5">
             <div class="w-[100%] my-2 p-2">
-                <label class="w-[12rem] text-start text-sm font-bold">University: </label>
+                <label class="w-[12rem] w-[12rem] text-start text-sm font-medium">University </label>
                 <!-- <select v-model="university_id" class="mt-2 block p-2 w-full outline-none text-gray-900 bg-gray-50 rounded-sm border border-gray-400 sm:text-xs focus:border-[#22bbea]">
                     <option selected disabled class="text-gray-900" value="null">Choose university</option>
                     <option v-for:="university in universities" :value='university.id'>{{university.name}}</option>
@@ -23,7 +23,7 @@
                     </select>
             </div>
             <div class="w-[100%] my-2 p-2">
-                <label class="w-[12rem] text-start text-sm font-bold">Degree: </label>
+                <label class="w-[12rem] w-[12rem] text-start text-sm font-medium">Degree </label>
                 <select v-model="degree" class="mt-2 block p-2 w-full outline-none text-gray-900 bg-gray-50 rounded-sm border border-gray-400 sm:text-xs focus:ring-blue-500 focus:border-[#22bbea]">
                     <option selected disabled class="text-gray-900" value="">Choose degree</option>
                     <option v-for:="deg in degrees" :value='deg'>{{deg}}</option>
@@ -32,14 +32,14 @@
             
             <div class="date flex justify-between my-2 p-0">
                 <div class="w-[100%] mx-2 text-start">
-                    <label class="w-[10rem] text-start text-sm font-bold">Start date: </label>
+                    <label class="w-[10rem] w-[12rem] text-start text-sm font-medium">Start date </label>
                     <select v-model="start_month" class="block p-2 w-full outline-none text-gray-900  rounded-sm border border-gray-400 sm:text-xs focus:ring-blue-500 mt-2 mb-2 focus:border-[#22bbea]">
                         <option selected disabled value="">Month</option>
                         <option v-for:="month in months" :value="month">{{month}}</option>
                     </select>
                 </div>
                 <div class="w-[100%] mx-2 text-start">
-                    <label class="w-[10rem] text-start text-sm font-bold text-white">S</label>
+                    <label class="w-[10rem] w-[12rem] text-start text-sm font-medium text-white">S</label>
                     <select v-model="start_year" class="block p-2 w-full outline-none text-gray-900  rounded-sm border border-gray-400 sm:text-xs focus:ring-blue-500 mt-2 mb-2 focus:border-[#22bbea]">
                         <option selected disabled value="">Year</option>
                         <option v-for:="(year, i) in 16" :value="2022-i">{{2022-i}}</option>
@@ -48,14 +48,14 @@
             </div>
             <div class="date flex justify-between my-2 p-0">
                 <div class="w-[100%] mx-2 text-start">
-                    <label class="w-[10rem] text-start text-sm font-bold">End Date (or expected) : </label>
+                    <label class="w-[10rem] w-[12rem] text-start text-sm font-medium">End Date (or expected) </label>
                     <select v-model="end_month" class="block p-2 w-full outline-none text-gray-900  rounded-sm border border-gray-400 sm:text-xs focus:ring-blue-500 mt-2 mb-2 focus:border-[#22bbea]" >
                         <option selected disabled value="">Month</option>
                         <option v-for:="month in months" :value="month">{{month}}</option>
                     </select>
                 </div>
                 <div class="w-[100%] mx-2 text-start">
-                    <label class="w-[10rem] text-start text-sm font-bold text-white">S</label>
+                    <label class="w-[10rem] w-[12rem] text-start text-sm font-medium text-white">S</label>
                     <select v-model="end_year" class="block p-2 w-full outline-none text-gray-900  rounded-sm border border-gray-400 sm:text-xs focus:ring-blue-500 mt-2 mb-2 focus:border-[#22bbea]"  >
                         <option selected disabled value="">Year</option>
                         <option v-for:="(year, i) in 16" :value="2022-i">{{2022-i}}</option>
@@ -145,7 +145,6 @@ export default {
           }
         },
         getUniversitID(university_id){
-            console.log(university_id);
             this.university_id = university_id;
         },
         isAddedUniver(universityName){
