@@ -25,9 +25,12 @@
                 </svg>
             </div>
         </div>
-        <div class="text-center mt-2">
+        <div v-if="experiences.length > 2" class="text-center mt-2">
             <span v-if="!isMore" @click="isShow=true; isMore=true" class="font-semibold hover:cursor-pointer">show more</span>
             <span v-if="isMore" @click="isShow=false; isMore=false" class="font-semibold hover:cursor-pointer">show less</span>
+        </div>
+        <div v-else-if="experiences.length == 0" class="text-center mt-2">
+            <span class="text-[14px] text-gray-500">No Work experience !! Please add your work background</span>
         </div>
     </div>      
 </template>
