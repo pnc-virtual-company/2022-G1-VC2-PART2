@@ -46,7 +46,7 @@
                 <!-- +++++++++++ Alumni Education +++++++++++++ -->
                 <edu-card-view :edu="edu" @is-add-edu="isAddEdu=true" @isEdit-edu="isEditEduction"></edu-card-view>
                 <FormAddEduView  v-if="isAddEdu" :universities="universities" @addEdu="addEducation" @cancelAdd="isAddEdu=false" ></FormAddEduView>
-                <edit-edu-view v-if="isEditEdu" :universities="universities" :education="education" @editEdu="editEducation" @cancelEdit="isEditEdu=false"></edit-edu-view>
+                <edit-edu-view v-if="isEditEdu" :universities="universities" :education="education" @editEdu="editEducation" @cancelEdit="isEditEdu=false" @added-new-univer="addedNewUniver"></edit-edu-view>
 
                 <CardExper 
                 :experiences="experiences" 
@@ -221,6 +221,9 @@ export default {
                 this.isEditEdu = false;
             });
         },
+        addedNewUniver(){
+            this.getUniversities();
+        }
     },
     mounted() {
         this.getUser();

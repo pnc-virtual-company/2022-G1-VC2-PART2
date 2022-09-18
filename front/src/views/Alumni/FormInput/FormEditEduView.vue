@@ -1,5 +1,5 @@
 <template>
-<div tabindex="-1" class=" bg-[#000000b9] fixed  flex items-center z-50 md:inset-0 h-modal md:h-full">
+<div  v-if="!isAddUniver"  tabindex="-1" class=" bg-[#000000b9] fixed  flex items-center z-50 md:inset-0 h-modal md:h-full">
     <div class="modal bg-white h-auto shadow-md rounded mt-2 mb-10 m-auto w-[40%] z-10">
         <div class="w-full bg-skyblue p-2">
             <h4 class="font-bold text-center text-white text-[20px]">Edit Education</h4>
@@ -11,7 +11,7 @@
                     <option selected disabled class="text-gray-900" value="null">Choose university</option>
                     <option v-for:="university in universities" :value='university.id'>{{university.name}}</option>
                 </select> -->
-                <input-edit-univer :universities="universities" :universityName="universityName" @university-name="getUniversityName" @university-id="getUniversitID"></input-edit-univer>
+                <input-edit-univer :universities="universities" :universityName="universityName" @university-name="getUniversityName" @university-id="getUniversitID" @is-add-univer="isAddUniver = true"></input-edit-univer>
             </div>
             <div class="w-[100%] my-2 p-2">
                     <label class="w-[12rem] text-start text-sm font-medium">Major </label>
@@ -73,14 +73,21 @@
         </div>
     </div>
 </div>
+<div v-else>
+    <form-add-univer @is-added-univer="isAddedUniver" @cancelAddUniver="isAddUniver = false"></form-add-univer>
+    <!-- <form-add-univer @is-added-univer="isAddedUniver" @cancelAddUniver="isAddUniver = false"></form-add-univer> -->
+</div>
 </template>
 <script>
 import FormInputEditUniverVue from './FormInputEditUniver.vue';
+import FormAddUniver from './FormAddUniver.vue';
+import axios from '../../../axios-http'
 export default {
     components:{
         'input-edit-univer': FormInputEditUniverVue,
+        'form-add-univer': FormAddUniver,
     },
-    emits: ['cancelEdit','EditEdu'],
+    emits: ['cancelEdit','EditEdu','added-new-univer'],
   props: ["universities",'education'],
   data() {
     return {
@@ -109,12 +116,12 @@ export default {
       end_year: this.education.end_year,
       edu_id: this.education.id,
       isPNC:false,
-      PNC:"Passerelles numériques Cambodia"
+      PNC:"Passerelles numériques Cambodia",
+      isAddUniver: false,
     };
   },
   methods: {
     editEductaion() {
-
         let newEdu = {
           start_month: this.start_month,
           start_year: this.start_year,
@@ -140,6 +147,11 @@ export default {
         getUniversitID(university_id){
             console.log(university_id);
             this.university_id = university_id;
+        },
+        isAddedUniver(universityName){
+            this.isAddUniver = false;
+            this.universityName = universityName;
+            this.$emit('added-new-univer')
         },
   },
 
