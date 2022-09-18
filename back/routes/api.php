@@ -59,3 +59,8 @@ Route::get("universities", [UniversityController::class, "getUniversities"]);
 Route::get("skills", [SkillController::class, "index"]);
 Route::get("alumniSkill/{alumni_id}", [AlumniSkillController::class, "show"]);
 
+// =================================================================Remove
+Route::delete("alumniSkill/{id}", [AlumniSkillController::class, "destroy"]);
+
+
+

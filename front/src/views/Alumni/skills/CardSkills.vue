@@ -65,8 +65,8 @@ export default {
       });
     },
     removeAlumniSkill(remove) {
-      axios.delete("alumniSkill/" + remove.id).then((res) => {
-        console.log(res.data);
+      axios.delete("alumniSkill/" + remove.id).then(() => {
+        console.log("Removed ");
       });
       this.alumniSkills.splice(remove.index, 1);
     },
