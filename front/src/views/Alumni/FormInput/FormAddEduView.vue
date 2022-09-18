@@ -1,6 +1,6 @@
 <template>
-<div v-if="!isAddUniver" class=" bg-[#000000b9] fixed   z-50 md:inset-0 md:h-full">
-  <div  class="bg-white h-auto shadow-md rounded mt-20  m-auto w-[40%] z-10" v-click-outside="onClickOutside">
+<div v-if="!isAddUniver" class=" bg-[#000000b9] fixed z-50 md:inset-0 md:h-full flex items-center">
+  <div  class="bg-white h-auto shadow-md rounded m-auto w-[40%] z-10" v-click-outside="onClickOutside">
     <div class="w-full bg-skyblue p-2">
       <h4 class="font-bold text-center text-white text-[20px]">Add Education</h4>
     </div>
