@@ -39,13 +39,13 @@
         </div>        
         <div class="flex justify-between mt-8 items-start">
             <div class="w-[32%] border-[2px] border-skyblue p-3 rounded mt-14">
-                <CardSkills />
+                <CardSkills :alu_id="alu_id" />
             </div>
             <div class="w-[64%]">
                 <CardInfo :user="user" @getData="getUser" />
                 <!-- +++++++++++ Alumni Education +++++++++++++ -->
                 <edu-card-view :edu="edu" @is-add-edu="isAddEdu=true" @isEdit-edu="isEditEduction"></edu-card-view>
-                <FormAddEduView  v-if="isAddEdu" :universities="universities" @addEdu="addEducation" @cancelAdd="isAddEdu=false" ></FormAddEduView>
+                <FormAddEduView  v-if="isAddEdu" :universities="universities" @addEdu="addEducation" @cancelAdd="isAddEdu=false" @added-new-univer="addedNewUniver"></FormAddEduView>
                 <edit-edu-view v-if="isEditEdu" :universities="universities" :education="education" @editEdu="editEducation" @cancelEdit="isEditEdu=false" @added-new-univer="addedNewUniver"></edit-edu-view>
 
                 <CardExper 
@@ -184,8 +184,7 @@ export default {
 
         getAlumniExperiences(){
             axios.get('workexperience/' + this.user_id).then(res => {
-                this.experiences = res.data, 
-                this.alumni_id=res.data[0].alumni_id
+                this.experiences = res.data
             });
         },
 

@@ -58,7 +58,10 @@ export default {
             this.imgURL = URL.createObjectURL(this.profile);
         },
         addUniversity(){
-            let newUniversity = {name:this.name, address:this.address, profile:this.profile};
+            let newUniversity = new FormData();
+            newUniversity.append('name',this.name);
+            newUniversity.append('address',this.address);
+            newUniversity.append('profile',this.profile);
             axios.post("university/create", newUniversity).then(() => {
                 return  this.$emit('is-added-univer',this.name);
             });
