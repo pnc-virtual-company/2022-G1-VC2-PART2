@@ -10,6 +10,7 @@ export const store = new createStore({
     token: decryptData(getCookie('alumni'), 'my_token'),
     userId: null,
     userEmail: null,
+    alumniId: null,
   },
   actions: {
     logout(){

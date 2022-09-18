@@ -40,7 +40,7 @@
         <ul class="w-1/5 flex justify-end items-center nav-right">
           <li v-if="role == 'alumni'" class="text-sm font-bold text-gray-800">
             <router-link to="/alumni-profile" class="font-bold hover:border-b-0">
-              <img class="w-10 h-10 border-[1px] border-skyblue rounded-full object-cover" :src="'http://127.0.0.1:8000/images/profile/'+user.profile"/>
+              <img v-if="user.profile !== undefined" class="w-10 h-10 border-[1px] border-skyblue rounded-full object-cover" :src="'http://127.0.0.1:8000/images/profile/'+user.profile"/>
             </router-link>
           </li>
           <li class="text-sm font-bold text-gray-800 flex items-center username">

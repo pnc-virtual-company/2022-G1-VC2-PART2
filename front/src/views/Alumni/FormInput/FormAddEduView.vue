@@ -85,7 +85,7 @@ export default {
     'form-add-univer': FormAddUniver,
   },
   props: ["universities"],
-  emits: ["addEdu", "cancelAdd"],
+  emits: ["addEdu", "cancelAdd",'added-new-univer'],
   data() {
     return {
       months: [
@@ -163,6 +163,7 @@ export default {
     isAddedUniver(universityName){
       this.isAddUniver = false;
       this.universityName = universityName;
+      this.$emit('added-new-univer');
     },
     validate() {
       this.is_university = false;

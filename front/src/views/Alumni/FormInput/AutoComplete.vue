@@ -6,7 +6,7 @@
         class="input w-[100%] cursor-text p-2 bg-gray-50 rounded-sm border border-gray-400 sm:text-xs focus:ring-blue-500 focus:border-[#22bbea]" 
         v-text="selectedItem? selectedItem['name'] : message"></div>
     </div>
-    <div class="popover border min-h-8 w-full" v-else>
+    <div class="popover min-h-8 w-full" v-else>
       <input type="text"
       class="outline-none w-[100%] p-2 bg-gray-50 rounded-sm border border-gray-400 sm:text-xs focus:ring-blue-500 focus:border-[#22bbea]"
         ref="input"

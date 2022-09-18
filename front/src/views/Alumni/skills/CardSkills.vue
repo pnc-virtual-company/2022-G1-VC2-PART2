@@ -38,6 +38,9 @@ import SkillCard from "./CardSkill.vue";
 import FormAddSkill from "../FormInput/FormAddSkill.vue";
 import axios from "../../../axios-http";
 export default {
+  props: {
+    alu_id: Number,
+  },
   components: {
     "card-skill": SkillCard,
     "form-skill": FormAddSkill,
@@ -60,7 +63,7 @@ export default {
     },
     
     getAlumniSkill() {
-      axios.get("alumniSkill/1").then((res) => {
+      axios.get("alumniSkill/" + this.alu_id).then((res) => {
         this.alumniSkills = res.data;
       });
     },
@@ -71,8 +74,15 @@ export default {
       this.alumniSkills.splice(remove.index, 1);
     },
   },
-  mounted() {
-     this.getAlumniSkill();
+  watch: {
+    alu_id() {
+      this.getAlumniSkill();
+    }
+  },
+  created() {
+    if(this.alu_id) {
+      this.getAlumniSkill();
+    }
   },
 };
 </script>

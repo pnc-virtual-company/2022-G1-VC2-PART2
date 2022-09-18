@@ -39,13 +39,13 @@
         </div>        
         <div class="flex justify-between mt-8 items-start">
             <div class="w-[32%] border-[2px] border-skyblue p-3 rounded mt-14">
-                <CardSkills />
+                <CardSkills :alu_id="alu_id" />
             </div>
             <div class="w-[64%]">
                 <CardInfo :user="user" @getData="getUser" />
                 <!-- +++++++++++ Alumni Education +++++++++++++ -->
                 <edu-card-view :edu="edu" @is-add-edu="isAddEdu=true" @isEdit-edu="isEditEduction"></edu-card-view>
-                <FormAddEduView  v-if="isAddEdu" :universities="universities" @addEdu="addEducation" @cancelAdd="isAddEdu=false" ></FormAddEduView>
+                <FormAddEduView  v-if="isAddEdu" :universities="universities" @addEdu="addEducation" @cancelAdd="isAddEdu=false" @added-new-univer="addedNewUniver"></FormAddEduView>
                 <edit-edu-view v-if="isEditEdu" :universities="universities" :education="education" @editEdu="editEducation" @cancelEdit="isEditEdu=false" @added-new-univer="addedNewUniver"></edit-edu-view>
 
                 <CardExper 
@@ -90,6 +90,7 @@ import UpdateCoverView from "./UpdateCoverView.vue";
 export default {
     props: {
         user_id: Number,
+        alu_id: Number,
     },
     components:{
         CardInfo,
@@ -160,8 +161,7 @@ export default {
         let formData = new FormData();
         formData.append("profile", this.image);
         formData.append("_method", "PUT");
-        axios.post("alumniprofile/" + this.user.id, formData).then((res) => {
-            console.log(res);
+        axios.post("alumniprofile/" + this.alu_id, formData).then((res) => {
             this.getUser();
             this.isUpdate=false;});
         },
@@ -169,7 +169,7 @@ export default {
         let formData = new FormData();
         formData.append("coverimage", this.image);
         formData.append("_method", "PUT");
-        axios.post("alumnicover/" + this.user.id, formData).then(() => {
+        axios.post("alumnicover/" + this.alu_id, formData).then(() => {
             this.getUser();
             this.isUpdateCover=false;
         });
@@ -182,22 +182,18 @@ export default {
 
         getAlumniExperiences(){
             axios.get('workexperience/' + this.user_id).then(res => {
-                if(res.data.length){
-                    this.experiences = res.data
-                    this.alumni_id=res.data[0].alumni_id}});
+                this.experiences = res.data
+            });
         },
 
         addCompany(company){
-            axios.post('company', company).then((res) => {
-                console.log("Data is :" , res.data)
-                this.getCompanies();
-                })
+            axios.post('company', company).then(() => {
+                this.getCompanies()})
         },
 
         getCompanies(){
             axios.get('companies').then(res => {
                 this.companies = res.data
-                console.log(res.data);
             });
         },
         getAlumniEdu(){

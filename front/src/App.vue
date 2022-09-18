@@ -2,7 +2,7 @@
   <section>
     <navbar-view :role="this.$store.state.role" :user_id="this.$store.state.userId" />
     <!-- <form-login></form-login> -->
-    <router-view :user_id="this.$store.state.userId" />
+    <router-view :user_id="this.$store.state.userId" :alu_id="this.$store.state.alumniId" />
   </section>
 </template>
 <script>
@@ -23,8 +23,10 @@ export default {
             this.$store.dispatch('logout')
             this.$router.push('/login')
         }
+        const alumni = await axios.get('/alumni/'+ data.id);
         this.$store.state.userId = data.id;
         this.$store.state.userEmail = data.email;
+        this.$store.state.alumniId = alumni.data.id;
       }
     },
   },
