@@ -79,6 +79,11 @@ export default {
       this.getAlumniSkill();
     }
   },
+  created() {
+    if(this.alu_id) {
+      this.getAlumniSkill();
+    }
+  },
 };
 </script>
 

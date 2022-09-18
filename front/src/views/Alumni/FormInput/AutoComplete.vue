@@ -1,11 +1,11 @@
 <template>
   <div class="autocomplete w-[100%] relative m-auto">
-    <div class="flex justify-between items-center border" v-if="!visible">   
-        <div @click="toggleVisible" class="input w-[100%] cursor-text p-2 bg-gray-50" v-text="selectedItem? selectedItem['name'] : message"></div>
+    <div class="flex justify-between items-centerborder" v-if="!visible"> 
+        <div @click="toggleVisible" class="input w-[95%] rounded m-auto cursor-text p-3 bg-gray-50" v-text="selectedItem? selectedItem['name'] : message"></div>
     </div>
-    <div class="popover border min-h-8 w-full" v-else>
+    <div class="popover min-h-8 w-full" v-else>
       <input type="text"
-      class="outline-none w-[100%] p-2 border bg-gray-50"
+      class="outline-none w-[95%] p-2 rounded border border-blue-100"
         ref="input"
         v-model="query"
         @keydown.enter="selectItem"
