@@ -153,8 +153,12 @@ export default {
                 this.isUpdate = true;
                 this.profile = URL.createObjectURL(this.image);
             }else{
-                this.isUpdateCover = true;
-                this.cover = URL.createObjectURL(this.image);
+                if(this.image){
+                    this.isUpdateCover = true;
+                    this.cover = URL.createObjectURL(this.image);
+                }else{
+                    this.isUpdateCover = false;
+                }
             }
         },
         saveUpload() {
