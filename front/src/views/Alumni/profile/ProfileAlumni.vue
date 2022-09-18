@@ -4,7 +4,7 @@
         <div >
             <div class="relative">
                 <div class="w-full h-52">
-                    <img v-if="user.coverimage != null" class="w-full h-full  border border-1 border-gray-300 object-cover object-center" :src="'http://127.0.0.1:8000/images/Cover/'+ user.coverimage" alt="">
+                    <img v-if="user.coverimage != undefined" class="w-full h-full  border border-1 border-gray-300 object-cover object-center" :src="'http://127.0.0.1:8000/images/Cover/'+ user.coverimage" alt="">
                 </div>
                 <div class="flex justify-end mt-[-40px]">
                     <input @change="tageImage($event,'cover')" id="cover-upload" type="file" accept="image/*" hidden>
@@ -23,7 +23,7 @@
         <div class="absolute ml-24 text-center">
             <div class="flex">
                 <div class="w-40">
-                    <img v-if="user.profile" class="w-full rounded-full h-40 mt-[-130px] object-cover border-[1px] border-skyblue" :src="'http://127.0.0.1:8000/images/profile/'+ user.profile" alt="">
+                    <img v-if="user.profile!=undefined" class="w-full rounded-full h-40 mt-[-130px] object-cover border-[1px] border-skyblue" :src="'http://127.0.0.1:8000/images/profile/'+ user.profile" alt="">
                 </div>
                 <div>
                     <input @change="tageImage($event,'profile')" id="university-profile" type="file" accept="image/*" hidden>
@@ -131,7 +131,7 @@ export default {
         },
         addAlumniExper(newExper){
             newExper['alumni_id']=this.alumni_id;
-            axios.post("workexperience", newExper).then((res) => {
+            axios.post("workexperience", newExper).then(() => {
                 this.getAlumniExperiences()
             });
         },
@@ -160,7 +160,7 @@ export default {
         let formData = new FormData();
         formData.append("profile", this.image);
         formData.append("_method", "PUT");
-        axios.post("alumniprofile/" + this.user_id, formData).then((res) => {
+        axios.post("alumniprofile/" + this.user.id, formData).then((res) => {
             console.log(res);
             this.getUser();
             this.isUpdate=false;});
@@ -169,7 +169,7 @@ export default {
         let formData = new FormData();
         formData.append("coverimage", this.image);
         formData.append("_method", "PUT");
-        axios.post("alumnicover/" + this.user_id, formData).then(() => {
+        axios.post("alumnicover/" + this.user.id, formData).then(() => {
             this.getUser();
             this.isUpdateCover=false;
         });
@@ -182,15 +182,15 @@ export default {
 
         getAlumniExperiences(){
             axios.get('workexperience/' + this.user_id).then(res => {
-                this.experiences = res.data, 
-                this.alumni_id=res.data[0].alumni_id
-            });
+                if(res.data.length){
+                    this.experiences = res.data
+                    this.alumni_id=res.data[0].alumni_id}});
         },
 
         addCompany(company){
             axios.post('company', company).then((res) => {
-                this.getCompanies();
                 console.log("Data is :" , res.data)
+                this.getCompanies();
                 })
         },
 
