@@ -149,18 +149,14 @@ export default {
 
         tageImage(event, update){
             this.image = event.target.files[0];
-            if (this.image){
-                if(update == "profile"){
-                    this.isUpdate = true;
-                    this.profile = URL.createObjectURL(this.image);
-                }else{
-                        this.isUpdateCover = true;
-                        this.cover = URL.createObjectURL(this.image);
-                }
+            if(update == "profile" && this.image){
+                this.isUpdate = true;
+                this.profile = URL.createObjectURL(this.image);
             }else{
-                this.isUpdate = false;
-                this.isUpdateCover = false;
+                this.isUpdateCover = true;
+                this.cover = URL.createObjectURL(this.image);
             }
+
         },
         saveUpload() {
         let formData = new FormData();
