@@ -90,6 +90,7 @@ import UpdateCoverView from "./UpdateCoverView.vue";
 export default {
     props: {
         user_id: Number,
+        alu_id: Number,
     },
     components:{
         CardInfo,
@@ -160,7 +161,7 @@ export default {
         let formData = new FormData();
         formData.append("profile", this.image);
         formData.append("_method", "PUT");
-        axios.post("alumniprofile/" + this.user_id, formData).then((res) => {
+        axios.post("alumniprofile/" + this.alu_id, formData).then((res) => {
             console.log(res);
             this.getUser();
             this.isUpdate=false;});
@@ -169,7 +170,8 @@ export default {
         let formData = new FormData();
         formData.append("coverimage", this.image);
         formData.append("_method", "PUT");
-        axios.post("alumnicover/" + this.user_id, formData).then(() => {
+        console.log(this.user)
+        axios.post("alumnicover/" + this.alu_id, formData).then(() => {
             this.getUser();
             this.isUpdateCover=false;
         });
