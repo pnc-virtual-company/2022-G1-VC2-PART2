@@ -2,19 +2,19 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Univercity;
+use App\Models\University;
 use Illuminate\Http\Request;
 
-class UnivercityController extends Controller
+class UniversityController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function getUniversities()
     {
-        //
+        return University::get();
     }
 
     /**
@@ -23,22 +23,22 @@ class UnivercityController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function createUniversity(Request $request)
     {
-        $univercity = new Univercity();
-        $univercity->name = $request->name;
-        $univercity->address = $request->address;
-        $univercity->save();
+        $university = new University();
+        $university->name = $request->name;
+        $university->address = $request->address;
+        $university->save();
         return response()->json(['status' => ' sucessfully'],200);
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Univercity  $univercity
+     * @param  \App\Models\University  $university
      * @return \Illuminate\Http\Response
      */
-    public function show(Univercity $univercity)
+    public function show(University $university)
     {
       
     }
@@ -47,25 +47,25 @@ class UnivercityController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Univercity  $univercity
+     * @param  \App\Models\University  $university
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
     {
-        $univercity =Univercity::findOrFail($id);
-        $univercity->name = $request->name;
-        $univercity->address = $request->address;
-        $univercity->save();
+        $university =University::findOrFail($id);
+        $university->name = $request->name;
+        $university->address = $request->address;
+        $university->save();
         return response()->json(['status' => ' sucessfully'],201);
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Univercity  $univercity
+     * @param  \App\Models\University  $university
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Univercity $univercity)
+    public function destroy(University $university)
     {
         //
     }

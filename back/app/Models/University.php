@@ -5,13 +5,11 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Univercity extends Model
+class University extends Model
 {
     use HasFactory;
 
-    public function Education(){
-        return $this->hasmany(Education::class);
+    public function education(){
+        return $this->hasMany(Education::class);
     }
-    
-    
 }

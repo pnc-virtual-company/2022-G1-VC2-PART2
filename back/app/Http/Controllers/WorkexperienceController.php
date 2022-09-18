@@ -26,11 +26,13 @@ class WorkexperienceController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function addExperience(Request $request)
     {
         $workexperience = new Workexperience();
         $workexperience->start_year= $request->start_year;
         $workexperience->end_year= $request->end_year;
+        $workexperience->start_month= $request->start_month;
+        $workexperience->end_month= $request->end_month;
         $workexperience->position= $request->position;
         $workexperience->alumni_id= $request->alumni_id;
         $workexperience->company_id= $request->company_id;
@@ -50,7 +52,7 @@ class WorkexperienceController extends Controller
         ->join('companies', 'companies.id', '=', 'workexperiences.company_id')
         ->where('workexperiences.alumni_id', '=', $alumni_id)
         ->orderBy('workexperiences.created_at', 'desc')
-        ->get(['companies.name','workexperiences.*'])->all();
+        ->get(['companies.name','companies.profile','workexperiences.*'])->all();
         return $alumniExperience;
     }
 
@@ -66,6 +68,8 @@ class WorkexperienceController extends Controller
         $workexperience = Workexperience::findOrFail($id);
         $workexperience->start_year= $request->start_year;
         $workexperience->end_year= $request->end_year;
+        $workexperience->start_month= $request->start_month;
+        $workexperience->end_month= $request->end_month;
         $workexperience->position= $request->position;
         $workexperience->company_id= $request->company_id;
         $workexperience->save();

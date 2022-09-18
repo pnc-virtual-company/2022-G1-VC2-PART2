@@ -1,8 +1,8 @@
 <template>
     <div tabindex="-1" class=" bg-[#000000b9] fixed  flex items-center z-50 md:inset-0 h-modal md:h-full ">
-        <div class="modal bg-white h-auto shadow-md rounded  mt-2 mb-10 m-auto w-[40%] z-10">
+        <div class="modal bg-white h-auto shadow-md rounded  mt-2 mb-10 m-auto w-[34%] z-10">
             <form class="">
-                <div class="flex justify-between items-center p-2 rounded-t bg-primary">
+                <div class="flex justify-between items-center p-2 rounded-t bg-skyblue text-white">
                     <p></p>
                     <h1 class="text-[20px] font-semibold">Edit Info</h1>
                     <svg aria-hidden="true" class="w-5 h-5 cursor-pointer" @click="$emit('closePopup')"
@@ -16,7 +16,7 @@
                     <div class="mb-1 flex">
                     <div class="w-[49%] m-1">
                         <label class="block text-gray-700 text-[15px] mb-1">
-                            First Name
+                            First Name <span class="text-red-600">*</span>
                         </label>
                         <input v-model="firstname"
                             class="block appearance-none w-full bg-white border border-gray-400 px-4 py-2 pr-8 rounded shadow leading-tight  focus:shadow-outline focus:outline-[#22bbea]"
@@ -25,7 +25,7 @@
                     </div>
                     <div class="w-[49%] m-1">
                         <label class="block text-gray-700 text-[15px] mb-1">
-                            Last Name
+                            Last Name <span class="text-red-600">*</span>
                         </label>
                         <input v-model="lastname"
                             class="block appearance-none w-full bg-white border border-gray-400 px-4 py-2 pr-8 rounded shadow leading-tight  focus:shadow-outline focus:outline-[#22bbea]"
@@ -35,7 +35,7 @@
                 </div>
                 <div class="mb-1 m-1 relative">
                     <label class="block text-gray-700 text-[15px] mb-1" for="email">
-                        Email *
+                        Email <span class="text-red-600">*</span>
                     </label>
                     <input v-model="email"
                         class="block appearance-none w-full bg-white border border-gray-400 px-4 py-2 rounded shadow leading-tight  focus:shadow-outline focus:outline-[#22bbea]"
@@ -45,20 +45,20 @@
                 <div class="text-red-500 text-sm mb-2 m-1">{{sms_erorr_email}}</div>
                 <div class="mb-1 m-1 relative">
                     <label class="block text-gray-700 text-[15px]  mb-1" for="number">
-                        Phone
+                        Phone <span class="text-red-600">*</span>
                     </label>
                     <input v-model="phone"
                         class="block appearance-none w-full bg-white border border-gray-400 px-4 py-2 pr-8 rounded shadow leading-tight  focus:shadow-outline focus:outline-[#22bbea]"
                         :class="{ 'border-red-500 bg-red-100': is_phone}"
-                        id="phone" type="tel" placeholder="Tel..." required>
+                        id="phone" type="tel" maxlength="10" placeholder="Tel..." required>
                 </div>
                 <div class="text-red-500 text-sm mb-2 m-1">{{sms_erorr_phone}}</div>
                 <div class=" flex">
                     <div class="w-[50%] m-1 relative">
-                        <label class="block text-gray-700 text-[15px] mb-1">Batch</label>
+                        <label class="block text-gray-700 text-[15px] mb-1">Batch <span class="text-red-600">*</span></label>
                         <div class="inline-block relative w-full">
                             <select v-model="batch" class="block appearance-none w-full bg-white border border-gray-400 px-4 py-2 pr-8 rounded shadow leading-tight  focus:shadow-outline focus:outline-[#22bbea]" :class="{ 'border-red-500 bg-red-100': is_batch}">
-                                <option  value="2007">2007</option>
+                                <option value="2007">2007</option>
                                 <option value="2008">2008</option>
                                 <option value="2009">2009</option>
                                 <option value="2010">2010</option>
@@ -75,31 +75,25 @@
                                 <option value="2021">2021</option>
                             </select>
                             <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
-                                <svg v-if="isSelectedType" xmlns="http://www.w3.org/2000/svg" class="fill-curren h-5 w-5 absolute top-[10px] right-3 text-red-500" viewBox="0 0 20 20" fill="currentColor">
-                                    <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clip-rule="evenodd" />
-                                </svg>
-                                <svg v-else class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z"/></svg>
+                                <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z"/></svg>
                             </div>
                         </div>                        
                     </div>
                     <div class="w-[50%] m-1 relative">
-                        <label class="block text-gray-700 text-[15px] mb-1">Specialization</label>
+                        <label class="block text-gray-700 text-[15px] mb-1">Major <span class="text-red-600">*</span></label>
                         <div class="inline-block relative w-full">
                             <select v-model="major" class="block appearance-none w-full bg-white border border-gray-400 px-4 py-2 pr-8 rounded shadow leading-tight  focus:shadow-outline focus:outline-[#22bbea]" :class="{ 'border-red-500 bg-red-100': is_major}">
-                                <option  value="WEB">WEB</option>
+                                <option value="WEB">WEB</option>
                                 <option value="SNA">SNA</option>
                             </select>
                             <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
-                                <svg v-if="isSelectedType" xmlns="http://www.w3.org/2000/svg" class="fill-curren h-5 w-5 absolute top-[10px] right-3 text-red-500" viewBox="0 0 20 20" fill="currentColor">
-                                    <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clip-rule="evenodd" />
-                                </svg>
-                                <svg v-else class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z"/></svg>
+                                <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z"/></svg>
                             </div>
                         </div>   
                     </div>
                 </div>
                 <div class="w-[50%] m-1">
-                    <label  class="block text-gray-700 text-[15px] mb-1">Gender</label>
+                    <label  class="block text-gray-700 text-[15px] mb-1">Gender <span class="text-red-600">*</span></label>
                     <div class="flex">
                         <div class="flex items-center mb-4 ">
                             <input v-model="gender" type="radio" value="M" :class="{ 'border-red-500 bg-red-100': is_gender}"
@@ -114,18 +108,24 @@
                             <label
                                 class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300" for="f">Female</label>
                         </div>
+                        <div class="flex items-center mb-4 ml-2">
+                            <input v-model="gender"  type="radio" id="others" value="Others" :class="{ 'border-red-500 bg-red-100': is_gender}"
+                                class="w-4 h-4 bg-gray-100 border-gray-300   dark:ring-offset-gray-800 focus:ring-2">
+                            <label
+                                class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300" for="others">Others</label>
+                        </div>
                     </div>
                 </div>
                 
                 <div class="flex mb-3">
                     <div class="flex justify-end w-full ">
                         <button @click="$emit('closePopup')"
-                            class="bg-[#ff9933] hover:bg-[#f69432]  text-white py-2 px-8  rounded focus:outline-none focus:shadow-outline"
+                            class=" hover:bg-[#cecece] border-[1px] border-gray-300 text-gray-500 shadow py-1 px-8  rounded focus:outline-none focus:shadow-outline"
                             type="button"> 
                             Cancel
                         </button>
                         <button @click="updateInfo"
-                            class="bg-[#22bbea] hover:bg-[#23afda] mx-2 text-white py-2 px-10 rounded focus:outline-none focus:shadow-outline"
+                            class="bg-skyblue hover:bg-[#23afda] mx-2 text-white py-1 px-10 rounded focus:outline-none focus:shadow-outline"
                             type="button">
                             Save
                         </button>
@@ -164,7 +164,7 @@ export default {
         updateInfo() {
             if (this.validate()) {
                 if (this.email.match(/^[\w.]+@([\w-]+\.)+[\w-]{2,3}$/)) {
-                    if (this.phone.match(/^[0]\d{9}$/)) {
+                    if (this.phone.match(/^[0]\d{9}$/) || this.phone.match(/^[0]\d{8}$/)) {
                         let alumni = {
                             'first_name': this.firstname,
                             'last_name': this.lastname,

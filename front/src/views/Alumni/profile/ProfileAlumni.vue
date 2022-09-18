@@ -1,10 +1,10 @@
 <template>
     <section>
-    <div class="w-[90%] m-auto">
+    <div class="w-[80%] m-auto">
         <div >
             <div class="relative">
                 <div class="w-full h-52">
-                    <img v-if="user.coverimage != null" class="w-full h-full  border border-1 border-gray-300" :src="'http://127.0.0.1:8000/images/Cover/'+ user.coverimage" alt="">
+                    <img v-if="user.coverimage != null" class="w-full h-full  border border-1 border-gray-300 object-cover object-center" :src="'http://127.0.0.1:8000/images/Cover/'+ user.coverimage" alt="">
                 </div>
                 <div class="flex justify-end mt-[-40px]">
                     <input @change="tageImage($event,'cover')" id="cover-upload" type="file" accept="image/*" hidden>
@@ -23,11 +23,11 @@
         <div class="absolute ml-24 text-center">
             <div class="flex">
                 <div class="w-40">
-                    <img v-if="user.profile" class=" rounded-full h-40 mt-[-130px]  border border-b-1 border-[#22bbea]" :src="'http://127.0.0.1:8000/images/profile/'+ user.profile" alt="">
+                    <img v-if="user.profile" class="w-full rounded-full h-40 mt-[-130px] object-cover border-[1px] border-skyblue" :src="'http://127.0.0.1:8000/images/profile/'+ user.profile" alt="">
                 </div>
                 <div>
-                    <input @change="tageImage($event,'profile')" id="profile-upload" type="file" accept="image/*" hidden>
-                    <label for="profile-upload">
+                    <input @change="tageImage($event,'profile')" id="university-profile" type="file" accept="image/*" hidden>
+                    <label for="university-profile">
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-8 h-8 hover:cursor-pointer bg-gray-300 p-1 rounded-full ml-[-40px] mt-[-16px]">
                             <path stroke-linecap="round" stroke-linejoin="round" d="M6.827 6.175A2.31 2.31 0 015.186 7.23c-.38.054-.757.112-1.134.175C2.999 7.58 2.25 8.507 2.25 9.574V18a2.25 2.25 0 002.25 2.25h15A2.25 2.25 0 0021.75 18V9.574c0-1.067-.75-1.994-1.802-2.169a47.865 47.865 0 00-1.134-.175 2.31 2.31 0 01-1.64-1.055l-.822-1.316a2.192 2.192 0 00-1.736-1.039 48.774 48.774 0 00-5.232 0 2.192 2.192 0 00-1.736 1.039l-.821 1.316z" />
                             <path stroke-linecap="round" stroke-linejoin="round" d="M16.5 12.75a4.5 4.5 0 11-9 0 4.5 4.5 0 019 0zM18.75 10.5h.008v.008h-.008V10.5z" />
@@ -38,29 +38,35 @@
             <h1 class="font-bold text-xl">{{user.first_name}} {{user.last_name}}</h1>
         </div>        
         <div class="flex justify-between mt-8 items-start">
-            <div class="w-[32%] border-[2px] border-[#22bbea] p-3 rounded mt-14">
+            <div class="w-[32%] border-[2px] border-skyblue p-3 rounded mt-14">
                 <CardSkills />
             </div>
             <div class="w-[64%]">
                 <CardInfo :user="user" @getData="getUser" />
-                <CardExper :edu="edu">Education Background</CardExper>
+                <!-- +++++++++++ Alumni Education +++++++++++++ -->
+                <edu-card-view :edu="edu" @is-add-edu="isAddEdu=true" @isEdit-edu="isEditEduction"></edu-card-view>
+                <FormAddEduView  v-if="isAddEdu" :universities="universities" @addEdu="addEducation" @cancelAdd="isAddEdu=false" ></FormAddEduView>
+                <edit-edu-view v-if="isEditEdu" :universities="universities" :education="education" @editEdu="editEducation" @cancelEdit="isEditEdu=false" @added-new-univer="addedNewUniver"></edit-edu-view>
+
                 <CardExper 
                 :experiences="experiences" 
-                @cardEditor="editWorkExper"
-                @formInputStatus="formInputStatus">Work Experiences</CardExper>
+                @editor="editWorkExper"
+                @clickPopUp="popUp"></CardExper>
                 <!-- form be able to add work experience's alumni -->
                 <FormAddExper 
-                v-if="formStatus=='Add'"
+                v-if="isPopUp=='Add'"
                 :companies="companies"
-                @formInputStatus="formInputStatus"
+                @add-company="addCompany"
+                @clickPopUp="popUp"
                 @addAlumniExper="addAlumniExper"
                 ></FormAddExper>
                 <FormEditExper
-                v-if="formStatus=='Edit' && experiences!=null"
-                @formInputStatus="formInputStatus"  
+                v-if="isPopUp=='Edit'"
+                @clickPopUp="popUp"  
+                @add-company="addCompany"
                 :companies="companies" 
-                :experience="experiences[indexExper]"
-                @saveEditExper="saveEditExper"
+                :experience="editExperience"
+                @edit-workExper="saveEditExper"
                 ></FormEditExper>
             </div>
         </div>
@@ -70,12 +76,15 @@
 </section>
 </template>
 <script>
+import axios from '../../../axios-http'
 import FormEditExper from "../FormInput/FormEditExper.vue"
 import FormAddExper from "../FormInput/FormAddExper.vue"
-import axios from '../../../axios-http'
 import CardInfo from "../CardView/CardInfo.vue"
 import CardSkills from "../skills/CardSkills.vue"
 import CardExper from "../CardView/CardExper.vue"
+import EduCard from '../CardView/EduCard.vue'
+import FormAddEduView from "../FormInput/FormAddEduView.vue"
+import FormEditEduView from "../FormInput/FormEditEduView.vue"
 import updateProfileView from "./UpdateProfileView.vue";
 import UpdateCoverView from "./UpdateCoverView.vue";
 export default {
@@ -89,63 +98,62 @@ export default {
         FormAddExper,
         "update-profile-view":updateProfileView,
         "update-cover-view":UpdateCoverView,
+        'edu-card-view': EduCard,
+        'edit-edu-view': FormEditEduView,
+        FormAddEduView,
         FormEditExper
     },
     data() {
         return {
             user: {},
-            edu: [
-                {school: 'Passerelles Numeriques Cambodia', degree: "Associat's degree", major: 'Information Technology', start_year: 2020, end_year: 2022, src: 'https://previews.123rf.com/images/anthonycz/anthonycz1612/anthonycz161200005/68815871-school-vector-icon-isolated-building-on-white-background.jpg'},
-                // {school: 'Passerelles Numeriques Cambodia', degree: "Associat's degree", major: 'Information Technology', start_year: 2020, end_year: 2022, src: 'https://previews.123rf.com/images/anthonycz/anthonycz1612/anthonycz161200005/68815871-school-vector-icon-isolated-building-on-white-background.jpg'},
-            ],
+            edu: [],
             experiences: [],
+            editExperience:{},
             isUpdate: false,
             isUpdateCover: false,
             image:'',
             profile:'',
             cover:'',
-            formStatus:null,
-            indexExper:null,
+            isPopUp:null,
             companies:null,
-            alumni_id:null,
+            universities:null,
+            alumni_id:1,
+            isAddEdu:false,
+            isEditEdu:false,
+            education:{},
         }
     },
 
     methods:{
         //Form for Add or Edit work experience's alumni
-        formInputStatus(status){
-            this.formStatus=status;
+        popUp(opup){
+            this.isPopUp=opup;
         },
-
         addAlumniExper(newExper){
             newExper['alumni_id']=this.alumni_id;
-            axios.post("workexperience", newExper).then(res => {
-                console.log(res);
+            axios.post("workexperience", newExper).then((res) => {
                 this.getAlumniExperiences()
             });
         },
-        editWorkExper(workExper){
-            this.formStatus=workExper.status
-            this.indexExper=workExper.index
+        editWorkExper(experience){
+            this.isPopUp='Edit'
+            this.editExperience=experience;
         },
         
         saveEditExper(experience){
-            axios.put("workexperience/" + this.experiences[this.indexExper].id , experience).then(res => {
-                console.log(res)
+            axios.put("workexperience/" + this.editExperience.id , experience).then(() => {
                 this.getAlumniExperiences()
             });
-            experience['src']=this.imgWorkExper
-            this.experiences[this.indexExper]=experience
         },
 
         tageImage(event, update){
             this.image = event.target.files[0];
             if(update == "profile"){
                 this.isUpdate = true;
-                this.profile = URL.createObjectURL(event.target.files[0]);
+                this.profile = URL.createObjectURL(this.image);
             }else{
                 this.isUpdateCover = true;
-                this.cover = URL.createObjectURL(event.target.files[0]);
+                this.cover = URL.createObjectURL(this.image);
             }
         },
         saveUpload() {
@@ -155,8 +163,7 @@ export default {
         axios.post("alumniprofile/" + this.user_id, formData).then((res) => {
             console.log(res);
             this.getUser();
-            this.isUpdate=false;
-        });
+            this.isUpdate=false;});
         },
         saveCover() {
         let formData = new FormData();
@@ -179,17 +186,57 @@ export default {
                 this.alumni_id=res.data[0].alumni_id
             });
         },
+
+        addCompany(company){
+            axios.post('company', company).then((res) => {
+                this.getCompanies();
+                console.log("Data is :" , res.data)
+                })
+        },
+
         getCompanies(){
             axios.get('companies').then(res => {
                 this.companies = res.data
+                console.log(res.data);
             });
         },
+        getAlumniEdu(){
+            axios.get('alumniEdu/1').then(res => {
+                this.edu = res.data
+            });
+        },
+        getUniversities(){
+            axios.get('universities').then(res => {
+                this.universities = res.data
+            });
+        },
+        addEducation(newEdu){
+            axios.post("education", newEdu).then(() => {
+                this.getAlumniEdu();
+                this.isAddEdu = false;
+            });
+        },
+        isEditEduction(education){
+            this.isEditEdu = true;
+            this.education = education;
+        },
+        editEducation(newEdu,edu_id){
+            axios.put("education/"+edu_id, newEdu).then(() => {
+                this.getAlumniEdu();
+                this.isEditEdu = false;
+            });
+        },
+        addedNewUniver(){
+            this.getUniversities();
+        }
     },
     watch: {
         user_id() {
             this.getUser();
             this.getAlumniExperiences();
             this.getCompanies();
+            this.getAlumniEdu();
+            this.getUniversities();
         }
     },
 
@@ -198,6 +245,8 @@ export default {
             this.getUser();
             this.getAlumniExperiences();
             this.getCompanies();
+            this.getAlumniEdu();
+            this.getUniversities();
         }
     }
 };

@@ -1,5 +1,5 @@
 <template>
-  <ProfileAlumni />
+  <ProfileAlumni class="mt-4 z-0 mb-6" />
 </template>
 
 <script>
