@@ -33,12 +33,14 @@
           <addSkill 
           class="w-[94%]"
           :items="skills"
-          @selected="selectSkill"
+          @addInput="addNewSkill"
+          @selected="skillSugesstion"
+          @hasMatch="hasType"
           :message="'Type here'"
           >
           </addSkill>
         </div>
-        <div class="w-[100%] p-2 flex justify-end mt-12">
+        <div class="w-[100%] p-2 flex justify-end mt-2"  :class="matched?'mt-12':'mt-2'">
           <button
             type="text"
             class="hover:bg-[#cecece] border-[1px] border-gray-300 text-gray-500 shadow py-1 px-8  rounded focus:outline-none focus:shadow-outline"
@@ -66,12 +68,18 @@ export default {
   data() {
     return {
       skill: null,
+      matched: [],
     };
   },
   methods: {
-    selectSkill(skill) {
+    hasType(value){this.matched = value.length},
+    skillSugesstion(skill) {
       this.skill = skill["name"];
     },
+    addNewSkill(newskill){
+      this.skill = ''
+      this.skill= newskill},
+
     addSkill() {
       if (this.skill != null) {
         this.$emit("add-skill", { name: this.skill, alumni_id: 1 });

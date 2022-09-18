@@ -82,6 +82,7 @@
     watch:{
       query(value){
         this.$emit("addInput", value);
+        this.$emit('hasMatch', this.matches)
       }
     }
   }

@@ -62,7 +62,7 @@
                 </div>
             </div>            
             <div class="btn-controller flex justify-end">
-                <button @click="$emit('clickPopUp', null)" class=" hover:bg-[#cecece] border-[1px] border-gray-300 text-gray-500 shadow py-1 px-8  rounded focus:outline-none focus:shadow-outline">
+                <button @click="$emit('clickPopUp', null)" class="mr-4 hover:bg-[#cecece] border-[1px] border-gray-300 text-gray-500 shadow py-1 px-8  rounded focus:outline-none focus:shadow-outline">
                     Cancel
                 </button>
                 <button @click="saveEdit" class="bg-skyblue hover:bg-[#23afda] mx-2 text-white py-1 px-10 rounded focus:outline-none focus:shadow-outline">
