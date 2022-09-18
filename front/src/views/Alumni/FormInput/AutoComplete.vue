@@ -1,11 +1,14 @@
 <template>
   <div class="autocomplete w-[100%] relative m-auto">
-    <div class="flex justify-between items-centerborder" v-if="!visible"> 
-        <div @click="toggleVisible" class="input w-[95%] rounded m-auto cursor-text p-3 bg-gray-50" v-text="selectedItem? selectedItem['name'] : message"></div>
+    <div class="flex justify-between items-center border" v-if="!visible">   
+        <div 
+        @click="toggleVisible"
+        class="input w-[100%] cursor-text p-2 bg-gray-50 rounded-sm border border-gray-400 sm:text-xs focus:ring-blue-500 focus:border-[#22bbea]" 
+        v-text="selectedItem? selectedItem['name'] : message"></div>
     </div>
     <div class="popover min-h-8 w-full" v-else>
       <input type="text"
-      class="outline-none w-[95%] p-2 rounded border border-blue-100"
+      class="outline-none w-[100%] p-2 bg-gray-50 rounded-sm border border-gray-400 sm:text-xs focus:ring-blue-500 focus:border-[#22bbea]"
         ref="input"
         v-model="query"
         @keydown.enter="selectItem"
@@ -36,7 +39,7 @@
       return {
         itemHeight: 39,
         selectedItem: null,
-        query: '',
+        query: this.message!="Type here"?this.message:"",
         visible: false
       };
     },
@@ -58,6 +61,8 @@
         this.selectedItem = this.matches[this.selected];
         this.visible = false;
         this.$emit('selected', this.selectedItem);
+        console.log(this.selectedItem);
+
       },
      
       scrollToItem() {
@@ -70,7 +75,13 @@
         if (this.query == '') {
           return [];
         }
+        
         return this.items.filter((item) => item['name'].toLowerCase().includes(this.query.toLowerCase()))
+      }
+    },
+    watch:{
+      query(value){
+        this.$emit("addInput", value);
       }
     }
   }

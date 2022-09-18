@@ -1,8 +1,7 @@
 <template>
   <div
     tabindex="-1"
-    class="bg-[#000000b9] fixed flex items-center z-50 md:inset-0 h-modal md:h-full"
-  >
+    class="bg-[#000000b9] fixed flex items-center z-50 md:inset-0 h-modal md:h-full">
     <div
       class="modal bg-white h-auto shadow-md rounded mt-2 mb-10 m-auto w-[30rem] z-10"
       v-click-outside="clickedOutside"
@@ -30,26 +29,26 @@
           </svg>
         </div>
 
-        <div class="w-full flex justify-start relative mt-4 p-4 m-auto">
-          <addSkill
-            class="w-[90%]"
-            :items="skills"
-            @selected="selectSkill"
-            :message="'Type skill...'"
+        <div class="w-full flex justify-start relative mt-4">
+          <addSkill 
+          class="w-[94%]"
+          :items="skills"
+          @selected="selectSkill"
+          :message="'Type here'"
           >
           </addSkill>
         </div>
-        <div class="w-[100%] p-2 flex justify-end mt-10">
+        <div class="w-[100%] p-2 flex justify-end mt-12">
           <button
             type="text"
-            class="bg-gray-500 text-white font-bold py-1 mx-2 px-4 rounded"
+            class="hover:bg-[#cecece] border-[1px] border-gray-300 text-gray-500 shadow py-1 px-8  rounded focus:outline-none focus:shadow-outline"
             @click="$emit('closePopUp', false)"
           >
             cancel
           </button>
           <button
             type="submit"
-            class="bg-skyblue hover:bg-blue-700 text-white font-bold py-1 mx-2 px-4 rounded"
+            class="bg-skyblue hover:bg-[#23afda] mx-2 text-white py-1 px-10 rounded focus:outline-none focus:shadow-outline"
           >
             Add
           </button>
@@ -60,8 +59,8 @@
 </template>
 
 <script>
-import skills from "../../../store/skills.json";
-import addSkill from "./AutoComplete.vue";
+import skills from "../../../stores/skills.json"
+import addSkill from "./AutoComplete.vue"
 export default {
   components: { addSkill },
   data() {
@@ -83,6 +82,7 @@ export default {
       this.$emit("closePopUp", false);
     },
   },
+
   computed: {
     skills() {
       return skills;

@@ -118,12 +118,10 @@ public function uploadAlumniCover(Request $request, $id){
 
     if ($alumni->coverimage !== 'cover.jpg') {
         $previousProfilePublicPath = public_path('images/cover/' . $alumni->coverimage);
-
         if(File::exists($previousProfilePublicPath)){
             File::delete($previousProfilePublicPath);
         }
     }
-
     $file = $request->coverimage;
     $fileName = uniqid() . '_' . trim($file->getClientOriginalName());
     $alumni->coverimage = $fileName;

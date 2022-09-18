@@ -8,8 +8,9 @@
                 <!-- search company -->
                 <autocomplete
                     :items="companies"
+                    @addInput="addInput"
                     :message="experience['name']"
-                    @stalled="editCompany"
+                    @selected="editCompany"
                     class="mt-4 w-[100%] bg-white">
                     <span>Not found, please </span>
                     <button  class="mx-auto rounded-md text-blue-800" @click="popUp(true)">click here</button>
@@ -17,7 +18,7 @@
             </div>
             <div class="w-[100%] my-2 p-2">
                 <label class="mb-2 w-[12rem] text-start text-sm font-bold">Position: </label>
-                <input v-model="position" type="text" placeholder="require*" class="block font-xl my-2 p-2 w-full outline-none text-gray-900 bg-gray-100 rounded-sm border border-gray-300 sm:text-xs focus:ring-skyblue" :class="msError['require_error']?'border-red-300':''">
+                <input v-model="position" type="text" placeholder="require*" class="mt-2 block p-2 w-full outline-none text-gray-900 bg-gray-50 rounded-sm border border-gray-400 sm:text-xs focus:ring-blue-500 focus:border-[#22bbea]" :class="msError['require_error']?'border-red-300':''">
             </div>
             <error class="text-xs relative ml-[32%] -mt-2" v-if="msError['pst_error']">{{msError['pst_error']}}</error>
 
@@ -29,13 +30,13 @@
                 <label class="mb-2 ml-2 w-[12rem] text-start text-sm font-bold">Start date</label>
                 <div class="date flex justify-between my-2 p-0">
                     <div class="w-[100%] mx-2 text-start">
-                        <select v-model="start_month" class="block p-2 w-full outline-none text-gray-900 bg-gray-50 rounded-sm border border-gray-300 sm:text-xs focus:ring-skyblue" :class="msError['require_error']?'border-red-300':''">
+                        <select v-model="start_month" class="block p-2 w-full outline-none text-gray-900bg-gray-50 rounded-sm border border-gray-400 sm:text-xs focus:ring-blue-500 focus:border-[#22bbea]" :class="msError['require_error']?'border-red-300':''">
                             <option value="" disabled>Month</option>
                             <option v-for:= "month of months" :value="month">{{month}}</option>
                         </select>
                     </div>
                     <div class="w-[100%] mx-2 text-start">
-                        <select v-model="start_year" class="block p-2 w-full outline-none text-gray-900 bg-gray-50 rounded-sm border border-gray-300 sm:text-xs focus:ring-skyblue" :class="msError['require_error']?'border-red-300':''">
+                        <select v-model="start_year" class="block p-2 w-full outline-none text-gray-900bg-gray-50 rounded-sm border border-gray-400 sm:text-xs focus:ring-blue-500 focus:border-[#22bbea]" :class="msError['require_error']?'border-red-300':''">
                             <option value="" disabled>Year</option>
                             <option v-for:= "year of years" :value="year">{{year}}</option>
                         </select>
@@ -47,13 +48,13 @@
                 <label class="mb-2 ml-2 w-[12rem] text-start text-sm font-bold">End date</label>
                 <div class="date flex justify-between my-2 p-0">
                     <div class="w-[100%] mx-2 text-start">
-                        <select v-model="end_month" class="block p-2 w-full outline-none text-gray-900 bg-gray-50 rounded-sm border border-gray-300 sm:text-xs focus:ring-skyblue" :class="msError['require_error']?'border-red-300':''">
+                        <select v-model="end_month" class="block p-2 w-full outline-none text-gray-900bg-gray-50 rounded-sm border border-gray-400 sm:text-xs focus:ring-blue-500 focus:border-[#22bbea]" :class="msError['require_error']?'border-red-300':''">
                             <option value="" disabled>Month</option>
                             <option v-for:= "month of months" :value="month">{{month}}</option>
                         </select>
                     </div>
                     <div class="w-[100%] mx-2 text-start">
-                        <select v-model="end_year" class="block p-2 w-full outline-none text-gray-900 bg-gray-50 rounded-sm border border-gray-300 sm:text-xs focus:ring-skyblue" :class="msError['require_error']?'border-red-300':''">
+                        <select v-model="end_year" class="block p-2 w-full outline-none text-gray-900bg-gray-50 rounded-sm border border-gray-400 sm:text-xs focus:ring-blue-500 focus:border-[#22bbea]" :class="msError['require_error']?'border-red-300':''">
                             <option value="PRESENT" disabled>Year</option>
                             <option v-for:= "year of years" :value="year">{{year}}</option>
                         </select>
@@ -61,10 +62,10 @@
                 </div>
             </div>            
             <div class="btn-controller flex justify-end">
-                <button @click="$emit('clickPopUp', null)" class="bg-gray-500 text-white font-bold py-1 mx-2 px-4 rounded">
+                <button @click="$emit('clickPopUp', null)" class=" hover:bg-[#cecece] border-[1px] border-gray-300 text-gray-500 shadow py-1 px-8  rounded focus:outline-none focus:shadow-outline">
                     Cancel
                 </button>
-                <button @click="saveEdit" class=" bg-skyblue hover:bg-blue-700 text-white font-bold py-1 mx-2 px-4 rounded">
+                <button @click="saveEdit" class="bg-skyblue hover:bg-[#23afda] mx-2 text-white py-1 px-10 rounded focus:outline-none focus:shadow-outline">
                     Save
                 </button>
             </div>
@@ -72,6 +73,7 @@
     </div>
      <addcompany 
         v-else
+        :name="keepValueInput"
         @add-company="editCompany"
         @popUp="popUp">
         </addcompany>
@@ -102,7 +104,7 @@ export default({
     methods:{
         onClickOutside () {this.$emit('clickPopUp', null)},
         editCompany(company){
-            if(id){this.companyId=company.id}else{this.companyId=this.experience['company_id']}
+            if(company.id){this.companyId=company.id}else{this.companyId=this.experience['company_id']}
         },
 
         saveEdit(){
@@ -140,6 +142,9 @@ export default({
             this.$emit('add-company', company);
             this.isAddCompany=false;
         },
+        addInput(value){
+            this.keepValueInput = value
+        }
     },
     watch: {
         position(value){ 
