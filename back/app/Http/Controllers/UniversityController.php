@@ -28,6 +28,8 @@ class UniversityController extends Controller
         $university = new University();
         $university->name = $request->name;
         $university->address = $request->address;
+        $request->file('profile')->store('images/profile');
+        $university->profile = $request->file("profile")->hashName();
         $university->save();
         return response()->json(['status' => ' sucessfully'],200);
     }
