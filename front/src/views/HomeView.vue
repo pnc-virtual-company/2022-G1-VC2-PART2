@@ -1,13 +1,14 @@
 
 <template>
-  <addCompany/>
+<h1 class="text-center">Welcome to my home page!!!!</h1>
+<auto-complete/>
 </template>
 
 <script>
-import addCompany from "./Alumni/FormInput/FormAddCompany.vue";
+import autocomplete from "../views/Alumni/FormInput/AutoComplete.vue"
 export default {
   components:{
-    addCompany,
+    'auto-complete':autocomplete,
   }
 }
 </script>

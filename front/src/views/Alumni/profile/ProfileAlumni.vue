@@ -43,7 +43,6 @@
             </div>
             <div class="w-[64%]">
                 <CardInfo :user="user" @getData="getUser" />
-
                 <!-- +++++++++++ Alumni Education +++++++++++++ -->
                 <edu-card-view :edu="edu" @is-add-edu="isAddEdu=true" @isEdit-edu="isEditEduction"></edu-card-view>
                 <FormAddEduView  v-if="isAddEdu" :universities="universities" @addEdu="addEducation" @cancelAdd="isAddEdu=false" ></FormAddEduView>
@@ -57,12 +56,14 @@
                 <FormAddExper 
                 v-if="isPopUp=='Add'"
                 :companies="companies"
+                @add-company="addCompany"
                 @clickPopUp="popUp"
                 @addAlumniExper="addAlumniExper"
                 ></FormAddExper>
                 <FormEditExper
                 v-if="isPopUp=='Edit'"
                 @clickPopUp="popUp"  
+                @add-company="addCompany"
                 :companies="companies" 
                 :experience="editExperience"
                 @edit-workExper="saveEditExper"
@@ -127,7 +128,7 @@ export default {
         },
         addAlumniExper(newExper){
             newExper['alumni_id']=this.alumni_id;
-            axios.post("workexperience", newExper).then(() => {
+            axios.post("workexperience", newExper).then((res) => {
                 this.getAlumniExperiences()
             });
         },
@@ -137,7 +138,6 @@ export default {
         },
         
         saveEditExper(experience){
-            console.log(experience);
             axios.put("workexperience/" + this.editExperience.id , experience).then(() => {
                 this.getAlumniExperiences()
             });
@@ -181,6 +181,14 @@ export default {
                 this.experiences = res.data
             });
         },
+
+        addCompany(company){
+            axios.post('company', company).then((res) => {
+                this.getCompanies();
+                console.log("Data is :" , res.data)
+                })
+        },
+
         getCompanies(){
             axios.get('companies').then(res => {
                 this.companies = res.data

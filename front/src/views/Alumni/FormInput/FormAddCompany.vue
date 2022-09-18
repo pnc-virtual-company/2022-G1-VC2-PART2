@@ -1,21 +1,19 @@
 <template>
     <div class="main">
-      <button @click="showform">show</button>
-      <div class="modal-mask" v-if="showForm">
+      <div class="modal-mask">
         <div class="modal-wrapper">
-          <div class="modal-container rounded">
-            <div class="flex w-[100%] border-y-4 border-gray-500 mt-5">
-              <div class="w-[70%] m-auto mt-5 mb-2">
-               <h4 class="text-xl"> Add Company</h4>
-              </div>
-              <div class="w-[15%]">
-                <img src="../../../assets/reject.png" class="w-[50%] mt-2 -mr-5 cursor-pointer" @click="cancleAdd">
+          <div class="modal-container rounded w-[30rem] p-4" v-click-outside="onClickOutside">
+            <div class="flex items-center w-[28rem] border-b-2 border-gray-400 my-4">
+               <h4 class="text-xl w-full mt-0"> Add Company</h4>
+              <div class="flex justify-end -mt-4">
+                <img src="../../../assets/reject.png" class="w-[2rem] cursor-pointer" @click="$emit('popUp', false)">
               </div>
             </div>
             <form class="w-[100%] flex flex-wrap m-auto" @submit.prevent="addCompany">
-              <div class="w-[60%] flex m-auto  mt-10 mb-10">
-                <div class="relative m-auto">
-                  <img src="../../../assets/logo.png" class="w-24 h-24 rounded-full object-cover border-4 bg-cyan-700 border-gray-700">
+                <div class="relative mx-auto my-2">
+                  <div class="w-[5rem] h-[5rem] rounded-full">
+                    <img :src="logo? logo:''" class="rounded-full">
+                  </div>
                   <label for="uploadimg">
                     <span class="absolute h-6 w-6 rounded-full cursor-pointer bg-white border-gray-200 border-2 bottom-0 right-0">
                       <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
@@ -24,29 +22,24 @@
                       </svg>
                     </span>
                   </label>
-                  <input type="file"  id="uploadimg" hidden accept="images/*">
+                  <input type="file"  id="uploadimg" hidden accept="images/*" @change="uploadImg">
                 </div>
-              </div>
-              <div class="w-[90%] flex m-auto">
-                <div class="w-[30%]">
-                  <label for="companyName" class="w-2/4">Company Name:</label>
+                <div class="w-full m-auto px-4">
+                  <div class="relative z-0 mb-6 w-full group">
+                      <input type="text" id="floating_name" v-model="company_name" class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" " required />
+                      <label for="floating_name" class="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Company*</label>
+                  </div>
                 </div>
-                <input type="text" v-model="company_name" id="companyName" class="w-[65%] p-1 outline-2 outline-blue-500  border-2 rounded-md">
+                <div class="w-full m-auto px-4">
+                  <div class="relative z-0 mb-6 w-full group">
+                      <input type="text" id="floating_address" v-model="company_address" class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" " required />
+                      <label for="floating_address" class="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Address*</label>
+                  </div>
                 </div>
-              <div class="w-[90%] flex  m-auto mt-4">
-                <div class="w-[30%]">
-                  <label for="companyAddress">Address:</label>
+                <div class="w-full my-2 flex items-center ml-4 justify-end">
+                  <button @click="$emit('popUp', false)" class="bg-gray-500 text-white font-bold py-1 mx-2 px-4 rounded">Cancle</button>
+                  <button type="submit" class="bg-skyblue hover:bg-blue-700 text-white font-bold py-1 mx-2 px-4 rounded">Add</button>
                 </div>
-                <input type="text" v-model="company_address" id="companyAddress" class="w-[65%] p-1 outline-2 outline-blue-500 border-2 rounded-md">
-              </div>
-              <div class="w-[90%] flex mt-7 mb-6 justify-end">
-                <div class="w-[30%] flex">
-                  <button type="submit" class="w-[100%] bg-blue-400 text-white p-2 rounded-sm">Add</button>
-                </div>
-                <div class="w-[30%] flex ml-4">
-                  <button @click="cancleAdd" class="w-[100%] bg-gray-400 text-white p-2 rounded-sm">Cancle</button>
-                </div>
-              </div>
             </form>
           </div>
         </div>
@@ -59,25 +52,25 @@ export default {
     emits:['add-company'],
   data(){
       return {
-        showForm:false,
+        logo: 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAOEAAADhCAMAAAAJbSJIAAAAFVBMVEUAAAD///+lpaWtra2pqalra2udnZ3XsOkrAAACH0lEQVR4nO3ZQXLjMAwEwKzj5P9PzkEnlywuAIm0SfccUdAIfUop/vq3er5efUD3EM4fwvlDOH8It6Wr01v1cHxoiZCQsGcItyVCQsKeIdyWCAkJe4ZwWyKcTHi557VmQkJCQkJCQkJCQkJCQkLCxh0nJ4RXhpCwNiG8MoSEtcn7CvuFkJCQkJCQ8KOEV/UQDg9huqco/L5t+T45aVx2QvfQUxTud2qTSHMthISE0UmkuRZCQsLoJNJcCyEhYXQSaa5lAuHJQkLC9YUDvvFfLOwXQsJGD+GgXPV2QsJ+eReh/+pHJ5HmWggJCaOT0GWlQkJCQkJCQsIphI2dSAgJ1xeu/43fL4TpHsLh+SDh/ozIpNVDOCiEo4Tr/45fe32qmZCQ8PXCxk4khISE0UmkuRZCQsLoJNJcywTCk4WEhOsL1//G7xdCwkYP4aBc9XZCwn55F+H6v+Pvd2qTSHMthISE0UnoslIhISEhISEh4RTCxk4khITrC9f/xu8XwnQP4fB8kHB/RmTS6iEcFMJRwud/u3/ut8fcfwJPvafw+c59V3EPPDWT8LaruBESrixs7ERCSEhImG3Oh5CQ8ALhfjkyISQkJCQkJLxQ+Dz/E0ZSf/tBD2EqhKnL0k8e9BCmQpi6LP3kQQ9hKoSpy9JPHvQQpkKYuiz95EEPYSqEqcvSTx70EKbyu6v4rV+WfvKgpyVcLITzh3D+EM4fwvnzB/6pXTl+Bj9xAAAAAElFTkSuQmCC',
         company_name:'',
         company_address:'',
+        profile:"",
       }
   },
   methods:{
-    showform(){
-      this.showForm = !this.showForm;
-      
-    },
+    onClickOutside () {this.$emit('popUp', false)},
     addCompany(){
-        let body = {companyName:this.company_name,companyAddress:this.company_address}
+        let body = new FormData();
+        body.append('name', this.company_name)
+        body.append('address', this.company_address)
+        body.append('profile', this.profile)
         this.$emit('add-company',body);
-        this.showForm = !this.showForm;
     },
-    cancleAdd(){
-      this.showForm = !this.showForm;
-    },
-
+    uploadImg(e){
+      this.profile=e.target.files[0];
+      this.logo=URL.createObjectURL(this.profile)
+    }
   }
 }
 </script>
