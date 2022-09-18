@@ -4,7 +4,7 @@
         <div class="modal bg-white h-auto shadow-md rounded p-5 mt-2 mb-10 m-auto w-[30rem] z-10" v-click-outside="onClickOutside">
             <h4 class="font-bold text-center">Edit Wrok experience</h4>
             <div class="w-[100%] my-2 p-2">
-                <label class="mb-2 w-[12rem] text-start text-sm font-bold">Company Name: </label>
+                <label class="mb-2 w-[12rem] text-start text-sm font-medium">Company Name: </label>
                 <!-- search company -->
                 <autocomplete
                     :items="companies"
@@ -17,7 +17,7 @@
                 </autocomplete>
             </div>
             <div class="w-[100%] my-2 p-2">
-                <label class="mb-2 w-[12rem] text-start text-sm font-bold">Position: </label>
+                <label class="mb-2 w-[12rem] text-start text-sm font-medium">Position: </label>
                 <input v-model="position" type="text" placeholder="require*" class="mt-2 block p-2 w-full outline-none text-gray-900 bg-gray-50 rounded-sm border border-gray-400 sm:text-xs focus:ring-blue-500 focus:border-[#22bbea]" :class="msError['require_error']?'border-red-300':''">
             </div>
             <error class="text-xs relative ml-[32%] -mt-2" v-if="msError['pst_error']">{{msError['pst_error']}}</error>
@@ -27,7 +27,7 @@
                 <label for="default-checkbox" class="ml-4 text-sm font-medium text-gray-900">I am current working</label>
             </div>
             <div class="start-date">
-                <label class="mb-2 ml-2 w-[12rem] text-start text-sm font-bold">Start date</label>
+                <label class="mb-2 ml-2 w-[12rem] text-start text-sm font-medium">Start date</label>
                 <div class="date flex justify-between my-2 p-0">
                     <div class="w-[100%] mx-2 text-start">
                         <select v-model="start_month" class="block p-2 w-full outline-none text-gray-900bg-gray-50 rounded-sm border border-gray-400 sm:text-xs focus:ring-blue-500 focus:border-[#22bbea]" :class="msError['require_error']?'border-red-300':''">
@@ -45,7 +45,7 @@
             </div>
 
              <div :class="ischeckboxed?'hidden':'end_date'">
-                <label class="mb-2 ml-2 w-[12rem] text-start text-sm font-bold">End date</label>
+                <label class="mb-2 ml-2 w-[12rem] text-start text-sm font-medium">End date</label>
                 <div class="date flex justify-between my-2 p-0">
                     <div class="w-[100%] mx-2 text-start">
                         <select v-model="end_month" class="block p-2 w-full outline-none text-gray-900bg-gray-50 rounded-sm border border-gray-400 sm:text-xs focus:ring-blue-500 focus:border-[#22bbea]" :class="msError['require_error']?'border-red-300':''">

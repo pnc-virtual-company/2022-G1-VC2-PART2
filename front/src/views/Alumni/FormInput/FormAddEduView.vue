@@ -7,7 +7,7 @@
     <div class="pb-5 pl-5 pr-5">
       <div class="w-[100%] my-2 p-2">
             <label class="w-[12rem] text-start text-sm font-medium">Universities </label>
-            <input-university :universities="universities" @university-id="getUniversitID" @university-name="getUniversityName" @is-add-univer="isAddUniver = true"></input-university>
+            <input-university :universities="universities" @university-id="getUniversitID" @university-name="getUniversityName" @is-add-univer="isAddUniver = true" :errorClass="errorClass"></input-university>
       </div>
       <div class="w-[100%] my-2 p-2">
             <label class="w-[12rem] text-start text-sm font-medium">Major </label>
@@ -84,7 +84,7 @@ export default {
     'input-university': FormInputUniversity,
     'form-add-univer': FormAddUniver,
   },
-  props: ["universities"],
+  props: ["universities",'alu_id'],
   emits: ["addEdu", "cancelAdd",'added-new-univer'],
   data() {
     return {
@@ -121,6 +121,7 @@ export default {
       is_end_year: false,
       isPNC : false,
       isAddUniver: false,
+      errorClass:'',
     };
   },
   methods: {
@@ -137,12 +138,15 @@ export default {
             end_year: this.end_year,
             degree: this.degree,
             major: this.major,
-            alumni_id: 1,
+            alumni_id: this.alu_id,
             university_id: this.university_id,
           };
+          this.errorClass = '';
           this.$emit("addEdu", newEdu);
         }
-      } 
+      }else {
+        this.errorClass = 'border-red-500 bg-red-100';
+      }
     },
     getUniversitID(university_id){
       this.university_id = university_id;
