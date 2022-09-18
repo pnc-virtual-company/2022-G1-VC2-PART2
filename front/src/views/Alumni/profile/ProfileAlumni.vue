@@ -39,7 +39,7 @@
         </div>        
         <div class="flex justify-between mt-8 items-start">
             <div class="w-[32%] border-[2px] border-skyblue p-3 rounded mt-14">
-                <CardSkills />
+                <CardSkills :alu_id="alu_id" />
             </div>
             <div class="w-[64%]">
                 <CardInfo :user="user" @getData="getUser" />
