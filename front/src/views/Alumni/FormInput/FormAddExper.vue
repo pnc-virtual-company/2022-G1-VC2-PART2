@@ -9,7 +9,8 @@
                 <!-- search company -->
                 <autocomplete
                 :error="msError['require_error']"
-                :message="'Find here...'"
+                @addInput="addInput"
+                :message="'Type here'"
                 :items="companies"
                 @selected="getIdCompany"
                 class="mt-4 w-[100%] bg-white">
@@ -19,7 +20,7 @@
             </div>
             <div class="w-[100%] items-center p-2">
                 <label class=" w-[12rem] text-start text-sm font-bold">Position: </label>
-                <input v-model="position" type="text" placeholder="require*" class="block my-2 font-xl p-2 w-full outline-none text-black bg-gray-100 rounded-sm border border-gray-300 focus:ring-skyblue" :class="msError['require_error']||msError['pst_error']?'border-red-400 bg-red-100':''">
+                <input v-model="position" type="text" placeholder="require*" class="block p-2 w-full outline-none text-gray-900bg-gray-50 rounded-sm border border-gray-400 sm:text-xs focus:ring-blue-500 focus:border-[#22bbea]" :class="msError['require_error']||msError['pst_error']?'border-red-400 bg-red-100':''">
             </div>
             <div class="flex items-center ml-2 my-4">
                 <input id="default-checkbox" type="checkbox" v-model='ischeckboxed' class="w-4 h-4 text-green-500 bg-gray-100 rounded border-gray-300">
@@ -29,13 +30,13 @@
                 <label class="mb-2 ml-2 w-[12rem] text-start text-sm font-bold">Start date</label>
                 <div class="date flex justify-between my-2 p-0">
                     <div class="w-[100%] mx-2 text-start">
-                        <select v-model="start_month" class="block p-2 w-full outline-none text-gray-900 bg-gray-50 rounded-sm border border-gray-300 sm:text-xs focus:ring-skyblue" :class="msError['require_error']?'border-red-400 bg-red-100':''">
+                        <select v-model="start_month" class="block p-2 w-full outline-none text-gray-900bg-gray-50 rounded-sm border border-gray-400 sm:text-xs focus:ring-blue-500 focus:border-[#22bbea]" :class="msError['require_error']?'border-red-400 bg-red-100':''">
                             <option value="" disabled>Month</option>
                             <option v-for:= "month of months" :value="month">{{month}}</option>
                         </select>
                     </div>
                     <div class="w-[100%] mx-2 text-start">
-                        <select v-model="start_year" class="block p-2 w-full outline-none text-gray-900 bg-gray-50 rounded-sm border border-gray-300 sm:text-xs focus:ring-skyblue" :class="msError['require_error']?'border-red-400 bg-red-100':''">
+                        <select v-model="start_year" class="block p-2 w-full outline-none text-gray-900bg-gray-50 rounded-sm border border-gray-400 sm:text-xs focus:ring-blue-500 focus:border-[#22bbea]" :class="msError['require_error']?'border-red-400 bg-red-100':''">
                             <option value="" disabled>Year</option>
                             <option v-for:= "year of years" :value="year">{{year}}</option>
                         </select>
@@ -46,13 +47,13 @@
                 <label class="mb-2 ml-2 w-[12rem] text-start text-sm font-bold">End date</label>
                 <div class="date flex justify-between my-2 p-0">
                     <div class="w-[100%] mx-2 text-start">
-                        <select v-model="end_month" class="block p-2 w-full outline-none text-gray-900 bg-gray-50 rounded-sm border border-gray-300 sm:text-xs focus:ring-skyblue" :class="msError['require_error']?'border-red-400 bg-red-100':''">
+                        <select v-model="end_month" class="block p-2 w-full outline-none text-gray-900bg-gray-50 rounded-sm border border-gray-400 sm:text-xs focus:ring-blue-500 focus:border-[#22bbea]" :class="msError['require_error']?'border-red-400 bg-red-100':''">
                             <option value="" disabled>Month</option>
                             <option v-for:= "month of months" :value="month">{{month}}</option>
                         </select>
                     </div>
                     <div class="w-[100%] mx-2 text-start">
-                        <select v-model="end_year" class="block p-2 w-full outline-none text-gray-900 bg-gray-50 rounded-sm border border-gray-300 sm:text-xs focus:ring-skyblue" :class="msError['require_error']?'border-red-400 bg-red-100':''">
+                        <select v-model="end_year" class="block p-2 w-full outline-none text-gray-900bg-gray-50 rounded-sm border border-gray-400 sm:text-xs focus:ring-blue-500 focus:border-[#22bbea]" :class="msError['require_error']?'border-red-400 bg-red-100':''">
                             <option value="" disabled>Year</option>
                             <option v-for:= "year of years" :value="year">{{year}}</option>
                         </select>
@@ -60,10 +61,10 @@
                 </div>
             </div>
             <div class="btn-controller flex justify-end">
-                <button @click="$emit('clickPopUp', null)" class="bg-gray-500 text-white font-bold py-1 mx-2 px-4 rounded">
+                <button @click="$emit('clickPopUp', null)" class=" hover:bg-[#cecece] border-[1px] border-gray-300 text-gray-500 shadow py-1 px-8  rounded focus:outline-none focus:shadow-outline">
                     Cancel
                 </button>
-                <button @click="addWorkExper" class=" bg-skyblue hover:bg-blue-700 text-white font-bold py-1 mx-2 px-4 rounded">
+                <button @click="addWorkExper" class="bg-skyblue hover:bg-[#23afda] mx-2 text-white py-1 px-10 rounded focus:outline-none focus:shadow-outline">
                     Add
                 </button>
             </div>
@@ -73,6 +74,7 @@
         <addcompany 
         v-else
         @add-company="addCompany"
+        :name="keepValueInput"
         @popUp="popUp">
         </addcompany>
     </section>
@@ -98,6 +100,7 @@ export default({
             msError: {},
             ischeckboxed:false,
             isAddCompany: false,
+            keepValueInput:"",
         }
     },
     methods:{
@@ -137,8 +140,13 @@ export default({
         },
 
         addCompany(company){
+            console.log("New company : ", company);
             this.$emit('add-company', company);
             this.isAddCompany=false;
+        },
+
+        addInput(value){
+            this.keepValueInput = value
         }
 
     },

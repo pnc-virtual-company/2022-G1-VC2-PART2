@@ -4,17 +4,17 @@
         <div >
             <div class="relative">
                 <div class="w-full h-52">
-                    <img v-if="user.coverimage != null" class="w-full h-full  border border-1 border-gray-300 object-cover object-center" :src="'http://127.0.0.1:8000/images/Cover/'+ user.coverimage" alt="">
+                    <img v-if="user.coverimage != undefined" class="w-full h-full  border border-1 border-gray-300 object-cover object-center" :src="'http://127.0.0.1:8000/images/Cover/'+ user.coverimage" alt="">
                 </div>
                 <div class="flex justify-end mt-[-40px]">
                     <input @change="tageImage($event,'cover')" id="cover-upload" type="file" accept="image/*" hidden>
                     <label for="cover-upload">
                         <div class="flex bg-gray-200 px-4 py-1 rounded-md mr-2 hover:cursor-pointer">
-                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6 font-medium">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6 text-gray-600">
                                 <path stroke-linecap="round" stroke-linejoin="round" d="M6.827 6.175A2.31 2.31 0 015.186 7.23c-.38.054-.757.112-1.134.175C2.999 7.58 2.25 8.507 2.25 9.574V18a2.25 2.25 0 002.25 2.25h15A2.25 2.25 0 0021.75 18V9.574c0-1.067-.75-1.994-1.802-2.169a47.865 47.865 0 00-1.134-.175 2.31 2.31 0 01-1.64-1.055l-.822-1.316a2.192 2.192 0 00-1.736-1.039 48.774 48.774 0 00-5.232 0 2.192 2.192 0 00-1.736 1.039l-.821 1.316z" />
                                 <path stroke-linecap="round" stroke-linejoin="round" d="M16.5 12.75a4.5 4.5 0 11-9 0 4.5 4.5 0 019 0zM18.75 10.5h.008v.008h-.008V10.5z" />
                             </svg>
-                            <p class="ml-2 font-medium ">Edit cover photo</p>
+                            <p class="ml-2 text-gray-600">Edit cover photo</p>
                         </div>
                     </label>
                 </div>
@@ -23,7 +23,7 @@
         <div class="absolute ml-24 text-center">
             <div class="flex">
                 <div class="w-40">
-                    <img v-if="user.profile" class="w-full rounded-full h-40 mt-[-130px] object-cover border-[1px] border-skyblue" :src="'http://127.0.0.1:8000/images/profile/'+ user.profile" alt="">
+                    <img v-if="user.profile!=undefined" class="w-full rounded-full h-40 mt-[-130px] object-cover border-[1px] border-skyblue" :src="'http://127.0.0.1:8000/images/profile/'+ user.profile" alt="">
                 </div>
                 <div>
                     <input @change="tageImage($event,'profile')" id="university-profile" type="file" accept="image/*" hidden>
@@ -132,7 +132,7 @@ export default {
         },
         addAlumniExper(newExper){
             newExper['alumni_id']=this.alumni_id;
-            axios.post("workexperience", newExper).then((res) => {
+            axios.post("workexperience", newExper).then(() => {
                 this.getAlumniExperiences()
             });
         },
@@ -149,12 +149,17 @@ export default {
 
         tageImage(event, update){
             this.image = event.target.files[0];
-            if(update == "profile"){
-                this.isUpdate = true;
-                this.profile = URL.createObjectURL(this.image);
+            if (this.image){
+                if(update == "profile"){
+                    this.isUpdate = true;
+                    this.profile = URL.createObjectURL(this.image);
+                }else{
+                        this.isUpdateCover = true;
+                        this.cover = URL.createObjectURL(this.image);
+                }
             }else{
-                this.isUpdateCover = true;
-                this.cover = URL.createObjectURL(this.image);
+                this.isUpdate = false;
+                this.isUpdateCover = false;
             }
         },
         saveUpload() {
@@ -162,7 +167,6 @@ export default {
         formData.append("profile", this.image);
         formData.append("_method", "PUT");
         axios.post("alumniprofile/" + this.alu_id, formData).then((res) => {
-            console.log(res);
             this.getUser();
             this.isUpdate=false;});
         },
@@ -170,7 +174,6 @@ export default {
         let formData = new FormData();
         formData.append("coverimage", this.image);
         formData.append("_method", "PUT");
-        console.log(this.user)
         axios.post("alumnicover/" + this.alu_id, formData).then(() => {
             this.getUser();
             this.isUpdateCover=false;
@@ -189,16 +192,13 @@ export default {
         },
 
         addCompany(company){
-            axios.post('company', company).then((res) => {
-                this.getCompanies();
-                console.log("Data is :" , res.data)
-                })
+            axios.post('company', company).then(() => {
+                this.getCompanies()})
         },
 
         getCompanies(){
             axios.get('companies').then(res => {
                 this.companies = res.data
-                console.log(res.data);
             });
         },
         getAlumniEdu(){
