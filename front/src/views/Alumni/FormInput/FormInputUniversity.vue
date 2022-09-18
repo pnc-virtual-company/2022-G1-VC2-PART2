@@ -6,6 +6,7 @@
       @focus="showOptions = true"
       placeholder="name"
       class=" mt-2 block p-2 w-full  outline-none text-gray-900 bg-gray-50 rounded-sm border border-gray-400 sm:text-xs focus:border-[#22bbea] placeholder:text-gray-500"
+      :class="errorClass"
     />
     <img v-if="showOptions && !isSelected" @click="showOptions = false"  class="absolute w-[15xpx] h-[10px] mt-3 inset-y-0 right-0 pr-[5px] flex items-center cursor-pointer"  src="../../../assets/up-arrow.png" alt="">
     <img v-if="!showOptions && !isSelected" @click="showOptions = true" class="absolute w-[15px] h-[10px] mt-3 inset-y-0 right-0 pr-[5px] flex items-center cursor-pointer"  src="../../../assets/down-arrow.png" alt="">
@@ -59,7 +60,7 @@
 export default {
 
   emits: ["university-id",'university-name','is-add-univer'],
-  props: ["universities"],
+  props: ["universities",'errorClass'],
   data() {
     return {
       showOptions: false,

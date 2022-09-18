@@ -44,9 +44,9 @@
             <div class="w-[64%]">
                 <CardInfo :user="user" @getData="getUser" />
                 <!-- +++++++++++ Alumni Education +++++++++++++ -->
-                <edu-card-view :edu="edu" @is-add-edu="isAddEdu=true" @isEdit-edu="isEditEduction"></edu-card-view>
-                <FormAddEduView  v-if="isAddEdu" :universities="universities" @addEdu="addEducation" @cancelAdd="isAddEdu=false" @added-new-univer="addedNewUniver"></FormAddEduView>
-                <edit-edu-view v-if="isEditEdu" :universities="universities" :education="education" @editEdu="editEducation" @cancelEdit="isEditEdu=false" @added-new-univer="addedNewUniver"></edit-edu-view>
+                <edu-card-view :edu="edu" @is-add-edu="isAddEdu=true" @isEdit-edu="isEditEduction" :alu_id="alu_id"></edu-card-view>
+                <FormAddEduView  v-if="isAddEdu" :universities="universities" @addEdu="addEducation" @cancelAdd="isAddEdu=false" @added-new-univer="addedNewUniver" :alu_id="alu_id"></FormAddEduView>
+                <edit-edu-view v-if="isEditEdu" :universities="universities" :education="education" @editEdu="editEducation" @cancelEdit="isEditEdu=false" @added-new-univer="addedNewUniver" :alu_id="alu_id"></edit-edu-view>
 
                 <CardExper 
                 :experiences="experiences" 
@@ -118,7 +118,6 @@ export default {
             isPopUp:null,
             companies:null,
             universities:null,
-            alumni_id:1,
             isAddEdu:false,
             isEditEdu:false,
             education:{},
@@ -131,7 +130,7 @@ export default {
             this.isPopUp=opup;
         },
         addAlumniExper(newExper){
-            newExper['alumni_id']=this.alumni_id;
+            newExper['alumni_id']=this.alu_id;
             axios.post("workexperience", newExper).then(() => {
                 this.getAlumniExperiences()
             });
@@ -149,18 +148,14 @@ export default {
 
         tageImage(event, update){
             this.image = event.target.files[0];
-            if (this.image){
-                if(update == "profile"){
-                    this.isUpdate = true;
-                    this.profile = URL.createObjectURL(this.image);
-                }else{
-                        this.isUpdateCover = true;
-                        this.cover = URL.createObjectURL(this.image);
-                }
+            if(update == "profile" && this.image){
+                this.isUpdate = true;
+                this.profile = URL.createObjectURL(this.image);
             }else{
-                this.isUpdate = false;
-                this.isUpdateCover = false;
+                this.isUpdateCover = true;
+                this.cover = URL.createObjectURL(this.image);
             }
+
         },
         saveUpload() {
         let formData = new FormData();
