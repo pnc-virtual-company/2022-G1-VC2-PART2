@@ -24,9 +24,7 @@ class Alumni extends Model
     public function education(){
         return $this->hasMany(Education::class);
     }
-    public function skill(){
-        return $this->hasMany(Skill::class);
-    }
+    
     public function alumniSkill(){
         return $this->hasMany(AlumniSkill::class);
     }

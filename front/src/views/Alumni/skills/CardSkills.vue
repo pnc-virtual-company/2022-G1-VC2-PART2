@@ -1,36 +1,36 @@
 <template>
-  <div class="flex justify-between border-b-[1px] border-[#a9aaaaa3]">
-    <h1 class="font-bold text-lg">Skills</h1>
-    <div @click="closePopUp(true)" class="hover:cursor-pointer">
-      <svg
-        xmlns="http://www.w3.org/2000/svg"
-        fill="none"
-        viewBox="0 0 24 24"
-        stroke-width="1.5"
-        stroke="currentColor"
-        class="w-6 h-6 hover:cursor-pointer text-white shadow bg-skyblue rounded-full"
-      >
-        <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
-      </svg>
+  <section>
+    <div class="flex justify-between border-b-[1px] border-[#a9aaaaa3]">
+      <h1 class="font-bold text-lg">Skills</h1>
+      <div @click="closePopUp(true)" class="hover:cursor-pointer">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke-width="1.5"
+          stroke="currentColor"
+          class="w-6 h-6 hover:cursor-pointer text-white shadow bg-skyblue rounded-full"
+        >
+          <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
+        </svg>
+      </div>
     </div>
-  </div>
-  <div class="flex p-2 flex-wrap gap-2 mt-3">
-    <card-skill
-      v-for:="(alumniSkill, i) in alumniSkills"
-      :id="alumniSkill.id"
-      :index="i"
-      @remove="removeAlumniSkill"
-      >{{ alumniSkill.name }}</card-skill
-    >
-  </div>
-  <div>
-    <form-skill
-      @closePopUp="closePopUp"
-      v-if="isClickAddSkill"
-      :skills="skills"
-      @add-skill="addSkill"
-    ></form-skill>
-  </div>
+    <div class="flex p-2 flex-wrap gap-2 mt-3">
+      <card-skill
+        v-for:="(alumniSkill, i) in alumniSkills"
+        :id="alumniSkill.id"
+        :index="i"
+        @remove="removeAlumniSkill"
+        >{{ alumniSkill.name }}</card-skill
+      >
+    </div>
+
+      <form-skill
+        @closePopUp="closePopUp"
+        v-if="isClickAddSkill"
+        @add-skill="addAlumniSkill"
+      ></form-skill>
+  </section>
 </template>
 
 <script>
@@ -45,7 +45,6 @@ export default {
   data() {
     return {
       isClickAddSkill: false,
-      skills: [],
       alumniSkills: [],
     };
   },
@@ -53,21 +52,13 @@ export default {
     closePopUp(popUp) {
       this.isClickAddSkill = popUp;
     },
-    addSkill(newSkill) {
-      axios.post("alumniSkill", newSkill).then((res) => {
-        return res.data;
-      });
-      newSkill["name"] = this.skills.find((skill) => skill.id == newSkill.skill_id)[
-        "name"
-      ];
-      newSkill["id"] = parseInt(this.alumniSkills[0]["id"]) + 1;
-      this.alumniSkills.push(newSkill);
+
+    addAlumniSkill(skill){
+      axios.post("alumniSkill/", skill).then(()=>{
+        this.getAlumniSkill();
+        console.log("Successfully");});
     },
-    getDataSkills() {
-      axios.get("skills").then((res) => {
-        this.skills = res.data;
-      });
-    },
+    
     getAlumniSkill() {
       axios.get("alumniSkill/1").then((res) => {
         this.alumniSkills = res.data;
@@ -81,7 +72,7 @@ export default {
     },
   },
   mounted() {
-    this.getDataSkills(), this.getAlumniSkill();
+     this.getAlumniSkill();
   },
 };
 </script>

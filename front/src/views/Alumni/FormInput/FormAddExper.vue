@@ -11,7 +11,7 @@
                 :error="msError['require_error']"
                 :message="'Find here...'"
                 :items="companies"
-                @company_id="getIdCompany"
+                @selected="getIdCompany"
                 class="mt-4 w-[100%] bg-white">
                     <span>Not found, please </span>
                     <button  class="mx-auto rounded-md text-blue-800" @click="popUp(true)">click here</button>
@@ -102,7 +102,7 @@ export default({
     },
     methods:{
         onClickOutside () {this.$emit('clickPopUp', null)},
-        getIdCompany(id){this.companyId = id},
+        getIdCompany(company){this.companyId = company.id},
         addWorkExper(){
             let workExper={}
             if(this.companyId !=null && this.position !="" 

@@ -9,7 +9,7 @@
                 <autocomplete
                     :items="companies"
                     :message="experience['name']"
-                    @company_id="editCompany"
+                    @stalled="editCompany"
                     class="mt-4 w-[100%] bg-white">
                     <span>Not found, please </span>
                     <button  class="mx-auto rounded-md text-blue-800" @click="popUp(true)">click here</button>
@@ -101,9 +101,8 @@ export default({
     },
     methods:{
         onClickOutside () {this.$emit('clickPopUp', null)},
-        editCompany(id){
-            console.log(id);
-            if(id){this.companyId=id}else{this.companyId=this.experience['company_id']}
+        editCompany(company){
+            if(id){this.companyId=company.id}else{this.companyId=this.experience['company_id']}
         },
 
         saveEdit(){

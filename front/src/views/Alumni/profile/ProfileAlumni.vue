@@ -76,9 +76,9 @@
 </section>
 </template>
 <script>
+import axios from '../../../axios-http'
 import FormEditExper from "../FormInput/FormEditExper.vue"
 import FormAddExper from "../FormInput/FormAddExper.vue"
-import axios from '../../../axios-http'
 import CardInfo from "../CardView/CardInfo.vue"
 import CardSkills from "../skills/CardSkills.vue"
 import CardExper from "../CardView/CardExper.vue"

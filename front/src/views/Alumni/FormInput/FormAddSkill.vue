@@ -1,18 +1,14 @@
 <template>
   <div
     tabindex="-1"
-    class="bg-[#000000b9] fixed flex items-center z-50 md:inset-0 h-modal md:h-full"
-  >
-    <div
-      class="modal bg-white h-auto shadow-md rounded mt-2 mb-10 m-auto w-[40%] z-10"
-    >
-      <form @submit.prevent="addSkill" class="bg-white rounded p-5 m-auto text-center w-11/12">
-        <div
-          class="flex items-center justify-between mt-5 mb-1 text-lg border-b-[1px] border-[black]"
-        >
+    class="bg-[#000000b9] fixed flex items-center z-50 md:inset-0 h-modal md:h-full">
+    <div class="modal bg-white h-auto shadow-md rounded mt-2 mb-10 m-auto w-[30rem] z-10" v-click-outside="clickedOutside">
+      <form @submit.prevent="addSkill" class="bg-white rounded p-5 m-auto">
+        <div class="flex items-center justify-between mt-5 mb-1 text-lg border-b-[1px] border-[black]">
           <p class="font-semibold text-3xl mb-3">Add skills</p>
           <div >
               <svg
+                @click="$emit('closePopUp', false)"
                 xmlns="http://www.w3.org/2000/svg"
                 fill="none"
                 viewBox="0 0 24 24"
@@ -28,30 +24,29 @@
               </svg>
           </div>
         </div>
-        <div class="w-[100%] m-1 relative flex justify-between mt-10">
-          <label class="block text-black-700 text-[20px]">Skills: </label>
-          <select
-            class="block w-full bg-white px-4 pr-8 rounded outline-none ml-10 text-[20px] border-b-[1px] border-[black]"
-            v-model="skill_id"
+
+        <div class="w-full flex justify-start relative mt-4">
+          <addSkill 
+          class="w-[100%]"
+          :items="skills"
+          @selected="selectSkill"
+          :message="'Type skill...'"
           >
-            <option value="0" disabled>select your skill</option>
-            <option v-for:="skill in skills" :value="skill.id">{{skill.name}}</option>
-           
-          </select>
+          </addSkill>
         </div>
         <div class="w-[100%] p-2 flex justify-end mt-10">
           <button
             type="text"
-            class="btn bg-[#ff9100] rounded p-1 text-white w-[25%]"
+            class="bg-gray-500 text-white font-bold py-1 mx-2 px-4 rounded"
             @click="$emit('closePopUp', false)"
           >
             cancel
           </button>
           <button
             type="submit"
-            class="btn bg-[#22bbea] rounded p-1 text-white w-[25%] ml-3"
+            class="bg-skyblue hover:bg-blue-700 text-white font-bold py-1 mx-2 px-4 rounded"
           >
-            add
+            Add
           </button>
         </div>
       </form>
@@ -60,22 +55,31 @@
 </template>
 
 <script>
+import skills from "../../../store/skills.json"
+import addSkill from "./AutoComplete.vue"
 export default {
-  props:['skills'],
+  components:{addSkill},
   data(){
     return {
-      skill_id:0
+      skill:null,
     }
   },
   methods:{
+    selectSkill(skill){
+      this.skill=skill['name']
+    },
     addSkill(){
-      if(this.skill_id != 0){
-        this.$emit('add-skill', {skill_id:this.skill_id, alumni_id:1})
+      if(this.skill != null){
+        this.$emit('add-skill', {name:this.skill, alumni_id:1})
         this.$emit('closePopUp', false)
       }
+    },
+    clickedOutside(){this.$emit('closePopUp', false)}
+  },
+  computed:{
+    skills(){
+      return skills;
     }
   }
 };
 </script>
-
-<style></style>

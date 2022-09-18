@@ -1,11 +1,11 @@
 <template>
   <div class="autocomplete w-[40%] relative m-auto">
     <div class="flex justify-between items-center border" v-if="!visible">   
-        <div @click="toggleVisible" class="input w-[100%] cursor-text p-2" v-text="selectedItem? selectedItem['name'] : message"></div>
+        <div @click="toggleVisible" class="input w-[100%] cursor-text p-2 bg-gray-50" v-text="selectedItem? selectedItem['name'] : message"></div>
     </div>
     <div class="popover border min-h-8 w-full" v-else>
       <input type="text"
-      class="outline-none w-[100%] p-2 border"
+      class="outline-none w-[100%] p-2 border bg-gray-50"
         ref="input"
         v-model="query"
         @keydown.enter="selectItem"
@@ -57,7 +57,7 @@
         }
         this.selectedItem = this.matches[this.selected];
         this.visible = false;
-        this.$emit('company_id', this.selectedItem['id']);
+        this.$emit('selected', this.selectedItem);
       },
      
       scrollToItem() {

@@ -29,7 +29,6 @@ Route::post('useralumni', [UserController::class, "store"]);
 Route::post('company', [CompanyController::class, "createCompany"]);
 Route::post("workexperience", [WorkexperienceController::class, "addExperience"]);
 
-Route::post("skill", [SkillController::class, "store"]);
 Route::post("alumniSkill", [AlumniSkillController::class, "store"]);
 Route::post("university/create", [UniversityController::class, "createUniversity"]);
 Route::post("education", [EducationController::class, "AddEducation"]);
@@ -58,3 +57,5 @@ Route::get("company/{id}", [CompanyController::class, "show"]);
 Route::get("companies", [CompanyController::class, "getAllCompanies"]);
 Route::get("universities", [UniversityController::class, "getUniversities"]);
 Route::get("skills", [SkillController::class, "index"]);
+Route::get("alumniSkill/{alumni_id}", [AlumniSkillController::class, "show"]);
+
