@@ -28,11 +28,16 @@ use App\Http\Controllers\AlumniSkillController;
 // =====================User login===============================
 
 Route::post('login',[UserController::class, "login"]);
+Route::get('logout',[UserController::class, "logout"]);
 
 // ======================Private user============================
 Route::group(['middleware'=>['auth:sanctum']],function(){
 
-    Route::post('logout',[UserController::class, "logOut"]);
+    Route::get('alumni/{id}',[UserController::class, "showAlumni"]);
+    Route::get('workexperience',[WorkexperienceController::class,"index"]);
+    Route::get('workexperience/{id}',[WorkexperienceController::class,"show"]);
+    Route::get("company/{id}",[CompanyController::class,"show"]);
+    Route::get("companies",[CompanyController::class,"index"]);
 });
 
 // ======================Reset password==============================
@@ -63,8 +68,9 @@ Route:: put ("alumniSkill", [AlumniSkillController::class, "update"]);
 
 // ===========================Get========================================
 
-Route::get('alumni/{id}',[UserController::class, "showAlumni"]);
-Route::get('workexperience',[WorkexperienceController::class,"index"]);
-Route::get('workexperience/{id}',[WorkexperienceController::class,"show"]);
-Route::get("company/{id}",[CompanyController::class,"show"]);
-Route::get("companies",[CompanyController::class,"index"]);
+// Route::get('alumni/{id}',[UserController::class, "showAlumni"]);
+// Route::get('workexperience',[WorkexperienceController::class,"index"]);
+// Route::get('workexperience/{id}',[WorkexperienceController::class,"show"]);
+// Route::get("company/{id}",[CompanyController::class,"show"]);
+// Route::get("companies",[CompanyController::class,"index"]);
+Route::get("getinfo",[UserController::class, 'getInfoByToken']);

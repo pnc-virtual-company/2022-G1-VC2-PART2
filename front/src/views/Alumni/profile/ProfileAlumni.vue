@@ -79,6 +79,9 @@ import CardExper from "../CardView/CardExper.vue"
 import updateProfileView from "./UpdateProfileView.vue";
 import UpdateCoverView from "./UpdateCoverView.vue";
 export default {
+    props: {
+        user_id: Number,
+    },
     components:{
         CardInfo,
         CardSkills,
@@ -149,7 +152,7 @@ export default {
         let formData = new FormData();
         formData.append("profile", this.image);
         formData.append("_method", "PUT");
-        axios.post("alumniprofile/" + 1, formData).then((res) => {
+        axios.post("alumniprofile/" + this.user_id, formData).then((res) => {
             console.log(res);
             this.getUser();
             this.isUpdate=false;
@@ -159,19 +162,19 @@ export default {
         let formData = new FormData();
         formData.append("coverimage", this.image);
         formData.append("_method", "PUT");
-        axios.post("alumnicover/" + 1, formData).then(() => {
+        axios.post("alumnicover/" + this.user_id, formData).then(() => {
             this.getUser();
             this.isUpdateCover=false;
         });
         },
         getUser() {
-            axios.get('alumni/1').then(res=> {
+            axios.get('alumni/' + this.user_id).then(res=> {
                 this.user = res.data;
             })
         },
 
         getAlumniExperiences(){
-            axios.get('workexperience/1').then(res => {
+            axios.get('workexperience/' + this.user_id).then(res => {
                 this.experiences = res.data, 
                 this.alumni_id=res.data[0].alumni_id
             });
@@ -180,13 +183,23 @@ export default {
             axios.get('companies').then(res => {
                 this.companies = res.data
             });
+        },
+    },
+    watch: {
+        user_id() {
+            this.getUser();
+            this.getAlumniExperiences();
+            this.getCompanies();
         }
     },
-    mounted() {
-        this.getUser();
-        this.getAlumniExperiences();
-        this.getCompanies();
-    },
+
+    created() {
+        if (this.user_id) {
+            this.getUser();
+            this.getAlumniExperiences();
+            this.getCompanies();
+        }
+    }
 };
 </script>
 

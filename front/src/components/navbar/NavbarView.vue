@@ -3,14 +3,18 @@
     <nav class="border-b-2 border-gray-300 p-3 pl-6 pr-6 relative">
       <div class="flex items-center justify-between w-full">
         <div class="w-1/5 flex nav-left">
-          <router-link to="/" class="flex items-center hover:border-b-0 ">
-            <img class="w-30 h-10 " src="../../assets/pncLogo.jpg" alt="" />
-            <img class="w-30 h-8 mx-3" src="../../assets/alumniLogo.jpg" alt="" />
-          </router-link>
+          <div class="flex items-center hover:border-b-0 ">
+            <a href="https://www.passerellesnumeriques.org/en/our-actions/cambodia/" target="_blank">
+              <img class="w-30 h-10 " src="../../assets/pncLogo.jpg" alt="" />
+            </a>
+            <a href="https://www.facebook.com/PnCambodiaAlumni/" target="_blank">
+              <img class="w-30 h-8 mx-3" src="../../assets/alumniLogo.jpg" alt="" />
+            </a>
+          </div>
         </div>
 
         <!-- Mobile Menu open: "block", Menu closed: "hidden" -->
-        <ul
+        <ul v-if="role == 'alumni'"
           :class="showMenu ? 'flex' : 'hidden'"
           class="left-0 nav-menu flex-col mt-8 space-y-4 md:flex md:space-y-0 md:flex-row md:items-center md:space-x-10 md:mt-0 w-2/5 flex justify-center"
         >
@@ -21,25 +25,35 @@
             <router-link to="/alumni-profile" class="font-bold p-1">PROFILE</router-link>
           </li>
         </ul>
+        <ul v-else-if="role == 'admin' || role == 'ero'"
+          :class="showMenu ? 'flex' : 'hidden'"
+          class="left-0 nav-menu flex-col mt-8 space-y-4 md:flex md:space-y-0 md:flex-row md:items-center md:space-x-10 md:mt-0 w-2/5 flex justify-center"
+        >
+          <li class="text-sm font-bold text-gray-800" @click="showMenu = !showMenu">
+            <router-link to="/explore" class="font-bold p-1">EXPLORE</router-link>
+          </li>
+          <li class="text-sm font-bold text-gray-800" @click="showMenu = !showMenu">
+            <router-link to="/alumni-profile" class="font-bold p-1">MANAGE</router-link>
+          </li>
+        </ul>
 
         <ul class="w-1/5 flex justify-end items-center nav-right">
-          <li class="text-sm font-bold text-gray-800">
+          <li v-if="role == 'alumni'" class="text-sm font-bold text-gray-800">
             <router-link to="/alumni-profile" class="font-bold hover:border-b-0">
-              <img class="w-10 h-10 rounded-full" :src="'http://127.0.0.1:8000/images/profile/'+profile"/>
+              <img class="w-10 h-10 rounded-full" :src="'http://127.0.0.1:8000/images/profile/'+user.profile"/>
             </router-link>
           </li>
           <li class="text-sm font-bold text-gray-800 flex items-center username">
             <router-link to="/alumni-profile" class="font-bold p-1 hover:border-b-0">
-              Vansao Hang
+              {{user.first_name}} {{user.last_name}}
             </router-link>
           </li>
           <li class="text-sm font-bold text-gray-800">
-            <router-link
-              to="/alumni-profile"
+            <div
               class="font-bold p-1 hover:border-b-0 flex items-center"
             >
-              <i class="fa fa-sign-out fa-2x text-blue-400 ml-1"></i>
-            </router-link>
+              <i @click="submitLogout" class="fa fa-sign-out fa-2x text-blue-400 ml-1"></i>
+            </div>
           </li>
 
           <li class="text-sm font-bold text-gray-800 flex items-center">
@@ -63,20 +77,41 @@
 <script>
 import axios from "../../axios-http"
 export default {
-
+  props: {
+    user_id: Number,
+    role: String
+  },
   data() {
     return {
       showMenu: false,
-      profile:{}
+      user:{},
+      isLoggingOut: false,
+
+
     };
   },
   methods:{
     getuser(){
-      axios.get("http://127.0.0.1:8000/api/alumni/1").then(res => {this.profile = res.data.profile});
-    }
+      axios.get("/alumni/" + this.user_id).then(res => {
+        this.user = res.data;
+      });
+    },
+    submitLogout(){
+      setTimeout(() => {
+          this.$store.dispatch('logout')
+          this.$router.push('/login')
+      }, 1000);
+    },
   },
-  mounted(){
-    this.getuser()
+  watch: {
+    user_id() {
+        this.getuser();
+    },
+  },
+  created() {
+    if (this.user_id) {
+        this.getuser();
+    }
   }
 };
 </script>

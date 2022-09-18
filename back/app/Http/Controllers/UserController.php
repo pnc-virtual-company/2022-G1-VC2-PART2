@@ -3,6 +3,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\Alumni;
+use App\Models\Ero;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Hash;
@@ -13,20 +14,22 @@ class UserController extends Controller
     public function login(Request $request)
     {
         $user = User::where('email', $request->email)->first();
-
+        $user->tokens()->delete();
         if (!$user || !Hash::check($request->password, $user->password)) {
-            return response()->json(['message' => 'Invalid password or email'], 401);
+            return response()->json(['sms'=>'invalid', 'email'=> $request->email, 'password'=> $request->password], 404);
         }
         $token = $user->createToken('mytoken')->plainTextToken;
-        return response()->json([
-            'user' => $user,
-            'token' => $token,
-        ]);
+        return response()->json(['token'=> $token, 'role'=> $user->role], 202);
     }
 
-    public function logOut(){
-        Auth()->user()->tokens()->delete();
-        return Response()->json(['message'=>'has been removed'], 200);
+    public function getInfoByToken(){
+        $info = auth('sanctum')->user();
+        return Response()->json(['data'=>$info]);
+    }
+
+    public function logout(Request $request){
+        auth()->user()->tokens()->delete();
+        return response()->json(['sms'=>'logged out']);
     }
 
     public function resetpassword(Request $request, $userId){

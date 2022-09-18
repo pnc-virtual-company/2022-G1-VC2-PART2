@@ -1,9 +1,11 @@
 <template>
-  <section class="z-[100] fixed left-0 top-0 w-full h-full bg-slate-300">
-    <div class="flex h-full items-center bg-skyblue mr-10">
-      <img src="../../assets/login2.png" alt="logo" class="w-[50%] m-auto" />
-      <div class="rounded mb-4 w-[35%] m-auto mt-[1px]">
-        <form class="p-5 bg-[#CCE7F6] rounded mr-50 h-full">
+  <section class="z-[100] fixed left-0 top-0 w-full h-full bg-white">
+    <div class="flex  items-center h-full">
+      <div class="w-[50%] m-auto">
+        <img src="../../assets/login_image.jpg" alt="logo" class="w-[90%] m-auto"  />
+      </div>
+      <div class="rounded w-[50%] m-auto">
+        <form class="p-5 bg-[#CCE7F6] rounded w-[70%] m-auto" @submit.prevent="login"> 
           <img
             src="../../assets/alumni.png"
             alt="logo"
@@ -15,7 +17,7 @@
             <label class="block text-gray-700 text-lg mb-1" for="password">
               Email <span class="text-red-600">*</span>
             </label>
-            <input
+            <input v-model="email" @change="is_not_fill_email=false" :class="{'bg-red-100 border-red-400':is_not_fill_email}"
               class="appearance-none border border-gray-400 rounded w-full py-2 px-3 text-gray-700 mb-1 leading-tight focus:outline-primary focus:shadow-outline"
               id="email"
               type="email"
@@ -38,10 +40,11 @@
               <label class="block text-gray-700 text-lg mb-1" for="username">
                 Password <span class="text-red-600">*</span>
               </label>
-              <input
+              <input v-model="password" :type="showpassword" @change="is_not_fill_password=false" @input="isInValid=false"
+                :class="{'bg-red-100 border-red-400':is_not_fill_password}"
                 class="appearance-none border border-gray-400 rounded w-full py-2 px-3 text-gray-700 mb-1 leading-tight focus:outline-primary focus:shadow-outline"
                 id="password"
-                placeholder="Password..."
+                placeholder="Password..." 
               />
               <svg
                 v-if="isInValid"
@@ -57,7 +60,7 @@
                 />
               </svg>
               <svg
-                v-else-if="showpassword == 'password'"
+                v-else-if="showpassword == 'password'" @click="showPW"
                 xmlns="http://www.w3.org/2000/svg"
                 class="h-5 w-5 absolute top-[40px] right-3 text-gray-400 hover:cursor-pointer"
                 viewBox="0 0 20 20"
@@ -71,7 +74,7 @@
                 />
               </svg>
               <svg
-                v-else
+                v-else @click="showPW"
                 xmlns="http://www.w3.org/2000/svg"
                 class="h-5 w-5 absolute top-[40px] right-3 text-gray-400 hover:cursor-pointer"
                 viewBox="0 0 20 20"
@@ -86,6 +89,7 @@
                   d="M12.454 16.697L9.75 13.992a4 4 0 01-3.742-3.741L2.335 6.578A9.98 9.98 0 00.458 10c1.274 4.057 5.065 7 9.542 7 .847 0 1.669-.105 2.454-.303z"
                 />
               </svg>
+              <p v-if="isInValid" class="text-[14px] text-red-500">Invalid login</p>
             </div>
             <router-link
               class="inline-block cursor-pointer align-baseline text-sm text-blue-500 hover:text-blue-800"
@@ -105,3 +109,85 @@
     </div>
   </section>
 </template>
+
+<script>
+import axios from '../../axios-http'
+import encryptData from '../../helper/encryptData';
+export default {
+    components: {
+    },
+    data(){
+        return {
+            email: '',
+            password: '',
+            showpassword: 'password',
+            isLoggingIn: false,
+            isInValid: false,
+            is_not_fill_email: false,
+            is_not_fill_password: false,
+        }
+    },
+    methods: {
+        showPW(){
+            if (this.showpassword == "password"){
+                this.showpassword = "text";
+            }else{
+                this.showpassword = "password"
+            }
+        },
+        async login(){
+            if (this.checkFormValidation()){
+                this.isLoggingIn = true;
+                this.isInValid = false;
+                try {
+                    await axios.post('/login', {email: this.email, password: this.password})
+                    .then(res=>{
+                        this.isLoggingIn = false;
+                        const token_encrypt = encryptData(res.data.token, 'my_token')
+                        const role_encrypt = encryptData(res.data.role, 'my_role')
+                        this.$cookies.set('alumni',token_encrypt);
+                        this.$cookies.set('role',role_encrypt);
+                        window.location.reload();
+                    })
+                } catch(err){
+                  this.isLoggingIn = false;
+                  this.isInValid = true;
+                  console.log(err);
+                }
+            }
+        },
+        checkFormValidation(){
+            this.is_not_fill_email = false;
+            if (this.email.trim() == ''){
+                this.is_not_fill_email = true;
+            }
+            this.is_not_fill_password = false;
+            if (this.password.trim() == ''){
+                this.is_not_fill_password = true;
+            }
+
+            let sms = true;
+            if (this.is_not_fill_email || this.is_not_fill_password){
+                sms = false;
+            }
+            return sms;
+        }
+    },
+
+    created(){
+        if(this.$cookies.get('alumni')){
+            this.isLoggingIn = true;
+            setTimeout(() => {
+                this.isLoggingIn = false;
+                if(this.$cookies.get('role') == 'admin'){
+                    this.$router.push('/explore')
+                }else if(this.$cookies.get('role') == 'ero'){
+                    this.$router.push('/explore')
+                }else{
+                    this.$router.push('/')
+                }
+            }, 1000);
+        }
+    },
+}
+</script>
