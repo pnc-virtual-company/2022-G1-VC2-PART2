@@ -12,11 +12,11 @@
 
             <div class="flex items-center">
                 <div class="w-16 h-16">
-                    <img class="w-16 h-16 rounded-full border-[1px] border-gray-400 object-cover" :src="imgEdu" alt="">
+                    <img class="w-16 h-16 rounded-full border-[1px] border-gray-400 object-cover" :src="'http://127.0.0.1:8000/images/profile/' + education.university.profile " alt="">
                 </div>
                 <div class="ml-4">
-                    <h1 class="font-semibold">{{education.degree}}</h1>
                     <p class="text-sm leading-3 font-medium">{{education.university.name}}</p>
+                    <h1 class="font-semibold">{{education.degree}}</h1>
                     <p class="text-[13px] ">{{education.start_year}} - {{education.end_year}}</p>
                 </div>
             </div>
