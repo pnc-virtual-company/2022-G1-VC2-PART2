@@ -101,11 +101,9 @@ export default {
       this.isSelected = false;
       this.searchTerm = "";
     },
-
     handleInput(evt) {
       this.searchTerm = evt.target.value;
       this.showOptions = true;
-      this.$emit("university-name", this.searchTerm);
     },
     handleClick(university) {
       this.searchTerm = university.name;

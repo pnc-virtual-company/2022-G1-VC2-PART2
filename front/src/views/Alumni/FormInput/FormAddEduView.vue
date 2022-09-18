@@ -72,7 +72,7 @@
 </div>
 <div v-else>
     <form-add-univer @is-added-univer="isAddedUniver" @cancelAddUniver="isAddUniver = false"></form-add-univer>
-  </div>
+</div>
 </template>
 
 <script>
