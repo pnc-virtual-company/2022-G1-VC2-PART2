@@ -1,5 +1,6 @@
 
 <template>
-  <h1>home view</h1>
+  <h1>Hello world</h1>
 </template>
+
 
