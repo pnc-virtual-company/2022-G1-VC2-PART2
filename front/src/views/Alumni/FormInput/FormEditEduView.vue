@@ -7,10 +7,6 @@
         <div class="p-5">
             <div class="w-[100%] my-2 p-2">
                 <label class="w-[12rem] w-[12rem] text-start text-sm font-medium">University </label>
-                <!-- <select v-model="university_id" class="mt-2 block p-2 w-full outline-none text-gray-900 bg-gray-50 rounded-sm border border-gray-400 sm:text-xs focus:border-[#22bbea]">
-                    <option selected disabled class="text-gray-900" value="null">Choose university</option>
-                    <option v-for:="university in universities" :value='university.id'>{{university.name}}</option>
-                </select> -->
                 <input-edit-univer :universities="universities" :universityName="universityName" @university-name="getUniversityName" @university-id="getUniversitID" @is-add-univer="isAddUniver = true"></input-edit-univer>
             </div>
             <div class="w-[100%] my-2 p-2">
@@ -75,13 +71,11 @@
 </div>
 <div v-else>
     <form-add-univer @is-added-univer="isAddedUniver" @cancelAddUniver="isAddUniver = false"></form-add-univer>
-    <!-- <form-add-univer @is-added-univer="isAddedUniver" @cancelAddUniver="isAddUniver = false"></form-add-univer> -->
 </div>
 </template>
 <script>
 import FormInputEditUniverVue from './FormInputEditUniver.vue';
 import FormAddUniver from './FormAddUniver.vue';
-import axios from '../../../axios-http'
 export default {
     components:{
         'input-edit-univer': FormInputEditUniverVue,
