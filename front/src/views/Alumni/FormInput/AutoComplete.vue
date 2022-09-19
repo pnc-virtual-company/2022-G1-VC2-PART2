@@ -61,10 +61,7 @@
         this.selectedItem = this.matches[this.selected];
         this.visible = false;
         this.$emit('selected', this.selectedItem);
-        console.log(this.selectedItem);
-
       },
-     
       scrollToItem() {
         this.$refs.optionsList.scrollTop = this.selected * this.itemHeight;
       }

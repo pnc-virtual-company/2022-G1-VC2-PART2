@@ -66,7 +66,6 @@ export default {
         body.append('name', this.company_name)
         body.append('address', this.company_address)
         body.append('profile', this.profile)
-        console.log("My data : ", this.company_name, this.company_address);
         this.$emit('add-company',body);
     },
     uploadImg(e){
