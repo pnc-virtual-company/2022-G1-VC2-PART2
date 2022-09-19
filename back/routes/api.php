@@ -31,6 +31,7 @@ Route::get('logout',[UserController::class, "logout"]);
 // ======================Private user============================
 Route::group(['middleware'=>['auth:sanctum']],function(){
     Route::get('alumni/{id}',[UserController::class, "showAlumni"]);
+    Route::get('alumnis',[UserController::class, "getAlumniUsers"]);
     Route::get('workexperience',[WorkexperienceController::class,"index"]);
     Route::get('workexperience/{id}',[WorkexperienceController::class,"show"]);
     Route::get("company/{id}",[CompanyController::class,"show"]);

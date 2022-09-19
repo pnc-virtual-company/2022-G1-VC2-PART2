@@ -1,12 +1,12 @@
 <template>
     <!--  list Form-->
-    <form class="border border-indigo-500 w-[75%] m-auto mt-5 p-3">
+    <form class="border border-black w-[75%] rounded m-auto mt-5 p-3">
       <!-- header -->
       <div class="w-[70%] flex justify-between m-auto mt-5">
         <div class="w-[40%]">
           <select
             @click="filterAlumnis"
-            class="w-[70%] border-2 border-none outline-none border-gray-500 p-2 shadow-md rounded-md cursor-pointer mr-[150px]"
+            class="w-[70%] border-2 border-none outline-none border-gray-500 p-2 shadow-md rounded-md cursor-pointer -ml-12"
           >
             <option value="All" selected>All</option>
             <option value="invited">invited</option>
@@ -16,7 +16,7 @@
         </div>
         <div class="w-[20%] justify-end">
           <button
-            class="w-[100%] p-1 bg-blue-500 rounded-md text-white text-2xl text-bold shadow-md ml-[2px]"
+            class="w-[100%] p-1 bg-blue-500 rounded-md text-white text-2xl text-bold shadow-md ml-[52px]"
           >
             Invite
           </button>
@@ -24,17 +24,17 @@
       </div>
       <div>
         <table
-          class="w-[70%] whitespace-nowrap bg-white m-auto mt-4 shadow-md bg-opacity-50"
+          class="w-[80%] whitespace-nowrap bg-white m-auto mt-4 shadow-md bg-opacity-50"
         >
           <thead>
             <tr
               tabindex="0"
               class="focus:outline-none h-16 w-full text-sm leading-none shadow-sm border-b-2 border-primary"
             >
-              <th class="font-bold text-center">USERNAME</th>
-              <th class="font-bold text-center">EMAIL</th>
-              <th class="font-bold text-center">STATUS</th>
-              <th class="font-bold text-center">ACTION</th>
+              <th class="font-bold text-center w-[25%] ">USERNAME</th>
+              <th class="font-bold text-center w-[25%] ">EMAIL</th>
+              <th class="font-bold text-center w-[25%] ">STATUS</th>
+              <th class="font-bold text-center w-[25%] ">ACTION</th>
             </tr>
           </thead>
           
@@ -43,9 +43,10 @@
               tabindex="0"
               class="focus:outline-none h-16 w-full text-sm leading-none shadow-sm border-b-2 border-primary"
             >
-              <td>{{ero.username}}</td>
-              <td>{{ero.email}}</td>
+              <td class="text-center w-[25%]">{{ero.username}}</td>
+              <td class="text-center w-[25%]">{{ero.email}}</td>
               <td 
+              class="text-center w-[25%]"
               :class="ero.status.toLowerCase()">{{ero.status}}</td>
               <td class="flex justify-center items-center mt-4">
                 <svg
