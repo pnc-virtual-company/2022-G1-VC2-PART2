@@ -68,8 +68,9 @@ class CompanyController extends Controller
      * @param  \App\Models\Company  $company
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Company $company)
+    public function destroy(Request $request, $id)
     {
-        //
+        Company::destroy($id);
+        return response()->json(['message'=>"The company has been removed"]);
     }
 }
