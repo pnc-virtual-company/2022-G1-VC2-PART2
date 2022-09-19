@@ -55,6 +55,5 @@ import Listalumni from '../../../components/Manage/ListAlumnis.vue'
     mounted(){
         this.alumnis=this.listAlumnis;
     }
-   
 }
 </script>

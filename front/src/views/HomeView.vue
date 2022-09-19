@@ -1,6 +1,13 @@
 
 <template>
-  <h1>Hello world</h1>
+  <Ero/>
 </template>
 
-
+<script>
+import Ero from "./Ero/EroView.vue"
+export default {
+  components:{
+    Ero,
+  }
+}
+</script>
