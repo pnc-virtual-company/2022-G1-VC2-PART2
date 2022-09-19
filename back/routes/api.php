@@ -78,4 +78,5 @@ Route::get("alumniSkill/{alumni_id}", [AlumniSkillController::class, "show"]);
 
 // =================================================================Remove
 Route::delete("alumniSkill/{id}", [AlumniSkillController::class, "destroy"]);
-
+Route::delete("education/remove/{id}", [EducationController::class, "removeEdu"]);
+Route::delete("experience/remove/{id}", [WorkexperienceController::class, "removeExper"]);

@@ -90,8 +90,9 @@ class EducationController extends Controller
      * @param  \App\Models\Education  $education
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Education $education)
+    public function removeEdu(Request $request, $id)
     {
         //
+        return Education::destroy($id);
     }
 }

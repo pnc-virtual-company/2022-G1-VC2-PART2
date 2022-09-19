@@ -45,11 +45,12 @@
                 <CardInfo :user="user" @getData="getUser" />
                 
                 <!-- +++++++++++ Alumni Education +++++++++++++ -->
-                <edu-card-view :edu="edu" @is-add-edu="isAddEdu=true" @isEdit-edu="isEditEduction" :alu_id="alu_id"></edu-card-view>
+                <edu-card-view :edu="edu" @is-add-edu="isAddEdu=true" @isEdit-edu="isEditEduction" :alu_id="alu_id" @removeEdu="removeEdu"></edu-card-view>
                 <FormAddEduView  v-if="isAddEdu" :universities="universities" @addEdu="addEducation" @cancelAdd="isAddEdu=false" @added-new-univer="addedNewUniver" :alu_id="alu_id"></FormAddEduView>
                 <edit-edu-view v-if="isEditEdu" :universities="universities" :education="education" @editEdu="editEducation" @cancelEdit="isEditEdu=false" @added-new-univer="addedNewUniver" :alu_id="alu_id"></edit-edu-view>
 
                 <CardExper 
+                @removeExper="removeExper"
                 :experiences="experiences" 
                 @editor="editWorkExper"
                 @clickPopUp="popUp"></CardExper>
@@ -77,6 +78,7 @@
 </section>
 </template>
 <script>
+import swal from 'sweetalert';
 import axios from '../../../axios-http'
 import FormEditExper from "../FormInput/FormEditExper.vue"
 import FormAddExper from "../FormInput/FormAddExper.vue"
@@ -134,6 +136,7 @@ export default {
             newExper['alumni_id']=this.alu_id;
             axios.post("workexperience", newExper).then(() => {
                 this.getAlumniExperiences()
+                swal("Added !", "You add new work experience successfully !", "success");
             });
         },
         editWorkExper(experience){
@@ -186,7 +189,6 @@ export default {
                 this.experiences = res.data
             });
         },
-
         addCompany(company){
             axios.post('company', company).then(() => {
                 this.getCompanies()})
@@ -197,6 +199,25 @@ export default {
                 this.companies = res.data
             });
         },
+        removeExper(exper_id){
+            swal({
+                title: "Are you sure?",
+                text: "You want to remove this work experience !!",
+                icon: "warning",
+                buttons: true,
+                dangerMode: true,
+            })
+            .then((willDelete) => {
+                if (willDelete) {
+                    axios.delete("experience/remove/"+exper_id).then(() => {
+                        this.getAlumniExperiences();
+                        swal("removed !", "Your work experince is removed !", "success");
+                    });
+                } 
+            });
+
+        },
+
         getAlumniEdu(){
             axios.get('alumniEdu/1').then(res => {
                 this.edu = res.data
@@ -211,6 +232,7 @@ export default {
             axios.post("education", newEdu).then(() => {
                 this.getAlumniEdu();
                 this.isAddEdu = false;
+                swal("Added !", "You add new education successfully !", "success");
             });
         },
         isEditEduction(education){
@@ -221,6 +243,23 @@ export default {
             axios.put("education/"+edu_id, newEdu).then(() => {
                 this.getAlumniEdu();
                 this.isEditEdu = false;
+            });
+        },
+        removeEdu(edu_id){
+            swal({
+                title: "Are you sure?",
+                text: "You want to remove this education !!",
+                icon: "warning",
+                buttons: true,
+                dangerMode: true,
+            })
+            .then((willDelete) => {
+                if (willDelete) {
+                    axios.delete("education/remove/"+edu_id).then(() => {
+                        this.getAlumniEdu();
+                        swal("removed !", "Your education is removed !", "success");
+                    });
+                } 
             });
         },
         addedNewUniver(){

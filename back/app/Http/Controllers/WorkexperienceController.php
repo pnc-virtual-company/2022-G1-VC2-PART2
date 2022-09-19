@@ -83,8 +83,9 @@ class WorkexperienceController extends Controller
      * @param  \App\Models\Workexperience  $workexperience
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Workexperience $workexperience)
+    public function removeExper(Request $request, $id)
     {
         //
+        return Workexperience::destroy($id);
     }
 }
