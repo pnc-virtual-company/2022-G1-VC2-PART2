@@ -11,8 +11,8 @@
       </div>
       <div class="w-[100%] my-2 p-2">
             <label class="w-[12rem] text-start text-sm font-medium">Major </label>
-            <input v-if="!isPNC" type="text" v-model="major" placeholder="name" class="mt-2 block p-2 w-full outline-none text-gray-900 bg-gray-50 rounded-sm border border-gray-400 sm:text-xs focus:ring-blue-500 focus:border-[#22bbea]" :class="{ 'border-red-500 bg-red-100': is_degree}">
-            <select v-else v-model="major" class="mt-2 block p-2 w-full outline-none text-gray-900 bg-gray-50 rounded-sm border border-gray-400 sm:text-xs focus:ring-blue-500 focus:border-[#22bbea]" :class="{ 'border-red-500 bg-red-100': is_degree}">
+            <input v-if="!isPNC" type="text" v-model="major" placeholder="name" class="mt-2 block p-2 w-full outline-none text-gray-900 bg-gray-50 rounded-sm border border-gray-400 sm:text-xs focus:ring-blue-500 focus:border-[#22bbea]" :class="{ 'border-red-500 bg-red-100': is_major}">
+            <select v-else v-model="major" class="mt-2 block p-2 w-full outline-none text-gray-900 bg-gray-50 rounded-sm border border-gray-400 sm:text-xs focus:ring-blue-500 focus:border-[#22bbea]" :class="{ 'border-red-500 bg-red-100': is_major}">
                 <option selected disabled class="text-gray-900" value="">Choose major</option>
                 <option :value="'WEB'">WEB</option>
                 <option :value="'SNA'">SNA</option>
@@ -115,6 +115,7 @@ export default {
       end_date: "",
       is_university: false,
       is_degree: false,
+      is_major: false,
       is_start_month: false,
       is_start_year: false,
       is_end_month: false,
@@ -182,6 +183,10 @@ export default {
       if (this.degree.trim() == "") {
         this.is_degree = true;
       }
+      this.is_major = false;
+      if (this.major.trim() == "") {
+        this.is_major = true;
+      }
       this.is_start_month = false;
       if (this.start_month.trim() == "") {
         this.is_start_month = true;
@@ -203,6 +208,7 @@ export default {
       if (
         this.is_university ||
         this.is_degree ||
+        this.is_major ||
         this.is_start_month ||
         this.is_start_year ||
         this.is_end_month ||

@@ -43,6 +43,7 @@
             </div>
             <div class="w-[64%]">
                 <CardInfo :user="user" @getData="getUser" />
+                
                 <!-- +++++++++++ Alumni Education +++++++++++++ -->
                 <edu-card-view :edu="edu" @is-add-edu="isAddEdu=true" @isEdit-edu="isEditEduction" :alu_id="alu_id"></edu-card-view>
                 <FormAddEduView  v-if="isAddEdu" :universities="universities" @addEdu="addEducation" @cancelAdd="isAddEdu=false" @added-new-univer="addedNewUniver" :alu_id="alu_id"></FormAddEduView>
