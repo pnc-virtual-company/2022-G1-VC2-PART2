@@ -83,13 +83,10 @@ Route::get("alumniSkill/{alumni_id}", [AlumniSkillController::class, "show"]);
 
 // ============================Remove=====================================
 Route::delete("alumniSkill/{id}", [AlumniSkillController::class, "destroy"]);
-<<<<<<< HEAD
 Route::delete("companies/{id}",[CompanyController::class,"destroy"]);
 Route::delete("university/{id}",[UniversityController::class,"destroy"]);
-=======
 
 // =================================================================SendMailController
 Route::post('sendVerifyCode',[SendMailController::class, "sendVerifyCode"]);
 
 
->>>>>>> 7b6f696c76db296f0df360f12568afce05740fbe

@@ -21,7 +21,7 @@ class UserController extends Controller
             return response()->json(['sms' => 'invalid', 'email' => $request->email, 'password' => $request->password], 404);
         }
         $token = $user->createToken('mytoken')->plainTextToken;
-        return response()->json(['token' => $token, 'role' => $user->role], 202);
+        return response()->json(['token' => $token, 'role' => $user->role,'status'=>$user->status], 202);
     }
 
     public function getInfoByToken()
