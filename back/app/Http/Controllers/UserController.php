@@ -80,9 +80,14 @@ class UserController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function getAlumniUsers()
     {
-        return User::get();
+        $alumnis=User::join('alumnis', 'users.id', '=', 'alumnis.user_id')
+        ->join('workexperiences', 'alumnis.id', '=', 'workexperiences.alumni_id')
+        ->join('companies', 'workexperiences.company_id', '=', 'companies.id')
+        ->get(['users.*', 'alumnis.*', 'workexperiences.position', 'companies.name as company'])
+        ->All();
+        return $alumnis;
     }
 
     /**
