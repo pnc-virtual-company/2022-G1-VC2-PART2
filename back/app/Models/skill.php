@@ -5,16 +5,13 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class AlumniSkill extends Model
+class skill extends Model
 {
     use HasFactory;
-    public function Alumni(){
-        return $this->belongsTo(Alumni::class);
-    }
-    public function Skill(){
-        return $this->belongsTo(Skill::class);
-    }
 
+    public function alumniSkill(){
+        return $this->hasMany(AlumniSkill::class);
+    }
     protected $hidden = [
         'created_at',
         'updated_at',

@@ -17,9 +17,4 @@ class Workexperience extends Model
         'updated_at',
     ];
     
-    // protected $casts = [
-    //     'start_year' => 'datetime:m/d/Y',
-    //     'end_year' => 'datetime:m/d/Y',
-    // ];
-   
 }

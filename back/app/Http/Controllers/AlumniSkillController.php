@@ -25,10 +25,11 @@ class AlumniSkillController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
+
     {
         $alumniSkill = new AlumniSkill();
         $alumniSkill->alumni_id = $request->alumni_id;
-        $alumniSkill->name = $request->name;
+        $alumniSkill->skill_id = $request->skill_id;
         $alumniSkill->save();
         return response()->json(['message'=> 'Created successfully']);
 
@@ -44,9 +45,10 @@ class AlumniSkillController extends Controller
     {
         //
         $alumniExperience = alumniSkill::join('alumnis', 'alumnis.id', '=', 'alumni_skills.alumni_id')
+        ->join('skills', 'alumni_skills.skill_id', '=', 'skills.id')
         ->where('alumni_skills.alumni_id', '=', $alumni_id)
         ->orderBy('alumni_skills.created_at', 'desc')
-        ->get(['alumni_skills.*'])->all();
+        ->get(['alumni_skills.*', 'skills.name'])->all();
         return $alumniExperience;
     }
 

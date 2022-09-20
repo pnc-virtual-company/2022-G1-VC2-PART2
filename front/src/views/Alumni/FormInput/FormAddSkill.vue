@@ -6,7 +6,7 @@
       class="modal bg-white h-auto shadow-md rounded mt-2 mb-10 m-auto w-[30rem] z-10"
       v-click-outside="clickedOutside"
     >
-      <form @submit.prevent="addSkill" class="bg-white rounded m-auto">
+      <form @submit.prevent="clickAdd" class="bg-white rounded m-auto">
         <div
           class="flex items-center justify-between text-lg bg-[#23afda] p-2 rounded-tr rounded-tl"
         >
@@ -61,40 +61,54 @@
 </template>
 
 <script>
-import skills from "../../../stores/skills.json"
+import axios from "../../../axios-http"
 import addSkill from "./AutoComplete.vue"
 export default {
   components: { addSkill },
   data() {
     return {
-      skill: null,
       matched: [],
+      skills:[],
+      skill:null,
     };
   },
   methods: {
     hasType(value){this.matched = value.length},
     skillSugesstion(skill) {
-      this.skill = skill["name"];
+      this.skill=skill;
     },
     addNewSkill(newskill){
       this.skill = ''
-      this.skill= newskill},
+      this.skill= newskill
+    },
 
-    addSkill() {
-      if (this.skill != null) {
-        this.$emit("add-skill", { name: this.skill, alumni_id: 1 });
-        this.$emit("closePopUp", false);
+    clickAdd(){
+      if(this.skill['id']!=undefined){
+        this.addSkill(this.skill['id'])
+      }else{
+        axios.post('skill', {name:this.skill}).then((res)=>{
+          this.addSkill(res.data)
+        })
       }
+    },
+
+    addSkill(skill_id) {
+      this.$emit("add-skill", { skill_id: skill_id, alumni_id: 1 });
+      this.$emit("closePopUp", false);
     },
     clickedOutside() {
       this.$emit("closePopUp", false);
     },
+
+    getSkills(){
+      axios.get('skills').then((res)=>{this.skills=res.data})
+    }
+    
   },
 
-  computed: {
-    skills() {
-      return skills;
-    },
-  },
+  mounted(){
+    this.getSkills()
+  }
+
 };
 </script>
