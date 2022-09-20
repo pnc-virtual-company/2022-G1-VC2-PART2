@@ -12,6 +12,9 @@ class Workexperience extends Model
         return $this->belongsTo(Company::class);
     }
 
+    public function alumnis(){
+        return $this->belongsTo(Alumni::class);
+    }
     protected $hidden = [
         'created_at',
         'updated_at',
