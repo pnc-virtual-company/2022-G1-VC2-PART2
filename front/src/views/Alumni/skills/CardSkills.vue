@@ -25,17 +25,17 @@
       >
     </div>
 
-      <form-skill
+      <!-- <form-skill
         @closePopUp="closePopUp"
         v-if="isClickAddSkill"
         @add-skill="addAlumniSkill"
-      ></form-skill>
+      ></form-skill> -->
   </section>
 </template>
 
 <script>
 import SkillCard from "./CardSkill.vue";
-import FormAddSkill from "../FormInput/FormAddSkill.vue";
+// import FormAddSkill from "../FormInput/FormAddSkill.vue";
 import axios from "../../../axios-http";
 export default {
   props: {
@@ -43,7 +43,7 @@ export default {
   },
   components: {
     "card-skill": SkillCard,
-    "form-skill": FormAddSkill,
+    // "form-skill": FormAddSkill,
   },
   data() {
     return {
