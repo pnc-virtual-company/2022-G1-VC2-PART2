@@ -1,12 +1,12 @@
 
 <template>
-  <AlumniDetailView></AlumniDetailView>
+  <FormInviteEro></FormInviteEro>
 </template>
 <script>
-  import AlumniDetailView from "./Ero/AlumniDetailView.vue"
+  import FormInviteEro from "./Alumni/FormInput/FormInviteEroView.vue"
   export default {
       components:{
-        AlumniDetailView
+        FormInviteEro
       }
   };
   </script>
