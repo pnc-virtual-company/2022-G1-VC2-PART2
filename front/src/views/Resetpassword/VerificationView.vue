@@ -17,6 +17,7 @@
                   <div class="w-[90%] m-auto mt-4">
                     <h1 class="font-extrabold ">Type code</h1>
                     <input type="text" placeholder="Varify code..." v-model="veraficode" class="shadow-md p-1 rounded-md w-[100%] mt-3 border-2 outline-blue-300 outline-2 border-gray-400">
+                    <p class="text-red-500 mb-[-10px] mt-[3px]">{{verifyError}}</p>
                   </div>
                   <div class="w-[90%] flex m-5 justify-end">
                     <button class="w-[25%] bg-sky-300 p-2 text-bold mb-5 text-white rounded-md" type="submit" >Submit</button>
@@ -28,6 +29,7 @@
 </template>
 <script>
 export default {
+  props : ['verifyError'],
   emits:['varication-code'],
   data(){
       return {

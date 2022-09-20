@@ -1,5 +1,6 @@
 
 <template>
+<<<<<<< HEAD
   <ManageAlumni/>
  
 </template>
@@ -13,3 +14,7 @@ export default {
   }
 }
 </script>
+=======
+  <h1>ALUMNI MANAGEMENT APPLICATION</h1>
+</template>
+>>>>>>> 7b6f696c76db296f0df360f12568afce05740fbe
