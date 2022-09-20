@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Models\Education;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
 
 class EducationController extends Controller
 {
@@ -27,18 +26,17 @@ class EducationController extends Controller
     public function AddEducation(Request $request)
     {
         $education = new Education();
-        $education->start_month= $request->start_month;
-        $education->start_year= $request->start_year;
-        $education->end_month= $request->end_month;
-        $education->end_year= $request->end_year;
-        $education->degree= $request->degree;
-        $education->major= $request->major;
-        $education->alumni_id= $request->alumni_id;
-        $education->university_id= $request->university_id;
+        $education->start_month = $request->start_month;
+        $education->start_year = $request->start_year;
+        $education->end_month = $request->end_month;
+        $education->end_year = $request->end_year;
+        $education->degree = $request->degree;
+        $education->major = $request->major;
+        $education->alumni_id = $request->alumni_id;
+        $education->university_id = $request->university_id;
         $education->save();
-        return response()->json(['status' => ' sucessfully'],200);
-    }   
-
+        return response()->json(['status' => ' sucessfully'], 200);
+    }
 
     /**
      * Display the specified resource.
@@ -48,7 +46,7 @@ class EducationController extends Controller
      */
     public function show(Education $education)
     {
-        
+
     }
     /**
      * Display the specified resource.
@@ -56,11 +54,11 @@ class EducationController extends Controller
      * @param  \App\Models\Education  $education
      * @return \Illuminate\Http\Response
      */
-    public function getAlumniEdu(Request $request,$id)
+    public function getAlumniEdu(Request $request, $id)
     {
-        return Education::with('university')->where('alumni_id',$id)->get()
-        ->reverse()
-        ->values();
+        return Education::with('university')->where('alumni_id', $id)->get()
+            ->reverse()
+            ->values();
     }
 
     /**
@@ -70,18 +68,18 @@ class EducationController extends Controller
      * @param  \App\Models\Education  $education
      * @return \Illuminate\Http\Response
      */
-    public function updateEducation(Request $request,$id)
+    public function updateEducation(Request $request, $id)
     {
         $education = Education::findOrFail($id);
-        $education->start_month= $request->start_month;
-        $education->start_year= $request->start_year;
-        $education->end_month= $request->end_month;
-        $education->end_year= $request->end_year;
-        $education->degree= $request->degree;
-        $education->major= $request->major;
-        $education->university_id= $request->university_id;
+        $education->start_month = $request->start_month;
+        $education->start_year = $request->start_year;
+        $education->end_month = $request->end_month;
+        $education->end_year = $request->end_year;
+        $education->degree = $request->degree;
+        $education->major = $request->major;
+        $education->university_id = $request->university_id;
         $education->save();
-        return response()->json(['status' => ' sucessfully'],201);
+        return response()->json(['status' => ' sucessfully'], 201);
     }
 
     /**

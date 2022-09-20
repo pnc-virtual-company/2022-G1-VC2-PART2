@@ -7,6 +7,7 @@ use App\Http\Controllers\SkillController;
 use App\Http\Controllers\UniversityController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\WorkexperienceController;
+use App\Http\Controllers\SendMailController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -38,7 +39,10 @@ Route::group(['middleware'=>['auth:sanctum']],function(){
 });
 
 // ======================Reset password==============================
-Route::put('resetPassword/{id}',[UserController::class, 'resetpassword']);
+Route::post('resetPassword/{id}',[UserController::class, 'resetPassword']);
+Route::post('forgetPassword/',[UserController::class, 'forgetPassword']);
+Route::post('resetPwAfterVerify/{id}',[UserController::class, 'resetPwAfterVerify']);
+
 
 // =======================Create New===============================
 Route::post('useralumni', [UserController::class, "store"]);
@@ -78,4 +82,8 @@ Route::get("alumniSkill/{alumni_id}", [AlumniSkillController::class, "show"]);
 
 // =================================================================Remove
 Route::delete("alumniSkill/{id}", [AlumniSkillController::class, "destroy"]);
+
+// =================================================================SendMailController
+Route::post('sendVerifyCode',[SendMailController::class, "sendVerifyCode"]);
+
 
