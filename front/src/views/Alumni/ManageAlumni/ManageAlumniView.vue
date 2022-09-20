@@ -24,13 +24,11 @@ import Listalumni from '../../../components/Manage/ListAlumnis.vue'
        data(){
         return {
             listAlumnis:[
-                {name:'Tom',email:'kimky@gmail.com',major:'WEP-B 2022',status:'active'},
-                {name:'kimky',email:'kimky@gmail.com',major:'WEP-B 2022',status:'invite'},
-                {name:'Theavy',email:'kimky@gmail.com',major:'WEP-B 2022',status:'pedding'},
-                {name:'kimky',email:'kimky@gmail.com',major:'WEP-B 2022',status:'invite'},
-                {name:'kimky',email:'kimky@gmail.com',major:'WEP-B 2022',status:'active'},
+                {name:'kimky',email:'kimky@gmail.com',major: 'WEB B', status:'Active'},
+                {name:'savong',email:'savong@gmail.com',major: 'WEB B', status:'pedding'},
+                {name:'Dalin',email:'Dalin@gmail.com',major: 'WEB B', status:'Invite'}
             ],
-            alumnis:[], 
+            alumnis:[],
         }
     },
       methods:{

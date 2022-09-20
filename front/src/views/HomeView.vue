@@ -1,16 +1,15 @@
 
 <template>
-  <university/>
-  <!-- <Ero/> -->
+  <ManageAlumni/>
+ 
 </template>
 
 <script>
-import University from "../views/University/ListUniversity.vue"
-// import Ero from "./Ero/EroView.vue"
+import ManageAlumni from "./Alumni/ManageAlumni/ManageAlumniView.vue"
 export default {
   components:{
-    // Ero,
-    University,
+    ManageAlumni,
+
   }
 }
 </script>
