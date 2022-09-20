@@ -1,16 +1,16 @@
 
 <template>
-  <Ero/>
+  <university/>
+  <!-- <Ero/> -->
 </template>
-<<<<<<< HEAD
 
 <script>
-import Ero from "./Ero/EroView.vue"
+import University from "../views/University/ListUniversity.vue"
+// import Ero from "./Ero/EroView.vue"
 export default {
   components:{
-    Ero,
+    // Ero,
+    University,
   }
 }
 </script>
-=======
->>>>>>> a6be3f33ce5c9e3bcd0f1b3d7b52a0b2b017dea6

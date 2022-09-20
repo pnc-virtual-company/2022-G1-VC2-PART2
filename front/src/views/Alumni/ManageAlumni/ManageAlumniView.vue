@@ -32,7 +32,6 @@ import Listalumni from '../../../components/Manage/ListAlumnis.vue'
             ],
             alumnis:[], 
         }
-
     },
       methods:{
         displayAlumni(status){
