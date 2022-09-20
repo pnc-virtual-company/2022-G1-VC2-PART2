@@ -58,7 +58,6 @@ export default {
         getCompany(){
             axios.get('companies').then((response)=>{
                 this.companies = response.data;
-                console.log(response.data)
             })
         }
     },
