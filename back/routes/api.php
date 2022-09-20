@@ -7,6 +7,7 @@ use App\Http\Controllers\SkillController;
 use App\Http\Controllers\UniversityController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\WorkexperienceController;
+use App\Http\Controllers\SendMailController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -39,7 +40,10 @@ Route::group(['middleware'=>['auth:sanctum']],function(){
 });
 
 // ======================Reset password==============================
-Route::put('resetPassword/{id}',[UserController::class, 'resetpassword']);
+Route::post('resetPassword/{id}',[UserController::class, 'resetPassword']);
+Route::post('forgetPassword/',[UserController::class, 'forgetPassword']);
+Route::post('resetPwAfterVerify/{id}',[UserController::class, 'resetPwAfterVerify']);
+
 
 // =======================Create New===============================
 Route::post('useralumni', [UserController::class, "store"]);
@@ -71,7 +75,8 @@ Route::put("alumniSkill", [AlumniSkillController::class, "update"]);
 // Route::get('workexperience',[WorkexperienceController::class,"index"]);
 // Route::get('workexperience/{id}',[WorkexperienceController::class,"show"]);
 // Route::get("company/{id}",[CompanyController::class,"show"]);
-// Route::get("companies",[CompanyController::class,"index"]);
+Route::delete("companies/{id}",[CompanyController::class,"destroy"]);
+Route::get("companies",[CompanyController::class,"getAllCompanies"]);
 Route::get("getinfo",[UserController::class, 'getInfoByToken']);
 Route::get("universities", [UniversityController::class, "getUniversities"]);
 Route::get("skills", [SkillController::class, "index"]);
@@ -79,4 +84,8 @@ Route::get("alumniSkill/{alumni_id}", [AlumniSkillController::class, "show"]);
 
 // =================================================================Remove
 Route::delete("alumniSkill/{id}", [AlumniSkillController::class, "destroy"]);
+
+// =================================================================SendMailController
+Route::post('sendVerifyCode',[SendMailController::class, "sendVerifyCode"]);
+
 
