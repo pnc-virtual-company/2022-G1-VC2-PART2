@@ -1,5 +1,5 @@
 <template>
-<form class="border-2 border-sky-400 w-[76%] m-auto mt-5 rounded-sm" >
+    <form class="border-2 border-sky-400 w-[76%] m-auto mt-5 rounded-sm" >
     <table class=" table-auto w-[98%] flex flex-wrap m-auto mt-5" slot="tableform">
         <thead class="w-[95%] flex flex-wrap m-auto shadow-sm p-4" slot="theader">
             <tr class="w-[25%] m-auto">
@@ -20,15 +20,15 @@
                         </div>
                     </td>
                     <td>
-                        <p>{{company.name}}</p>
+                        <p></p>
                     </td>
                 </tr>
                 <tr class="w-[45%] m-auto">
                     <td class="w-[40%] m-auto">
-                        <p>{{company.address}}</p>
+                        <p></p>
                     </td>
                 </tr>
-                <tr @click ="removeCompany(company.id)" class="w-[10%] m-auto">
+                <tr  class="w-[10%] m-auto">
                     <td class="w-[100%]">
                         <div class="w-[40%] bg-red-500 rounded-md cursor-pointer p-1 shadow-sm border-b">
                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" class="w-[50%] m-auto" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
@@ -41,28 +41,3 @@
     </table>
  </form>
 </template>
-
-<script>
-import axios from '../../axios-http'
-export default {
-    data(){
-        return {
-           companies:[],
-        }
-    },
-    methods:{
-        removeCompany(company){
-         axios.delete('companies/'+company);
-         this.getCompany();
-        },
-        getCompany(){
-            axios.get('companies').then((response)=>{
-                this.companies = response.data;
-            })
-        }
-    },
-    mounted(){
-        this.getCompany();
-    }
-}
-</script>

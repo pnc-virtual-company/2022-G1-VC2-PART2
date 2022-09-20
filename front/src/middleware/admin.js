@@ -3,7 +3,7 @@ export default ({ store, next }) => {
       if (store.state.role !== 'ero') {
         next("/")
       }else {
-        next("/ero")
+        next("/ero-explore")
       }
       return false
     }
