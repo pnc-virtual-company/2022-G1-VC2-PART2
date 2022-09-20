@@ -182,7 +182,7 @@ export default {
         },
 
         getAlumniExperiences(){
-            axios.get('workexperience/' + this.user_id).then(res => {
+            axios.get('workexperience/' + this.alu_id).then(res => {
                 this.experiences = res.data
             });
         },
@@ -198,7 +198,7 @@ export default {
             });
         },
         getAlumniEdu(){
-            axios.get('alumniEdu/1').then(res => {
+            axios.get('alumniEdu/'+ this.alu_id).then(res => {
                 this.edu = res.data
             });
         },

@@ -1,11 +1,11 @@
 <template>
-    <EroMagement></EroMagement>
+    <AlumniExplore></AlumniExplore>
 </template>
 <script>
-    import EroMagement from "../../components/Manage/EroManagement.vue"
+    import AlumniExplore from "../../components/Manage/AlumniExplore.vue"
     export default{
         components:{
-            EroMagement
+            AlumniExplore,
         }
 
     }
