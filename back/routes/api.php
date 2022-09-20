@@ -75,17 +75,21 @@ Route::put("alumniSkill", [AlumniSkillController::class, "update"]);
 // Route::get('workexperience',[WorkexperienceController::class,"index"]);
 // Route::get('workexperience/{id}',[WorkexperienceController::class,"show"]);
 // Route::get("company/{id}",[CompanyController::class,"show"]);
-Route::delete("companies/{id}",[CompanyController::class,"destroy"]);
 Route::get("companies",[CompanyController::class,"getAllCompanies"]);
 Route::get("getinfo",[UserController::class, 'getInfoByToken']);
 Route::get("universities", [UniversityController::class, "getUniversities"]);
 Route::get("skills", [SkillController::class, "index"]);
 Route::get("alumniSkill/{alumni_id}", [AlumniSkillController::class, "show"]);
 
-// =================================================================Remove
+// ============================Remove=====================================
 Route::delete("alumniSkill/{id}", [AlumniSkillController::class, "destroy"]);
+<<<<<<< HEAD
+Route::delete("companies/{id}",[CompanyController::class,"destroy"]);
+Route::delete("university/{id}",[UniversityController::class,"destroy"]);
+=======
 
 // =================================================================SendMailController
 Route::post('sendVerifyCode',[SendMailController::class, "sendVerifyCode"]);
 
 
+>>>>>>> 7b6f696c76db296f0df360f12568afce05740fbe

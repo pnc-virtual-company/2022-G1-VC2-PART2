@@ -78,8 +78,9 @@ class UniversityController extends Controller
      * @param  \App\Models\University  $university
      * @return \Illuminate\Http\Response
      */
-    public function destroy(University $university)
+    public function destroy(Request $request, $id)
     {
-        //
+        University::destroy($id);
+        return response()->json(['message'=>"The company has been removed"]);
     }
 }
