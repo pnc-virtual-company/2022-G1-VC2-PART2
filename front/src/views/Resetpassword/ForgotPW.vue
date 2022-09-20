@@ -5,7 +5,7 @@
             <img src="../../assets/forgotpw.png" alt="logo" class="w-[70%] m-auto">
         </div>
         <div class="flex rounded w-[50%]">
-            <form class="w-[70%] p-5 bg-[#CCE7F6] rounded m-auto" @submit.prevent="forgotpassword">
+            <form class="w-[70%] p-5 bg-[#CCE7F6] rounded m-auto" @submit.prevent="forgetpassword">
                 <img src="../../assets/alumnilogo.png" alt="logo" class="w-[100px] m-auto">
                 <h1 class="text-2xl font-semibold text-center p-1">Forgot Passord</h1>
                 <div class="mb-6 relative">
@@ -13,12 +13,13 @@
                         Email *
                     </label>
                     <input
-                        class="appearance-none rounded w-full py-2 px-3 mb-1 leading-tight focus:outline-primary focus:shadow-outline"
+                        class="rounded w-full py-2 px-3 mb-1  focus:outline-skyblue "
                         v-model="email"
                         id="email" type="email" placeholder="Email...">
+                      <p class="text-red-500 mb-[-10px] mt-[3px]">{{inValidEmail}}</p>
                 </div>
                 <button
-                    class="bg-[#22bbea] text-white py-2 w-full px-4 rounded focus:outline-primary focus:shadow-outline"
+                    class="bg-skyblue text-white py-2 w-full px-4 rounded focus:outline-primary focus:shadow-outline"
                     type="submit">
                     Submit
                 </button>
@@ -26,7 +27,7 @@
         </div>
       </div>
       <!-- Verication code -->
-      <varication @varication-code="veriFycode" v-if="showverification" />
+      <varication @varication-code="veriFycode" :verifyError="verifyError" v-if="showverification" />
       <!-- show reset password -->
       <resetpassword @reset-password="resetPS" v-if="showresetpassword"/>
     </section>
@@ -34,6 +35,7 @@
 <script>
 import varication from "./VerificationView.vue";
 import resetpassword from "./Resetpassword.vue";
+import axios from '../../axios-http';
 export default {
   emits:['forgot-password'],
   data(){
@@ -42,6 +44,9 @@ export default {
       codeverify:"",
       showverification:false,
       showresetpassword:false,
+      inValidEmail:'',
+      verifyError:'',
+      user_id:null,
     }
   },
   components:{
@@ -49,18 +54,37 @@ export default {
     resetpassword,
   },
   methods:{
-    forgotpassword(){
-      this.showverification = !this.showverification;
+    forgetpassword(){
+      axios.post("forgetPassword",{email:this.email})
+      .then((res) => {
+        if(res.data.message == "successfully") {
+          axios.post("sendVerifyCode",{email:this.email});
+          this.email = '';
+          this.user_id = res.data.user_id;
+          this.codeverify = res.data.verifyCode;
+          this.showverification = !this.showverification;
+          this.inValidEmail = '';
+        }else{
+          this.inValidEmail = 'Your verification email was not sent* !';
+        }
+      });
     },
     veriFycode(code){
-      this.codeverify = code;
-      this.showverification = !this.showverification;
-      this.showresetpassword = !this.showresetpassword;
-      console.log(code);
+      if(this.codeverify == code){
+        this.showverification = !this.showverification;
+        this.showresetpassword = !this.showresetpassword;
+        this.verifyError = '';
+      }else {
+        this.verifyError = 'Your verification code is not valid* !';
+      }
     },
-    resetPS(password){
-      this.showresetpassword = !this.showresetpassword;
-      console.log(password);
+    resetPS(newpassword){
+      axios.post("resetPwAfterVerify/" + this.user_id,{newpassword:newpassword})
+      .then((res)=>{
+        console.log(res);
+        this.showresetpassword = !this.showresetpassword;
+        this.$router.push("/login");
+      })
     }
   }
 }

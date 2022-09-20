@@ -124,7 +124,7 @@ export default {
             education:{},
         }
     },
-
+    
     methods:{
         //Form for Add or Edit work experience's alumni
         popUp(opup){
@@ -140,13 +140,11 @@ export default {
             this.isPopUp='Edit'
             this.editExperience=experience;
         },
-        
         saveEditExper(experience){
             axios.put("workexperience/" + this.editExperience.id , experience).then(() => {
                 this.getAlumniExperiences()
             });
         },
-
         tageImage(event, update){
             this.image = event.target.files[0];
             if(update == "profile" && this.image){
@@ -180,18 +178,15 @@ export default {
                 this.user = res.data;
             })
         },
-
         getAlumniExperiences(){
             axios.get('workexperience/' + this.alu_id).then(res => {
                 this.experiences = res.data
             });
         },
-
         addCompany(company){
             axios.post('company', company).then(() => {
                 this.getCompanies()})
         },
-
         getCompanies(){
             axios.get('companies').then(res => {
                 this.companies = res.data

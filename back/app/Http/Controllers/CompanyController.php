@@ -27,11 +27,11 @@ class CompanyController extends Controller
     {
         $company = new Company();
         $company->name = $request->name;
-        $company->address=$request->address;
+        $company->address = $request->address;
         $request->file('profile')->store('images/profile');
         $company->profile = $request->file("profile")->hashName();
         $company->save();
-        return response()->json(['message'=> 'Created company successfully']);
+        return response()->json(['message' => 'Created company successfully']);
     }
 
     /**
@@ -57,9 +57,9 @@ class CompanyController extends Controller
         $company = Company::findOrFail($id);
         $company->name = $request->name;
         $company->name = $request->name;
-        $company->address=$request->address;
+        $company->address = $request->address;
         $company->save();
-        return response()->json(["message"=>"company updated"]);
+        return response()->json(["message" => "company updated"]);
     }
 
     /**
@@ -68,8 +68,9 @@ class CompanyController extends Controller
      * @param  \App\Models\Company  $company
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Company $company)
+    public function destroy(Request $request, $id)
     {
-        //
+        Company::destroy($id);
+        return response()->json(['message'=>"The company has been removed"]);
     }
 }

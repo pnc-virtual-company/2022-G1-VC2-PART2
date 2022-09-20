@@ -30,7 +30,7 @@ class AlumniSkillController extends Controller
         $alumniSkill->alumni_id = $request->alumni_id;
         $alumniSkill->name = $request->name;
         $alumniSkill->save();
-        return response()->json(['message'=> 'Created successfully']);
+        return response()->json(['message' => 'Created successfully']);
 
     }
 
@@ -44,9 +44,9 @@ class AlumniSkillController extends Controller
     {
         //
         $alumniExperience = alumniSkill::join('alumnis', 'alumnis.id', '=', 'alumni_skills.alumni_id')
-        ->where('alumni_skills.alumni_id', '=', $alumni_id)
-        ->orderBy('alumni_skills.created_at', 'desc')
-        ->get(['alumni_skills.*'])->all();
+            ->where('alumni_skills.alumni_id', '=', $alumni_id)
+            ->orderBy('alumni_skills.created_at', 'desc')
+            ->get(['alumni_skills.*'])->all();
         return $alumniExperience;
     }
 
@@ -59,11 +59,11 @@ class AlumniSkillController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $alumniSkill =AlumniSkill::findOrFail($id);
+        $alumniSkill = AlumniSkill::findOrFail($id);
         $alumniSkill->alumni_id = $request->alumni_id;
         $alumniSkill->name = $request->name;
         $alumniSkill->save();
-        return response()->json(['message'=> 'Updated successfully']);
+        return response()->json(['message' => 'Updated successfully']);
     }
 
     /**

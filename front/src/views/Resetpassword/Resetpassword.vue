@@ -38,7 +38,9 @@ export default {
   },
   methods:{
     resetPassword(){
-      this.$emit('reset-password',{newpassword:this.newpassword,comfirmnewpassword:this.confirmPassword});
+      if(this.newpassword==this.confirmPassword && this.newpassword != '' && this.comfirmnewpassword != ''){
+        this.$emit('reset-password',this.newpassword);
+      }
     },
   }
 }
