@@ -1,8 +1,8 @@
 <template>
     <!--  list Form-->
-    <form class="border-2 border-blue-500 w-[76%] m-auto mt-5 rounded-sm">
+    <div class="border-2 border-skyblue rounded-sm">
         <!-- header -->
-        <div class="w-[93%] flex flex-wrap m-auto mt-5">
+        <div class="flex mt-5">
             <div class="w-[25%]">
                 <select @click="showAlumni"  class="w-[90%] border-2 border-gray-500 p-2 shadow-md rounded-md cursor-pointer">
                     <option value="all">All</option>
@@ -26,7 +26,7 @@
             </div>
         </div>
         <!-- Card list -->
-    <table class=" table-auto w-[98%] flex flex-wrap m-auto mt-5">
+        <table class=" table-auto w-[98%] flex flex-wrap m-auto mt-5">
         <thead class="w-[95%] flex flex-wrap m-auto shadow-sm p-4 cursor-pointer bg-skyblue">
             <tr class="w-[25%] m-auto">
                 <th>USERNAME</th>
@@ -83,7 +83,7 @@
                 </tr>
         </tbody>
     </table>
-  </form>
+  </div>
 </template>
 <script>
 export default {

@@ -7,12 +7,13 @@
                 <p @click="isActive=1" class="p-4 font-semibold hover:cursor-pointer" :class="{'text-orange border-b-[2px] border-orange':isActive == 1}">COMPANY</p>
                 <p @click="isActive=2" class="p-4 font-semibold hover:cursor-pointer" :class="{'text-orange border-b-[2px] border-orange':isActive == 2}">UNIVERSITY</p>
             </div>
+            <p></p>
         </div>
-        <div v-if="isActive == 0" class="text-center mt-4">
+        <div v-if="isActive == 0" class="text-center">
             <filterAlumni
             :countAlumnis="dataAlumnis"
             @matchAlumni="displayAlumni"/>
-        <listAlumni
+        <listAlumni class="w-[80%] m-auto mt-3"
         @matchAlumni="displayAlumni"
         @searchAlumni="queryAlumni"
         @removeAlumni="removeAlumni"
