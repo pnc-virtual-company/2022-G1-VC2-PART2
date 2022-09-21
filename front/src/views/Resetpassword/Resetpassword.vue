@@ -1,20 +1,14 @@
 <template>
   <section>
     <!-- ResetPassword -->
-    <div class="modal-mask">
-      <div class="modal-wrapper">
-        <div class="modal-container rounded">
-          <form class="w-[100%] flex flex-wrap" @submit.prevent="resetPassword">
+    <div class=" bg-[#000000b9] fixed z-50 md:inset-0 md:h-full flex items-center">
+    <div  class="bg-white h-auto shadow-md rounded m-auto w-[35%] z-10">
+      <div class="w-[100%] flex flex-wrap rounded">
+          <div class="w-[100%] flex flex-wrap">
             <div class="w-[100%]">
               <div
-                class="
-                  w-[100%]
-                  bg-sky-300
-                  text-center text-2xl text-white text-bold
-                  p-2
-                "
-              >
-                <h1>Reset New Passord</h1>
+                class=" w-[100%] bg-[#22bbea] text-center text-2xl text-white text-bold p-2">
+                <h1>Password</h1>
               </div>
             </div>
             <div class="mb-1 ml-5 mt-5 w-[90%] relative">
@@ -40,7 +34,7 @@
                   outline-none
                   focus:outline-primary focus:shadow-outline
                 "
-                id="password"
+                id="newpassword"
                 placeholder="Password..."
               />
               <svg
@@ -116,27 +110,15 @@
                   leading-tight
                   focus:outline-primary focus:shadow-outline
                 "
-                id="password"
+                id="confirmPassword"
                 placeholder="Comfirm Password..."
               />
             </div>
-            <div class="w-[90%] flex m-5 justify-end">
-              <button
-                class="
-                  w-[25%]
-                  bg-sky-300
-                  p-2
-                  text-bold
-                  mb-5
-                  text-white
-                  rounded-md
-                "
-                type="submit"
-              >
-                Submit
-              </button>
+            <div class="w-full flex mt-7 mb-6 mr-2 items-center justify-end pr-2">
+              <button @click="$emit('cancelChange')" class=" hover:bg-[#cecece] border-[1px] border-gray-300 text-gray-500 shadow py-1 px-6 rounded focus:outline-none focus:shadow-outline">Cancel</button>
+              <button @click="resetPassword()" class="bg-skyblue hover:bg-[#23afda] mx-2 text-white py-1 px-8 rounded focus:outline-none focus:shadow-outline">Change</button>
             </div>
-          </form>
+          </div>
         </div>
       </div>
     </div>
@@ -144,7 +126,7 @@
 </template>
 <script>
 export default {
-  emits: ["reset-password"],
+  emits: ["reset-password",'cancelChange'],
   data() {
     return {
       newpassword: "",
@@ -172,47 +154,3 @@ export default {
   },
 };
 </script>
-
-<style scoped>
-.modal-mask {
-  position: fixed;
-  z-index: 10;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-color: rgba(0, 0, 0, 0.5);
-  display: table;
-  transition: opacity 0.3s ease;
-}
-.modal-wrapper {
-  display: table-cell;
-  vertical-align: middle;
-}
-.modal-container {
-  width: 33%;
-  height: auto;
-  margin: 0px auto;
-  border-radius: 20px;
-  background-color: #fff;
-  border-radius: 2px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.33);
-  transition: all 0.3s ease;
-  font-family: Helvetica, Arial, sans-serif;
-}
-.modal-body {
-  margin: 20px 0;
-}
-.modal-default-button {
-  float: right;
-}
-.modal-enter-from,
-.modal-leave-to {
-  opacity: 0;
-}
-.modal-enter-active .modal-container,
-.modal-leave-active .modal-container {
-  -webkit-transform: scale(1.1);
-  transform: scale(1.1);
-}
-</style>

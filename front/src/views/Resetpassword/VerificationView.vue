@@ -1,89 +1,41 @@
 <template>
     <!-- verifycation -->
-        <div class="modal-mask">
-          <div class="modal-wrapper">
-            <div class="modal-container rounded">
-              <form class="w-[100%] flex flex-wrap" @submit.prevent="verafiCode">
-                  <div class="w-[100%]">
-                    <div class="w-[100%] bg-sky-300 text-center text-2xl text-white text-bold p-2 ">
-                      <h1>Varication</h1>
-                    </div>
-                  </div>
-                  <div class="w-[100%] mt-4">
-                    <div class="w-[93%] m-auto">
-                      <p class="ml-2">Verify code have been sent to your email please check your email to get it</p>
-                    </div>
-                  </div>
-                  <div class="w-[90%] m-auto mt-4">
-                    <h1 class="font-extrabold ">Type code</h1>
-                    <input type="text" placeholder="Varify code..." v-model="veraficode" class="shadow-md p-1 rounded-md w-[100%] mt-3 border-2 outline-blue-300 outline-2 border-gray-400">
-                    <p class="text-red-500 mb-[-10px] mt-[3px]">{{verifyError}}</p>
-                  </div>
-                  <div class="w-[90%] flex m-5 justify-end">
-                    <button class="w-[25%] bg-sky-300 p-2 text-bold mb-5 text-white rounded-md" type="submit" >Submit</button>
-                  </div>
-              </form>
+  <div class=" bg-[#000000b9] fixed z-50 md:inset-0 md:h-full flex items-center">
+    <div  class="bg-white h-auto shadow-md rounded m-auto w-[35%] z-10">
+      <div class="w-[100%] flex flex-wrap rounded">
+          <div class="w-[100%]">
+            <div class="w-[100%] bg-[#22bbea] text-center text-2xl text-white text-bold p-2 rounded-tr rounded-tl">
+              <h1>verifycation</h1>
             </div>
           </div>
+          <div class="w-[100%] mt-4">
+            <div class="w-[93%] m-auto">
+              <p class="ml-2">Verify code have been sent to your email</p>
+            </div>
+          </div>
+          <div class="w-[90%] m-auto mt-4">
+            <h1 class="font-medium ">Type code</h1>
+            <input type="text" placeholder="Verify code..." v-model="verifyCode" class="shadow-md p-1 rounded-md w-[100%] mt-3 border-2 outline-blue-300 outline-2 border-gray-400">
+            <p class="text-red-500 mb-[-10px] mt-[3px]">{{verifyError}}</p>
+          </div>
+          <div class="w-full flex mt-7 mb-6 mr-2 items-center justify-end pr-2">
+            <button @click="$emit('cancel')" class=" hover:bg-[#cecece] border-[1px] border-gray-300 text-gray-500 shadow py-1 px-6 rounded focus:outline-none focus:shadow-outline">Cancel</button>
+            <button @click="$emit('verifycation-code',verifyCode)" class="bg-skyblue hover:bg-[#23afda] mx-2 text-white py-1 px-8 rounded focus:outline-none focus:shadow-outline">Submit</button>
+          </div>
       </div>
+    </div>
+  </div>
+
+
 </template>
 <script>
 export default {
   props : ['verifyError'],
-  emits:['varication-code'],
+  emits:['verifycation-code','cancel'],
   data(){
       return {
-        veraficode:"",
+        verifyCode:"",
       }
   },
-  methods:{
-    verafiCode(){
-      this.$emit('varication-code',this.veraficode);
-    },
-  }
 }
 </script>
-
-<style scoped>
-   .modal-mask {
-    position: fixed;
-    z-index: 10;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.5);
-    display: table;
-    transition: opacity 0.3s ease;
-  }
-  .modal-wrapper {
-    display: table-cell;
-    vertical-align: middle;
-  }
-  .modal-container {
-    width: 33%;
-    height: auto;
-    margin: 0px auto;
-    border-radius: 20px;
-    background-color: #fff;
-    border-radius: 2px;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.33);
-    transition: all 0.3s ease;
-    font-family: Helvetica, Arial, sans-serif;
-  }
-  .modal-body {
-    margin: 20px 0;
-  }
-  .modal-default-button {
-    float: right;
-  }
-  .modal-enter-from,
-  .modal-leave-to {
-    opacity: 0;
-  }
-  .modal-enter-active .modal-container,
-  .modal-leave-active .modal-container {
-    -webkit-transform: scale(1.1);
-    transform: scale(1.1);
-  }
-</style>
