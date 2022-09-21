@@ -30,6 +30,7 @@ import University from './UniversityView.vue'
 import listAlumni from '../../components/Manage/ListAlumnis.vue'
 import filterAlumni from '../../components/Manage/Alumnicardstatus.vue'
 import axios from "../../axios-http"
+import swal from 'sweetalert';
 export default{
     components:{
         'company-list': Company,

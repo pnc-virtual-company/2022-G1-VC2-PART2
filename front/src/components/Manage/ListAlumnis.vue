@@ -6,7 +6,7 @@
                     <option value="all">All</option>
                     <option value="actived">Active</option>
                     <option value="invited">invite</option>
-                    <option value="pedding">pedding</option>
+                    <option value="pending">peding</option>
                 </select>
                 <div class="w-[30rem] flex justify-start ml-3">
                     <input v-model="search" type="text" placeholder="Search..." class="w-64 border border-stone-400 rounded px-5 py-2 pr-11 outline-none shadow focus:border-skyblue focus:w-full transition-all duration-700">
@@ -44,7 +44,7 @@
                 <td class="text-center w-[20%]">
                     {{alumni.major==undefined? '?':alumni.major}}
                 </td>
-                <td class="text-center w-[20%]">
+                <td class="text-center w-[20%]" :class="alumni['status']">
                     {{alumni.status}}
                 </td>
                 <td class="text-center relative w-[15%]">
@@ -99,7 +99,7 @@ export default {
     .invited{
         color:blue
     }
-    .pedding{
+    .pending{
         color:orange;
     }
 
