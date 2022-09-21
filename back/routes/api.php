@@ -90,7 +90,6 @@ Route::get("alumniSkill/{alumni_id}", [AlumniSkillController::class, "show"]);
 // ============================Remove=====================================
 Route::delete("alumniSkill/{id}", [AlumniSkillController::class, "destroy"]);
 Route::delete("removeUser/{id}", [UserController::class, "destroy"]);
-Route::delete("removeAlumni/{id}", [UserController::class, "destroy"]);
 Route::delete("education/remove/{id}", [EducationController::class, "removeEdu"]);
 Route::delete("experience/remove/{id}", [WorkexperienceController::class, "removeExper"]);
 Route::delete("companies/{id}",[CompanyController::class,"destroy"]);
@@ -99,5 +98,6 @@ Route::delete("university/{id}",[UniversityController::class,"destroy"]);
 // =================================================================SendMailController
 Route::post('sendVerifyCode',[SendMailController::class, "sendVerifyCode"]);
 Route::post('sendRegister',[SendMailController::class, "sendRegister"]);
+Route::post('sendRemoveAccount/{id}',[SendMailController::class, "sendRemoveAccount"]);
 
 

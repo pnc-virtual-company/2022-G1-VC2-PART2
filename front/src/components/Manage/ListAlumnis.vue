@@ -69,7 +69,7 @@
 </template>
 <script>
 export default {
-    emits: ['invite'],
+    emits: ['invite','removeAlumni'],
     props:['alumnis'],
     name:'form-list',
     data(){

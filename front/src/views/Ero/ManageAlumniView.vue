@@ -64,6 +64,7 @@ export default {
       });
     },
     removeAlumni(id) {
+      console.log("Removing alumnist " + id + " from ");
       swal({
         title: "Are you sure?",
         text: "You want to remove this alumni !!",
@@ -72,7 +73,8 @@ export default {
         dangerMode: true,
       }).then((willDelete) => {
         if (willDelete) {
-          axios.delete("removeAlumni/" + id).then(() => {
+          axios.post("sendRemoveAccount/" + id) 
+          axios.delete("removeUser/" + id).then(() => {
             this.getListAlumni();
             swal("removed !", "Your work experince is removed !", "success");
           });
@@ -97,6 +99,7 @@ export default {
     
     inviteAlumni(email) {
       axios.post("inviteAlumni",{email:email}).then(() => {
+        swal("Invited !", "This ero account has been invited !", "success");
         this.isInvite = false;
       });
       this.inviteMessage = "Sending invite ..."

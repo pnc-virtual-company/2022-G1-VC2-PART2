@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
 use \App\Mail\VerifyCode;
 use \App\Mail\InviteAlumni;
+use \App\Mail\RemoveUser;
 
 class UserController extends Controller
 {
@@ -258,7 +259,7 @@ class UserController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function destroy(Request $request, $id)
-    {
+    {   
         User::destroy($id);
         return response()->json(['message'=>"The alumni has been removed"]);
     }
