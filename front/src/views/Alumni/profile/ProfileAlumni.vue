@@ -39,7 +39,7 @@
         </div>        
         <div class="flex justify-between mt-8 items-start">
             <div class="w-[32%] border-[2px] border-skyblue p-3 rounded mt-14">
-                <CardSkills :alu_id="alu_id" />
+                <CardSkills :alu_id="alu_id" :role="role" />
             </div>
             <div class="w-[64%]">
                 <CardInfo :user="user" @getData="getUser" />
@@ -94,6 +94,7 @@ export default {
     props: {
         user_id: Number,
         alu_id: Number,
+        role: String,
     },
     components:{
         CardInfo,
@@ -126,7 +127,7 @@ export default {
             education:{},
         }
     },
-
+    
     methods:{
         //Form for Add or Edit work experience's alumni
         popUp(opup){
@@ -144,13 +145,11 @@ export default {
             this.isPopUp='Edit'
             this.editExperience=experience;
         },
-        
         saveEditExper(experience){
             axios.put("workexperience/" + this.editExperience.id , experience).then(() => {
                 this.getAlumniExperiences()
             });
         },
-
         tageImage(event, update){
             this.image = event.target.files[0];
             if(update == "profile" && this.image){
@@ -184,7 +183,6 @@ export default {
                 this.user = res.data;
             })
         },
-
         getAlumniExperiences(){
             axios.get('workexperience/'+this.alu_id).then(res => {
                 this.experiences = res.data
@@ -194,7 +192,6 @@ export default {
             axios.post('company', company).then(() => {
                 this.getCompanies()})
         },
-
         getCompanies(){
             axios.get('companies').then(res => {
                 this.companies = res.data
@@ -220,7 +217,7 @@ export default {
         },
 
         getAlumniEdu(){
-            axios.get('alumniEdu/1').then(res => {
+            axios.get('alumniEdu/'+ this.alu_id).then(res => {
                 this.edu = res.data
             });
         },

@@ -31,7 +31,7 @@ class AlumniSkillController extends Controller
         $alumniSkill->alumni_id = $request->alumni_id;
         $alumniSkill->skill_id = $request->skill_id;
         $alumniSkill->save();
-        return response()->json(['message'=> 'Created successfully']);
+        return response()->json(['message' => 'Created successfully']);
 
     }
 
@@ -61,11 +61,11 @@ class AlumniSkillController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $alumniSkill =AlumniSkill::findOrFail($id);
+        $alumniSkill = AlumniSkill::findOrFail($id);
         $alumniSkill->alumni_id = $request->alumni_id;
         $alumniSkill->name = $request->name;
         $alumniSkill->save();
-        return response()->json(['message'=> 'Updated successfully']);
+        return response()->json(['message' => 'Updated successfully']);
     }
 
     /**

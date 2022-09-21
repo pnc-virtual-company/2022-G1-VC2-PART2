@@ -30,10 +30,10 @@
           class="left-0 nav-menu flex-col mt-8 space-y-4 md:flex md:space-y-0 md:flex-row md:items-center md:space-x-10 md:mt-0 w-2/5 flex justify-center"
         >
           <li class="text-sm font-bold text-gray-800" @click="showMenu = !showMenu">
-            <router-link to="/explore" class="font-bold p-1">EXPLORE</router-link>
+            <router-link :to="isAdminExplore" class="font-bold p-1">EXPLORE</router-link>
           </li>
           <li class="text-sm font-bold text-gray-800" @click="showMenu = !showMenu">
-            <router-link to="/alumni-profile" class="font-bold p-1">MANAGE</router-link>
+            <router-link :to="isAdminManage" class="font-bold p-1">MANAGE</router-link>
           </li>
         </ul>
 
@@ -100,6 +100,22 @@ export default {
       setting: false,
 
     };
+  },
+  computed: {
+    isAdminExplore() {
+      if(this.role == 'admin') {
+        return '/explore';
+      }else {
+        return '/ero-explore';
+      }
+    },
+    isAdminManage() {
+      if(this.role == 'admin') {
+        return '/admin-manage';
+      }else {
+        return '/ero-manage';
+      }
+    },
   },
   methods:{
     getuser(){

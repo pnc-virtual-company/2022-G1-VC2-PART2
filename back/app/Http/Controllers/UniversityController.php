@@ -31,7 +31,7 @@ class UniversityController extends Controller
         if ($university->profile !== 'female.jpg' && $university->profile !== 'male.png') {
             $previousProfilePublicPath = public_path('images/profile/' . $university->profile);
 
-            if(File::exists($previousProfilePublicPath)){
+            if (File::exists($previousProfilePublicPath)) {
                 File::delete($previousProfilePublicPath);
             }
         }
@@ -42,7 +42,7 @@ class UniversityController extends Controller
         $university->name = $request->name;
         $university->address = $request->address;
         $university->save();
-        return response()->json(['status' => ' sucessfully'],200);
+        return response()->json(['status' => ' sucessfully'], 200);
     }
 
     /**
@@ -53,7 +53,7 @@ class UniversityController extends Controller
      */
     public function show(University $university)
     {
-      
+
     }
 
     /**
@@ -65,11 +65,11 @@ class UniversityController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $university =University::findOrFail($id);
+        $university = University::findOrFail($id);
         $university->name = $request->name;
         $university->address = $request->address;
         $university->save();
-        return response()->json(['status' => ' sucessfully'],201);
+        return response()->json(['status' => ' sucessfully'], 201);
     }
 
     /**
@@ -78,8 +78,9 @@ class UniversityController extends Controller
      * @param  \App\Models\University  $university
      * @return \Illuminate\Http\Response
      */
-    public function destroy(University $university)
+    public function destroy(Request $request, $id)
     {
-        //
+        University::destroy($id);
+        return response()->json(['message'=>"The company has been removed"]);
     }
 }

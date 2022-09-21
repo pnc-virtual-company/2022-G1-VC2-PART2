@@ -2,7 +2,7 @@
   <section>
     <navbar-view :role="this.$store.state.role" :user_id="this.$store.state.userId" />
     <!-- <form-login></form-login> -->
-    <router-view :user_id="this.$store.state.userId" :alu_id="this.$store.state.alumniId" />
+    <router-view :user_id="this.$store.state.userId" :alu_id="this.$store.state.alumniId" :role="this.$store.state.role" />
   </section>
 </template>
 <script>

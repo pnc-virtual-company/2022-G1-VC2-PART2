@@ -1,5 +1,4 @@
 
 <template>
-  <h1>home view</h1>
+  <h1>ALUMNI MANAGEMENT APPLICATION</h1>
 </template>
-

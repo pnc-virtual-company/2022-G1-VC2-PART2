@@ -1,8 +1,8 @@
 <template>
   <section>
-    <div class="flex justify-between border-b-[1px] border-[#a9aaaaa3]">
+    <div :class="{'flex justify-between border-b-[1px] border-[#a9aaaaa3]':role=='alumni'}">
       <h1 class="font-bold text-lg">Skills</h1>
-      <div @click="closePopUp(true)" class="hover:cursor-pointer">
+      <div v-if="role == 'alumni'" @click="closePopUp(true)" class="hover:cursor-pointer">
         <svg
           xmlns="http://www.w3.org/2000/svg"
           fill="none"
@@ -15,14 +15,17 @@
         </svg>
       </div>
     </div>
-    <div class="flex p-2 flex-wrap gap-2 mt-3">
-      <card-skill
-        v-for:="(alumniSkill, i) in alumniSkills"
-        :id="alumniSkill.id"
-        :index="i"
-        @remove="removeAlumniSkill"
-        >{{ alumniSkill.name }}</card-skill
-      >
+    <div class="" :class="{'h-32 overflow-auto':role == 'amin'}">
+      <div class="flex p-2 flex-wrap gap-2">
+        <card-skill
+          v-for:="(alumniSkill, i) in alumniSkills"
+          :id="alumniSkill.id"
+          :index="i"
+          @remove="removeAlumniSkill"
+          >{{ alumniSkill.name }}</card-skill
+        >
+      </div>
+
     </div>
 
       <form-skill
@@ -40,6 +43,7 @@ import axios from "../../../axios-http";
 export default {
   props: {
     alu_id: Number,
+    role: String,
   },
   components: {
     "card-skill": SkillCard,
