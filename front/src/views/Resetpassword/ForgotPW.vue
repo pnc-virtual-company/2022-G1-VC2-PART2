@@ -42,6 +42,7 @@
 import verifycation from "./VerificationView.vue";
 import resetpassword from "./Resetpassword.vue";
 import axios from '../../axios-http';
+import swal from "sweetalert";
 export default {
   emits:['forgot-password'],
   data(){
@@ -85,8 +86,8 @@ export default {
     },
     resetPS(newpassword){
       axios.post("resetPwAfterVerify/" + this.user_id,{newpassword:newpassword})
-      .then((res)=>{
-        console.log(res);
+      .then(()=>{
+        swal("Good job!", "Your password is changed successfully !", "success");
         this.showresetpassword = !this.showresetpassword;
         this.$router.push("/login");
       })
