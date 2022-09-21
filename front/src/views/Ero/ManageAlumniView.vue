@@ -10,6 +10,7 @@
         </div>
         <div v-if="isActive == 0" class="text-center mt-4">
             <filterAlumni
+            :countAlumnis="dataAlumnis"
             @matchAlumni="displayAlumni"/>
         <listAlumni
         @matchAlumni="displayAlumni"
