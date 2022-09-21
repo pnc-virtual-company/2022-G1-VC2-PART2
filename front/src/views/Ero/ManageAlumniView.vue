@@ -49,7 +49,7 @@ export default{
             })
         },
         removeAlumni(id){
-            axios.delete('removeAlumni/'+id).then((res )=> {
+            axios.delete('removeUser/'+id).then((res )=> {
                 this.getListAlumni()});
         },
         displayAlumni(status){

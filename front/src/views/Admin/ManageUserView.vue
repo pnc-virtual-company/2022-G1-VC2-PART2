@@ -20,7 +20,6 @@
             />
         </div>
         <div v-else class="text-center mt-4">
-            <h1  class="text-center mt-4">Ero list</h1>
             <EroMagement></EroMagement>
         </div>
     </section>
@@ -61,7 +60,7 @@
             })
             .then((willDelete) => {
                 if (willDelete) {
-                    axios.delete('removeAlumni/'+id).then(() => {
+                    axios.delete('removeUser/'+id).then(() => {
                         this.getListAlumni()
                         swal("removed !", "Your work experince is removed !", "success");
                     });
