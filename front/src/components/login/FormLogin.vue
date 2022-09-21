@@ -18,7 +18,7 @@
               Email <span class="text-red-600">*</span>
             </label>
             <input v-model="email" @change="is_not_fill_email=false" :class="{'bg-red-100 border-red-400':is_not_fill_email}"
-              class="appearance-none border border-gray-400 rounded w-full py-2 px-3 text-gray-700 mb-1 leading-tight focus:outline-primary focus:shadow-outline"
+              class="appearance-none border border-gray-400 rounded w-full py-2 px-3 text-gray-700 mb-1 leading-tight focus:outline-primary focus:shadow-outline outline-none"
               id="email"
               type="email"
               placeholder="Email..."
@@ -42,7 +42,7 @@
               </label>
               <input v-model="password" :type="showpassword" @change="is_not_fill_password=false" @input="isInValid=false"
                 :class="{'bg-red-100 border-red-400':is_not_fill_password}"
-                class="appearance-none border border-gray-400 rounded w-full py-2 px-3 text-gray-700 mb-1 leading-tight focus:outline-primary focus:shadow-outline"
+                class="appearance-none border border-gray-400 rounded w-full py-2 px-3 text-gray-700 mb-1 leading-tight focus:outline-primary focus:shadow-outline outline-none"
                 id="password"
                 placeholder="Password..." 
               />
@@ -89,7 +89,7 @@
                   d="M12.454 16.697L9.75 13.992a4 4 0 01-3.742-3.741L2.335 6.578A9.98 9.98 0 00.458 10c1.274 4.057 5.065 7 9.542 7 .847 0 1.669-.105 2.454-.303z"
                 />
               </svg>
-              <p v-if="isInValid" class="text-[14px] text-red-500">Invalid login</p>
+              <p v-if="isInValid" class="text-[14px] text-red-500">{{loginError}}</p>
             </div>
             <router-link
               class="inline-block cursor-pointer align-baseline text-sm text-blue-500 hover:text-blue-800"
@@ -123,6 +123,7 @@ export default {
             showpassword: 'password',
             isLoggingIn: false,
             isInValid: false,
+            loginError: '',
             is_not_fill_email: false,
             is_not_fill_password: false,
         }
@@ -142,16 +143,24 @@ export default {
                 try {
                     await axios.post('/login', {email: this.email, password: this.password})
                     .then(res=>{
+                      if(res.data.status != "pending"){
                         this.isLoggingIn = false;
                         const token_encrypt = encryptData(res.data.token, 'my_token')
                         const role_encrypt = encryptData(res.data.role, 'my_role')
                         this.$cookies.set('alumni',token_encrypt);
                         this.$cookies.set('role',role_encrypt);
                         window.location.reload();
+                      }else{
+                        console.log(res.data.status);
+                        this.loginError = "Your account is pending. Please try again later.";
+                        this.isLoggingIn = false;
+                        this.isInValid = true;
+                      }
                     })
                 } catch(err){
                   this.isLoggingIn = false;
                   this.isInValid = true;
+                  this.loginError = "Invalid login !";
                   console.log(err);
                 }
             }

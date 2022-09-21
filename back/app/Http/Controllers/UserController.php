@@ -2,7 +2,6 @@
 namespace App\Http\Controllers;
 
 use App\Models\Alumni;
-use App\Models\Ero;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -10,6 +9,7 @@ use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
 use \App\Mail\VerifyCode;
+
 class UserController extends Controller
 {
 
@@ -21,7 +21,7 @@ class UserController extends Controller
             return response()->json(['sms' => 'invalid', 'email' => $request->email, 'password' => $request->password], 404);
         }
         $token = $user->createToken('mytoken')->plainTextToken;
-        return response()->json(['token' => $token, 'role' => $user->role], 202);
+        return response()->json(['token' => $token, 'role' => $user->role,'status'=>$user->status], 202);
     }
 
     public function getInfoByToken()
@@ -82,11 +82,11 @@ class UserController extends Controller
      */
     public function getAlumniUsers()
     {
-        $alumnis=User::join('alumnis', 'users.id', '=', 'alumnis.user_id')
-        ->join('workexperiences', 'alumnis.id', '=', 'workexperiences.alumni_id')
-        ->join('companies', 'workexperiences.company_id', '=', 'companies.id')
-        ->get(['users.*', 'alumnis.*', 'workexperiences.position', 'companies.name as company'])
-        ->All();
+        $alumnis = User::join('alumnis', 'users.id', '=', 'alumnis.user_id')
+            ->join('workexperiences', 'alumnis.id', '=', 'workexperiences.alumni_id')
+            ->join('companies', 'workexperiences.company_id', '=', 'companies.id')
+            ->get(['users.*', 'alumnis.*', 'workexperiences.position', 'companies.name as company'])
+            ->All();
         return $alumnis;
     }
 
@@ -103,26 +103,23 @@ class UserController extends Controller
         $user->last_name = $request->last_name;
         $user->email = $request->email;
         $user->password = bcrypt($request->password);
-        $user->verifyCode = $request->verifyCode;
         $user->role = $request->role;
+        $user->status = $request->status;
+        $user->verifyCode = $request->verifyCode;
         $user->save();
+        
+        if ($user->role == 'alumni') {
+            $alumni = new Alumni();
+            $alumni->profile = $request->profile;
+            $alumni->user_id = $user->id;
+            $alumni->coverimage = $request->coverimage;
+            $alumni->gender = $request->gender;
+            $alumni->phone = $request->phone;
+            $alumni->batch = $request->batch;
+            $alumni->major = $request->major;
+            $alumni->save();
+        }
 
-        $alumni = new Alumni();
-        $alumni->user_id = $user->id;
-        $alumni->profile = $request->profile;
-        $alumni->coverimage = $request->coverimage;
-        $alumni->gender = $request->gender;
-        $alumni->phone = $request->phone;
-        $alumni->batch = $request->batch;
-        $alumni->major = $request->major;
-        $alumni->save();
-        return Response()->json(['message' => 'successful'], 200);
-
-        $ero = new Ero();
-        $ero->user_name = $request->user_name;
-        $ero->email = $request->email;
-        $ero->password = bcsqrt($request->password);
-        $ero->save();
         return Response()->json(['message' => 'successful'], 200);
     }
 
