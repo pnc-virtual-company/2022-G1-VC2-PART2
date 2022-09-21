@@ -60,7 +60,7 @@
               <tbody 
               v-if="filterAlumni.length>0"
               v-for:="alumni in filterAlumni">
-                <tr
+                <tr @click="detail=true"
                   tabindex="0"
                   class="h-16 w-full text-sm leading-none shadow-sm border-b-[1px] border-gray-400 bg-gray-300 hover:cursor-pointer hover:bg-gray-400"
                 >
@@ -87,12 +87,17 @@
             </table>
           </div>
         </div>
+        <alumni-detail v-if="detail" @close="detail=false" />
     </section>
 </template>
 
 <script>
 import axios from "../../axios-http";
+import AlumniDetail from '../../views/Ero/AlumniDetailView.vue'
 export default {
+  components: {
+    'alumni-detail': AlumniDetail,
+  },
   data(){
       return{
           listAlumnis:[],
@@ -106,6 +111,7 @@ export default {
           batch: 'All',
           major: 'All',
           inputSearch: '',
+          detail: false,
           
       }
   },

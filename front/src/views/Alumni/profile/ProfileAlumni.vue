@@ -39,17 +39,17 @@
         </div>        
         <div class="flex justify-between mt-8 items-start">
             <div class="w-[32%] border-[2px] border-skyblue p-3 rounded mt-14">
-                <CardSkills :alu_id="alu_id" />
+                <CardSkills :alu_id="alu_id" :role="role" />
             </div>
             <div class="w-[64%]">
                 <CardInfo :user="user" @getData="getUser" />
                 
                 <!-- +++++++++++ Alumni Education +++++++++++++ -->
-                <edu-card-view :edu="edu" @is-add-edu="isAddEdu=true" @isEdit-edu="isEditEduction" :alu_id="alu_id"></edu-card-view>
+                <edu-card-view :edu="edu" @is-add-edu="isAddEdu=true" @isEdit-edu="isEditEduction" :alu_id="alu_id" :role="role"></edu-card-view>
                 <FormAddEduView  v-if="isAddEdu" :universities="universities" @addEdu="addEducation" @cancelAdd="isAddEdu=false" @added-new-univer="addedNewUniver" :alu_id="alu_id"></FormAddEduView>
                 <edit-edu-view v-if="isEditEdu" :universities="universities" :education="education" @editEdu="editEducation" @cancelEdit="isEditEdu=false" @added-new-univer="addedNewUniver" :alu_id="alu_id"></edit-edu-view>
 
-                <CardExper 
+                <CardExper :role="role"
                 :experiences="experiences" 
                 @editor="editWorkExper"
                 @clickPopUp="popUp"></CardExper>
@@ -92,6 +92,7 @@ export default {
     props: {
         user_id: Number,
         alu_id: Number,
+        role: String,
     },
     components:{
         CardInfo,

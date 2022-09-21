@@ -9,20 +9,22 @@
             </div>
             <p></p>
         </div>
-        <h1 v-if="isActive == 0" class="text-center mt-4">alumni</h1>
-        <h1 v-if="isActive == 1" class="text-center mt-4">company list</h1>
+        <h1 v-if="isActive == 0" class="text-center mt-4">alumni list</h1>
+        <company-list v-if="isActive == 1" class="text-center mt-4" />
         <h1 v-if="isActive == 2" class="text-center mt-4">school list</h1>
     </section>
 </template>
 <script>
-    export default{
-        components:{
-        },
-        data(){
-            return {
-                isActive: 0,
-            }
+import Company from './EroView.vue'
+export default{
+    components:{
+        'company-list': Company,
+    },
+    data(){
+        return {
+            isActive: 0,
         }
-
     }
+
+}
 </script>

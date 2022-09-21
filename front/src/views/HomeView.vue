@@ -1,12 +1,4 @@
 
 <template>
-  <FormInviteEro></FormInviteEro>
+  <h1>ALUMNI MANAGEMENT APPLICATION</h1>
 </template>
-<script>
-  import FormInviteEro from "./Alumni/FormInput/FormInviteEroView.vue"
-  export default {
-      components:{
-        FormInviteEro
-      }
-  };
-  </script>
