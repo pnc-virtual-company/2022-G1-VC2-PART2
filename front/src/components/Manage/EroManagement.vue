@@ -1,4 +1,6 @@
 <template>
+<section>
+
     <div class="mt-5">
       <div class="w-[80%] m-auto">
         <div class="flex justify-between">
@@ -15,9 +17,10 @@
           </div>
           <div class="w-[20%]">
             <button
+              @click="popUp(true)"
               class="w-full p-2 bg-orange rounded-md text-white font-semibold shadow-md"
             >
-              INVITE
+              ADD ERO+
             </button>
           </div>
         </div>
@@ -36,18 +39,18 @@
             </tr>
           </thead>
           
-          <tbody v-for:="ero in listEro">
+          <tbody v-for:="ero in filterEro">
             <tr
               tabindex="0"
               class="focus:outline-none h-16 w-full text-sm leading-none shadow-sm border-b-[1px] border-gray-400 bg-slate-300"
             >
-              <td class="text-center w-[25%]">{{ero.username}}</td>
+              <td class="text-center w-[25%]">{{ero.first_name + ' '+ ero.last_name}}</td>
               <td class="text-center w-[25%]">{{ero.email}}</td>
               <td 
               class="text-center w-[25%]"
               :class="ero.status.toLowerCase()">{{ero.status}}</td>
               <td class="flex justify-center items-center mt-4">
-                <p class="bg-red-600 px-4 py-1 rounded hover:cursor-pointer">
+                <p class="bg-red-600 px-4 py-1 rounded hover:cursor-pointer" @click="removedEro(ero['id'])">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     fill="none"
@@ -69,51 +72,77 @@
         </table>
       </div>
     </div>
-  </template>
-  
-  <script>
-  
-  export default {
+    <registerEro
+    v-if="isRegisterEro"
+    @register="register"
+    @popUp="popUp"
+    ></registerEro>
+</section>
+</template>
+
+<script>
+import axios from '../../axios-http'
+import swal from 'sweetalert';
+import registerEro from "../../views/Authentication/RegisterEroView.vue"
+export default {
+    components:{registerEro},
     data() {
       return {
-        listEro: [],
-        dataAlumni: [
-          {
-            username: "Piset Mok",
-            email: "ero.cambodia@passerellesnumeriques.org",
-            status: "actived",
-          },
-          {
-            username: "Synich Hun",
-            email: "ero.cambodia@passerellesnumeriques.org",
-            status: "invited",
-          },
-          {
-            username: "Sreypich Ly",
-            email: "ero.cambodia@passerellesnumeriques.org",
-            status: "pending",
-          },
-        ],
+        filterEro: [],
+        isRegisterEro: false,
+        dataEro: [],
         searchKeyword: "",
       };
     },
   
     methods: {
+      register(user){
+        axios.post('register', user).then(()=>{
+          this.dislplayEro()
+        })
+        this.isRegisterEro=false;
+    },
+
+    removedEro(id){
+      swal({
+              title: "Are you sure?",
+              text: "You want to remove this work experience !!",
+              icon: "warning",
+              buttons: true,
+              dangerMode: true,
+            })
+            .then((willDelete) => {
+                if (willDelete) {
+                    axios.delete('removeUser/'+id).then(() => {
+                        this.dislplayEro()
+                        swal("removed !", "Your work experince is removed !", "success");
+                    });
+                } 
+            });
+    },
+
       filterAlumnis(e) {
         if (e.target.value.toLowerCase() == "all") {
-          this.listEro = this.dataAlumni;
+          this.filterEro = this.dataEro;
         } else{
-          this.listEro = this.dataAlumni.filter((ero) => ero['status'].toLowerCase()==e.target.value.toLowerCase());
+          this.filterEro = this.dataEro.filter((ero) => ero['status'].toLowerCase()==e.target.value.toLowerCase());
         }
       },
-      dislplayEro(){this.listEro=this.dataAlumni},
+      dislplayEro(){
+        axios.get("userEro").then((res)=>{
+          console.log("ERO", res.data);
+          this.dataEro = res.data
+           this.filterEro=this.dataEro})
+       },
+      popUp(status){this.isRegisterEro=status}
     },
   
     mounted(){
       this.dislplayEro();
     }
   };
-  </script>
+</script>
+  
   <style scoped>
    .actived{
     color:green;

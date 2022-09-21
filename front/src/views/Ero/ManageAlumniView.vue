@@ -53,21 +53,8 @@ export default{
             })
         },
         removeAlumni(id){
-            swal({
-                title: "Are you sure?",
-                    text: "You want to remove this alumni !!",
-                    icon: "warning",
-                    buttons: true,
-                    dangerMode: true,
-                })
-                .then((willDelete) => {
-                    if (willDelete) {
-                        axios.delete('removeAlumni/'+id).then((res )=> {
-                            this.getListAlumni()
-                            swal("removed !", "Your work experince is removed !", "success");
-                        });
-                    } 
-            });
+            axios.delete('removeUser/'+id).then((res )=> {
+                this.getListAlumni()});
         },
         displayAlumni(status){
             if(status.toLowerCase()=='all'){

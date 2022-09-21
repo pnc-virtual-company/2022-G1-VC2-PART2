@@ -33,6 +33,7 @@ Route::get('logout',[UserController::class, "logout"]);
 Route::group(['middleware'=>['auth:sanctum']],function(){
     Route::get('alumni/{id}',[UserController::class, "showAlumni"]);
     Route::get('userAlumni',[UserController::class, "getAlumniUsers"]);
+    Route::get('userEro',[UserController::class, "getEroUsers"]);
     Route::get("alumniSkill/{alumni_id}", [AlumniSkillController::class, "show"]);
     Route::get('workexperience',[WorkexperienceController::class,"index"]);
     Route::get('workexperience/{id}',[WorkexperienceController::class,"show"]);
@@ -48,7 +49,7 @@ Route::post('resetPwAfterVerify/{id}',[UserController::class, 'resetPwAfterVerif
 
 
 // =======================Create New===============================
-Route::post('useralumni', [UserController::class, "store"]);
+Route::post('register', [UserController::class, "store"]);
 Route::post('skill', [SkillController::class, "store"]);
 Route::post('company', [CompanyController::class, "createCompany"]);
 Route::post("workexperience", [WorkexperienceController::class, "addExperience"]);
@@ -87,7 +88,7 @@ Route::get("alumniSkill/{alumni_id}", [AlumniSkillController::class, "show"]);
 
 // ============================Remove=====================================
 Route::delete("alumniSkill/{id}", [AlumniSkillController::class, "destroy"]);
-Route::delete("removeAlumni/{id}", [UserController::class, "destroy"]);
+Route::delete("removeUser/{id}", [UserController::class, "destroy"]);
 Route::delete("education/remove/{id}", [EducationController::class, "removeEdu"]);
 Route::delete("experience/remove/{id}", [WorkexperienceController::class, "removeExper"]);
 Route::delete("companies/{id}",[CompanyController::class,"destroy"]);

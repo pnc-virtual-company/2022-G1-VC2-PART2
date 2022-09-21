@@ -88,6 +88,14 @@ class UserController extends Controller
         return $alumnis;
     }
 
+    public function getEroUsers()
+    {
+        $alumnis = User::where('users.role', '=', 'ero')
+        ->orderBy('users.created_at', 'desc')
+        ->get();
+        return $alumnis;
+    }
+
     /**
      * Store a newly created resource in storage.
      *

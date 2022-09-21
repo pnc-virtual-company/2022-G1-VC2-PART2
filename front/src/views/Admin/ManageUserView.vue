@@ -60,7 +60,7 @@
             })
             .then((willDelete) => {
                 if (willDelete) {
-                    axios.delete('removeAlumni/'+id).then(() => {
+                    axios.delete('removeUser/'+id).then(() => {
                         this.getListAlumni()
                         swal("removed !", "You have been removed alumni !", "success");
                     });
