@@ -11,14 +11,14 @@
             alt="logo"
             class="w-[100px] m-auto"
           />
-          <h1 class="text-2xl font-semibold text-center p-1">LOGIN ALUMNI</h1>
+          <!-- <h1 class="text-2xl font-semibold text-center p-1">LOGIN</h1> -->
 
           <div class="mb-2 relative">
-            <label class="block text-gray-700 text-lg mb-1" for="password">
+            <label class="block text-gray-700 text-lg mb-1 mt-4" for="email">
               Email <span class="text-red-600">*</span>
             </label>
             <input v-model="email" @change="is_not_fill_email=false" :class="{'bg-red-100 border-red-400':is_not_fill_email}"
-              class="appearance-none border border-gray-400 rounded w-full py-2 px-3 text-gray-700 mb-1 leading-tight focus:outline-primary focus:shadow-outline outline-none"
+              class="appearance-none border border-gray-400 rounded w-full py-2 px-3 text-gray-700  leading-tight focus:outline-primary focus:shadow-outline focus:outline-[#22bbea]"
               id="email"
               type="email"
               placeholder="Email..."
@@ -36,13 +36,13 @@
                 clip-rule="evenodd"
               />
             </svg>
-            <div class="mb-1 relative">
-              <label class="block text-gray-700 text-lg mb-1" for="username">
+            <div class=" relative mt-4">
+              <label class="block text-gray-700 text-lg mb-1 " for="password">
                 Password <span class="text-red-600">*</span>
               </label>
               <input v-model="password" :type="showpassword" @change="is_not_fill_password=false" @input="isInValid=false"
                 :class="{'bg-red-100 border-red-400':is_not_fill_password}"
-                class="appearance-none border border-gray-400 rounded w-full py-2 px-3 text-gray-700 mb-1 leading-tight focus:outline-primary focus:shadow-outline outline-none"
+                class="appearance-none border border-gray-400 rounded w-full py-2 px-3 text-gray-700  leading-tight focus:outline-primary focus:shadow-outline focus:outline-[#22bbea]"
                 id="password"
                 placeholder="Password..." 
               />
@@ -91,19 +91,22 @@
               </svg>
               <p v-if="isInValid" class="text-[14px] text-red-500">{{loginError}}</p>
             </div>
-            <router-link
-              class="inline-block cursor-pointer align-baseline text-sm text-blue-500 hover:text-blue-800"
-              to="forgot"
-            >
-              Forgot Password?
-            </router-link>
+
           </div>
-          <button
-            class="bg-[#22bbea] text-white py-2 w-full rounded focus:outline-primary focus:shadow-outline"
-            type="submit"
-          >
-            Login
-          </button>
+            <button
+              class="bg-[#22bbea] text-white py-2 w-full rounded focus:outline-primary focus:shadow-outline mt-4 text-[1.2rem]"
+              type="submit"
+            >
+              Login
+            </button>
+            <div class="flex justify-between mt-4">
+              <router-link to="forgot" class="inline-block cursor-pointer align-baseline text-sm text-blue-500 hover:text-blue-800 text-[1.1rem]">
+                Forgot Password
+              </router-link>
+              <router-link to="register" class="inline-block cursor-pointer align-baseline text-sm text-blue-500 hover:text-blue-800 text-[1.1rem]">
+                Create Account
+              </router-link>
+          </div>
         </form>
       </div>
     </div>

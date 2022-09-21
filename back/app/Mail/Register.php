@@ -7,7 +7,7 @@ use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Contracts\Queue\ShouldQueue;
   
-class VerifyCode extends Mailable
+class Register extends Mailable
 {
     use Queueable, SerializesModels;
   
@@ -31,6 +31,6 @@ class VerifyCode extends Mailable
      public function build()
     {
         return $this->subject('ALUMNI MANAGEMENT APPLICATION')
-                    ->view('emails.VerifyCode');
+                    ->view('emails.Register');
     }
 }

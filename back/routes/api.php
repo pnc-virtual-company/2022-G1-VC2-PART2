@@ -88,5 +88,6 @@ Route::delete("university/{id}",[UniversityController::class,"destroy"]);
 
 // =================================================================SendMailController
 Route::post('sendVerifyCode',[SendMailController::class, "sendVerifyCode"]);
+Route::post('sendRegister',[SendMailController::class, "sendRegister"]);
 
 

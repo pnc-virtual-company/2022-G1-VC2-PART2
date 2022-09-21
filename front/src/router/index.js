@@ -1,8 +1,9 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import HomeView from "../views/HomeView.vue"
 import AlumniProfile from "../views/Alumni/AlumniView.vue"
-import LoginView from '../views/Login&Logout/LoginView.vue'
+import LoginView from '../views/Authentication/LoginView.vue'
 import ForgotView from '../views/Resetpassword/ForgotPW.vue'
+import RegisterView from '../views/Authentication/RegisterView.vue'
 import AdminExplore from '../views/Admin/AdminView.vue'
 import ManageUser from '../views/Admin/ManageUserView.vue'
 // import EroView from '../views/Ero/EroView.vue'
@@ -29,6 +30,11 @@ const routes = [
     path: '/login',
     name: 'login',
     component: LoginView,
+  },
+  {
+    path: '/register',
+    name: 'register',
+    component: RegisterView,
   },
   {
     path: '/forgot',
@@ -68,7 +74,7 @@ const router = createRouter({
 })
 
 router.beforeEach(async (to) => {
-  const publicPages = ['/login', '/forgot'];
+  const publicPages = ['/login', '/forgot','/register',];
   const authRequired = !publicPages.includes(to.path);
   if (authRequired && !store.state.token) {
     return '/login';
