@@ -58,7 +58,8 @@ export default {
       axios.post("forgetPassword",{email:this.email})
       .then((res) => {
         if(res.data.message == "successfully") {
-          axios.post("sendVerifyCode",{email:this.email});
+          axios.post("sendVerifyCode",{email:this.email})
+          .then((res) => {console.log(res.data.message)});
           this.email = '';
           this.user_id = res.data.user_id;
           this.codeverify = res.data.verifyCode;
