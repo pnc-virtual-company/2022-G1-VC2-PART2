@@ -8,7 +8,7 @@
                     <option value="all">All</option>
                     <option value="actived">Active</option>
                     <option value="invited">invite</option>
-                    <option value="pedding">pedding</option>
+                    <option value="peding">peding</option>
                 </select>
             </div>
             <div class="w-[50%] border-2 border-gray-700 mr-5 rounded-md shadow-sm p-2 flex flex-wrap">
@@ -117,7 +117,7 @@ export default {
     .invited{
         color:blue
     }
-    .pedding{
+    .pending{
         color:orange;
     }
 

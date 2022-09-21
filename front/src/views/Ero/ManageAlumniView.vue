@@ -7,6 +7,7 @@
                 <p @click="isActive=1" class="p-4 font-semibold hover:cursor-pointer" :class="{'text-orange border-b-[2px] border-orange':isActive == 1}">COMPANY</p>
                 <p @click="isActive=2" class="p-4 font-semibold hover:cursor-pointer" :class="{'text-orange border-b-[2px] border-orange':isActive == 2}">UNIVERSITY</p>
             </div>
+            <p></p>
         </div>
         <div v-if="isActive == 0" class="text-center mt-4">
             <filterAlumni
@@ -28,6 +29,7 @@ import Company from './EroView.vue'
 import listAlumni from '../../components/Manage/ListAlumnis.vue'
 import filterAlumni from '../../components/Manage/Alumnicardstatus.vue'
 import axios from "../../axios-http"
+import swal from 'sweetalert';
 export default{
     components:{
         'company-list': Company,
@@ -49,8 +51,21 @@ export default{
             })
         },
         removeAlumni(id){
-            axios.delete('removeAlumni/'+id).then((res )=> {
-                this.getListAlumni()});
+                swal({
+                title: "Are you sure?",
+                text: "You want to remove this work experience !!",
+                icon: "warning",
+                buttons: true,
+                dangerMode: true,
+            })
+            .then((willDelete) => {
+                if (willDelete) {
+                    axios.delete('removeAlumni/'+id).then(() => {
+                        this.getListAlumni()
+                        swal("removed !", "Your work experince is removed !", "success");
+                    });
+                } 
+            });
         },
         displayAlumni(status){
             if(status.toLowerCase()=='all'){
