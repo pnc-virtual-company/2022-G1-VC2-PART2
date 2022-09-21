@@ -84,9 +84,7 @@ class UserController extends Controller
     public function getAlumniUsers()
     {
         $alumnis = User::join('alumnis', 'users.id', '=', 'alumnis.user_id')
-            ->join('workexperiences', 'alumnis.id', '=', 'workexperiences.alumni_id')
-            ->join('companies', 'workexperiences.company_id', '=', 'companies.id')
-            ->get(['users.*', 'alumnis.*', 'workexperiences.position', 'companies.name as company'])
+            ->get(['users.first_name', 'users.last_name', 'users.status', 'users.email', 'alumnis.*'])
             ->All();
         return $alumnis;
     }
@@ -222,9 +220,10 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Request $request, $id)
     {
-        //
+        User::destroy($id);
+        return response()->json(['message'=>"The alumni has been removed"]);
     }
 
 }

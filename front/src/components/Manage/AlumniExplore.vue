@@ -102,9 +102,9 @@ export default {
       return{
           listAlumnis:[],
           dataAlumnis:[
-              // {username:'Sreymao Vron', major:'WEB', gender:'Male', batch:2021 , company:'Z1 Flexible Solution', position:'Laravel Developer'},
-              // {username:'Theavy Vun', major:'SNA', gender:'Female', batch:2019 , company:'Source Max', position:'Web Developer'},
-              // {username:'Vansao Hang', major:'IT', gender:'Other', batch:2020 , company:'Camsolution', position:'Web Developer'},
+              {username:'Sreymao Vron', major:'WEB', gender:'Male', batch:2021 , company:'Z1 Flexible Solution', position:'Laravel Developer'},
+              {username:'Theavy Vun', major:'SNA', gender:'Female', batch:2019 , company:'Source Max', position:'Web Developer'},
+              {username:'Vansao Hang', major:'IT', gender:'Other', batch:2020 , company:'Camsolution', position:'Web Developer'},
           
           ],
           company: 'All',
