@@ -15,11 +15,6 @@
     props:['id','index'],
     methods: {
       removeSkill() {
-        // let message = 'Are you sure you want to remove this skill?'
-        // if (confirm(message) == true) {
-        //   let card_id = {id: this.id, index: this.index};
-        //   this.$emit('remove', card_id);
-        // }
         swal({
           title: "Are you sure?",
           text: "You want to remove this skill !!",

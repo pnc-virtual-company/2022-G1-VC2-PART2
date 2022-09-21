@@ -190,7 +190,7 @@ export default {
   },
   methods:{
       displayAlumnis(){
-        axios.get('alumnis').then((res) => {
+        axios.get('getAlumnis').then((res) => {
           console.log(res.data)
           this.dataAlumnis=res.data
         })
@@ -200,7 +200,7 @@ export default {
         this.major = 'All';
         this.batch = 'All';
         this.company = 'All';
-      }
+      },
   },
   mounted(){
       this.displayAlumnis()

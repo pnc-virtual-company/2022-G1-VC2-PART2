@@ -9,16 +9,23 @@
             </div>
             <p></p>
         </div>
-        <h1 v-if="isActive == 0" class="text-center mt-4">alumni list</h1>
+        <div v-if="isActive == 0">
+            <alumni-status class="text-center" />
+            <alumni-list class="text-center mt-4" />
+        </div>
         <company-list v-if="isActive == 1" class="text-center mt-4" />
         <h1 v-if="isActive == 2" class="text-center mt-4">school list</h1>
     </section>
 </template>
 <script>
 import Company from './EroView.vue'
+import Alumni from '../../components/Manage/ListAlumnis.vue'
+import Status from '../../components/Manage/Alumnicardstatus.vue'
 export default{
     components:{
         'company-list': Company,
+        'alumni-list': Alumni,
+        'alumni-status': Status,
     },
     data(){
         return {
