@@ -11,7 +11,7 @@
         <div v-for:="(experience, i) in AlumniExper"  class="flex justify-between mt-2 p-2 border-b-[1px] border-[#a9aaaaa3]">
             <div class="flex items-center">
                 <div class="w-16 h-16">
-                    <img class="w-16 h-16 rounded-full border-[1px] border-gray-400 object-cover" :src="imgExper" alt="">
+                    <img class="w-16 h-16 rounded-full border-[1px] border-gray-400 object-cover" :src="'http://127.0.0.1:8000/images/profile/'+ experience.profile" alt="">
                 </div>
                 <div class="ml-4">
                     <h1 class="font-semibold">{{experience.position}}</h1>

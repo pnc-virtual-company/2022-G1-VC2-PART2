@@ -93,7 +93,7 @@ export default({
             end_month:this.experience['end_month']?this.experience['end_month']:"",
             end_year:this.experience['end_year'],
             months:  ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
-            years:[2007, 2008, 2009, 2010, 2011, 2012, 2013, 2014, 2015, 2016,2017, 2018,2019,2019,2020, 2021],
+            years:[2007, 2008, 2009, 2010, 2011, 2012, 2013, 2014, 2015, 2016,2017, 2018,2019,2019,2020, 2021, 2022],
             companyId: this.experience['company_id'],
             position:this.experience['position'],
             msError: {},

@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Company;
 use Illuminate\Http\Request;
-
+use Illuminate\Support\Facades\File;
 class CompanyController extends Controller
 {
     /**
@@ -26,10 +26,20 @@ class CompanyController extends Controller
     public function createCompany(Request $request)
     {
         $company = new Company();
+        $path = public_path('images/profile');
+        if ($company->profile !== 'female.jpg' && $company->profile !== 'male.png') {
+            $previousProfilePublicPath = public_path('images/profile/' . $company->profile);
+
+            if(File::exists($previousProfilePublicPath)){
+                File::delete($previousProfilePublicPath);
+            }
+        }
+        $file = $request->profile;
+        $fileName = uniqid() . '_' . trim($file->getClientOriginalName());
+        $company->profile = $fileName;
+        $file->move($path, $fileName);
         $company->name = $request->name;
         $company->address=$request->address;
-        $request->file('profile')->store('images/profile');
-        $company->profile = $request->file("profile")->hashName();
         $company->save();
         return response()->json(['message'=> 'Created company successfully']);
     }

@@ -13,12 +13,13 @@
                 :message="'Type here'"
                 :items="companies"
                 @selected="getIdCompany"
+                @hasMatch='hasMatch'
                 class="mt-4 w-[100%] bg-white">
                     <span>Not found, please </span>
                     <button  class="mx-auto rounded-md text-blue-800" @click="popUp(true)">click here</button>
                 </autocomplete>
             </div>
-            <div class="w-[100%] items-center p-2">
+            <div class="w-[100%] items-center p-2" :class="hasMatch? 'mt-6':''">
                 <label class=" w-[12rem] text-start text-sm font-bold">Position: </label>
                 <input v-model="position" type="text" placeholder="require*" class="block p-2 w-full outline-none text-gray-900bg-gray-50 rounded-sm border border-gray-400 sm:text-xs focus:ring-blue-500 focus:border-[#22bbea]" :class="msError['require_error']||msError['pst_error']?'border-red-400 bg-red-100':''">
             </div>
@@ -94,7 +95,7 @@ export default({
             end_month:'',
             end_year:'',
             months:  ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
-            years:[2007, 2008, 2009, 2010, 2011, 2012, 2013, 2014, 2015, 2016,2017, 2018,2019,2019,2020, 2021],
+            years:[2007, 2008, 2009, 2010, 2011, 2012, 2013, 2014, 2015, 2016,2017, 2018,2019,2019,2020, 2021, 2022],
             companyId: null,
             position:"",
             msError: {},
@@ -105,6 +106,7 @@ export default({
     },
     methods:{
         onClickOutside () {this.$emit('clickPopUp', null)},
+        hasMatch(value){return value.length},
         getIdCompany(company){this.companyId = company.id},
         addWorkExper(){
             let workExper={}
