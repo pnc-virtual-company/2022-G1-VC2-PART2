@@ -5,7 +5,7 @@
             <div class="w-[20%] flex flex-wrap bg-gray-300 m-auto  mt-5 rounded-xl cursor-pointer" @click="this.$emit('matchAlumni', 'all')">
                 <div class="w-[55%] flex flex-wrap p-2">
                     <div class="w-[88%]  p-2 text-start">
-                        <h1 class="text-4xl">200</h1>
+                        <h1 class="text-4xl">{{countAlumnis.length?countAlumnis.length:0}}</h1>
                     </div>
                     <div class="w-[88%] m-auto">
                         <h5 class="text-md">Total Alumni</h5>
@@ -16,10 +16,10 @@
                 </div>
             </div>
             <!-- active alimni -->
-            <div class="w-[20%] flex flex-wrap bg-gray-300 m-auto  mt-5 rounded-xl cursor-pointer" @click="this.$emit('matchAlumni', 'active')">
+            <div class="w-[20%] flex flex-wrap bg-gray-300 m-auto  mt-5 rounded-xl cursor-pointer" @click="this.$emit('matchAlumni', 'actived')">
                 <div class="w-[55%] flex flex-wrap p-2">
                     <div class="w-[88%]  p-2 text-start">
-                        <h1 class="text-4xl">150</h1>
+                        <h1 class="text-4xl">{{countAlumnis.length?countAlumnis.filter(active => active['status'].toLowerCase()=='actived').length:0}}</h1>
                     </div>
                     <div class="w-[88%] m-auto">
                         <h5 class="text-md text-green-500">Active</h5>
@@ -30,10 +30,11 @@
                 </div>
             </div>
             <!-- invite -->
-            <div class="w-[20%] flex flex-wrap bg-gray-300 m-auto mt-5 h-24 rounded-xl cursor-pointer" @click="this.$emit('matchAlumni', 'invite')">
+            <div class="w-[20%] flex flex-wrap bg-gray-300 m-auto mt-5 h-24 rounded-xl cursor-pointer" @click="this.$emit('matchAlumni', 'invited')">
                 <div class="w-[55%] flex flex-wrap p-2">
                     <div class="w-[88%]  p-2 text-start">
-                        <h1 class="text-4xl">40</h1>
+                        <h1 class="text-4xl">{{countAlumnis.length?countAlumnis.filter(active => active['status'].toLowerCase()=='invited').length:0}}</h1>
+
                     </div>
                     <div class="w-[88%] m-auto">
                         <h5 class="text-md  text-blue-500">Invite</h5>
@@ -47,7 +48,7 @@
             <div class="w-[20%] flex flex-wrap bg-gray-300 m-auto h-24 mt-5 rounded-xl cursor-pointer" @click="this.$emit('matchAlumni', 'pedding')">
                 <div class="w-[55%] flex flex-wrap p-2">
                     <div class="w-[88%]  p-2 text-start">
-                        <h1 class="text-4xl">200</h1>
+                        <h1 class="text-4xl">{{countAlumnis.length?countAlumnis.filter(active => active['status'].toLowerCase()=='pedding').length:0}}</h1>
                     </div>
                     <div class="w-[88%] m-auto">
                         <h5 class="text-md  text-yellow-500">Pendding</h5>
@@ -60,3 +61,9 @@
         </div>
     </div>
 </template>
+<script>
+
+export default {
+   props:['countAlumnis']
+}
+</script>
