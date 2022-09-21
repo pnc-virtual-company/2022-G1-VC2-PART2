@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
 use \App\Mail\VerifyCode;
+use \App\Mail\InviteAlumni;
 
 class UserController extends Controller
 {
@@ -88,6 +89,14 @@ class UserController extends Controller
         return $alumnis;
     }
 
+    public function getEroUsers()
+    {
+        $alumnis = User::where('users.role', '=', 'ero')
+        ->orderBy('users.created_at', 'desc')
+        ->get();
+        return $alumnis;
+    }
+
     /**
      * Store a newly created resource in storage.
      *
@@ -123,8 +132,10 @@ class UserController extends Controller
     public function inviteAlumni(Request $request)
     {
         $user = new User();
-        $user->email = $request->email;
-        $user->password = Str::random(8);
+        $email = $request->email;
+        $user->email = $email;
+        $random_password = Str::random(8); 
+        $user->password = bcrypt($random_password);
         $user->role = 'alumni';
         $user->status = 'invite';
         $user->save();
@@ -137,6 +148,11 @@ class UserController extends Controller
 
         // return $user->password;
         if($user){
+            $details = [
+                'email' => $email,
+                'password' => $random_password
+            ];
+            \Mail::to($email)->send(new InviteAlumni($details));
             return Response()->json(['message' => 'successful'], 200);
         }else{
             return Response()->json(['message' => 'error'], 200);

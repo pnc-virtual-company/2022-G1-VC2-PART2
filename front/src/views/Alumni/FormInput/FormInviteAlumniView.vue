@@ -8,6 +8,9 @@
         </svg>
         <input v-model="email" type="email" class="outline-none rounded w-[95%] p-2 text-gray-700 mb-1" id="email" placeholder="Email..." required/>
       </div>
+      <div class="w-[90%] p-2">
+        <p class="ml-2 p-2">{{inviteMessage}}</p>
+      </div>
       <div class="btn-controller flex justify-end mt-5 mb-2">
         <button class="mr-4 hover:bg-[#cecece] border-[1px] border-gray-300 shadow py-1 px-8 rounded focus:outline-none focus:shadow-outline" @click="$emit('cancelInvite')">Cancel</button>
         <button class="bg-[#23afda] mx-2 text-white py-1 px-10 mr-6 rounded focus:outline-none focus:shadow-outline" @click="$emit('inviteAlumni', email)">Invite</button>
@@ -19,6 +22,7 @@
 <script>
 export default {
   emits: ['cancelInvite', 'inviteAlumni',],
+  props: ['inviteMessage',],
   data(){
     return {
       email:'',

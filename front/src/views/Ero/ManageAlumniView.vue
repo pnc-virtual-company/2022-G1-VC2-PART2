@@ -28,7 +28,7 @@
     </div>
     <company-list v-if="isActive == 1" class="text-center mt-4" />
     <university-list v-if="isActive == 2" class="text-center mt-4" />
-    <invite-alumni v-if="isInvite" @cancelInvite="isInvite=false" @inviteAlumni="inviteAlumni"></invite-alumni>
+    <invite-alumni v-if="isInvite" @cancelInvite="isInvite=false" @inviteAlumni="inviteAlumni" :inviteMessage="inviteMessage"></invite-alumni>
   </section>
 </template>
 <script>
@@ -36,7 +36,7 @@ import Company from "./CompanyView.vue";
 import University from "./UniversityView.vue";
 import listAlumni from "../../components/Manage/ListAlumnis.vue";
 import filterAlumni from "../../components/Manage/Alumnicardstatus.vue";
-import InviteAlumni from "../Alumni/FormInput/FormInviteAlumniView.vue"
+import InviteAlumni from "../Alumni/FormInput/FormInviteAlumniView.vue";
 import axios from "../../axios-http";
 import swal from "sweetalert";
 export default {
@@ -52,7 +52,8 @@ export default {
       isActive: 0,
       dataAlumnis: [],
       filterAlumnis: [],
-      isInvite:false,
+      isInvite: false,
+      inviteMessage: '',
     };
   },
   methods: {
@@ -93,9 +94,13 @@ export default {
         return alumni.toLowerCase().includes(value.toLowerCase());
       });
     },
+    
     inviteAlumni(email) {
-        console.log(email);
+      axios.post("inviteAlumni",{email:email}).then(() => {
         this.isInvite = false;
+      });
+      this.inviteMessage = "Sending invite ..."
+      setTimeout(() => this.inviteMessage='' , 5000)
     },
   },
   mounted() {
