@@ -12,7 +12,7 @@
             <filterAlumni
             :countAlumnis="dataAlumnis"
             @matchAlumni="displayAlumni"/>
-            <listAlumni
+            <listAlumni class="w-[80%] m-auto mt-3"
             @matchAlumni="displayAlumni"
             @searchAlumni="queryAlumni"
             @removeAlumni="removeAlumni"
@@ -20,7 +20,6 @@
             />
         </div>
         <div v-else class="text-center mt-4">
-            <h1  class="text-center mt-4">Ero list</h1>
             <EroMagement></EroMagement>
         </div>
     </section>
@@ -54,7 +53,7 @@
             removeAlumni(id){
                 swal({
                 title: "Are you sure?",
-                text: "You want to remove this work experience !!",
+                text: "You want to remove this alumni !!",
                 icon: "warning",
                 buttons: true,
                 dangerMode: true,
@@ -63,7 +62,7 @@
                 if (willDelete) {
                     axios.delete('removeAlumni/'+id).then(() => {
                         this.getListAlumni()
-                        swal("removed !", "Your work experince is removed !", "success");
+                        swal("removed !", "You have been removed alumni !", "success");
                     });
                 } 
             });
