@@ -16,7 +16,7 @@
                 </div>
             </div>
             <!-- active alimni -->
-            <div class="w-[20%] flex flex-wrap bg-gray-300 m-auto  mt-5 rounded-xl cursor-pointer" @click="this.$emit('matchAlumni', 'active')">
+            <div class="w-[20%] flex flex-wrap bg-gray-300 m-auto  mt-5 rounded-xl cursor-pointer" @click="this.$emit('matchAlumni', 'actived')">
                 <div class="w-[55%] flex flex-wrap p-2">
                     <div class="w-[88%]  p-2 text-start">
                         <h1 class="text-4xl">150</h1>
@@ -30,7 +30,7 @@
                 </div>
             </div>
             <!-- invite -->
-            <div class="w-[20%] flex flex-wrap bg-gray-300 m-auto mt-5 h-24 rounded-xl cursor-pointer" @click="this.$emit('matchAlumni', 'invite')">
+            <div class="w-[20%] flex flex-wrap bg-gray-300 m-auto mt-5 h-24 rounded-xl cursor-pointer" @click="this.$emit('matchAlumni', 'invited')">
                 <div class="w-[55%] flex flex-wrap p-2">
                     <div class="w-[88%]  p-2 text-start">
                         <h1 class="text-4xl">40</h1>
