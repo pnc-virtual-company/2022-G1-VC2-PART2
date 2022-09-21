@@ -39,7 +39,7 @@
             </div>
           </div>
           <div class="w-full flex items-center justify-end pr-2">
-            <button @click="$emit('popUp', false)" class=" hover:bg-[#cecece] border-[1px] border-gray-300 text-gray-500 shadow py-1 px-6 rounded focus:outline-none focus:shadow-outline">Cancle</button>
+            <button @click="$emit('popUp', false)" class=" hover:bg-[#cecece] border-[1px] border-gray-300 text-gray-500 shadow py-1 px-6 rounded focus:outline-none focus:shadow-outline">Cancel</button>
             <button type="submit" class="bg-skyblue hover:bg-[#23afda] mx-2 text-white py-1 px-8 rounded focus:outline-none focus:shadow-outline">Add</button>
           </div>
       </form>

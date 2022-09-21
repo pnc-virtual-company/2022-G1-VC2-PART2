@@ -58,7 +58,7 @@
                 </tr>
               </thead>
               <tbody 
-              v-if="filterAlumni.length>0"
+              v-if="filterAlumni.length > 0"
               v-for:="alumni in filterAlumni">
                 <tr @click="detail=true"
                   tabindex="0"
@@ -78,9 +78,10 @@
               </tbody>
 
               <tbody v-if="filterAlumni.length <= 0">
-                  <tr class="bg-gray-300 h-14">
-                      <td colspan="4" class="p-2 text-center">
-                          <p class="">No students found!</p>
+                  <tr class="bg-gray-300">
+                      <td colspan="5" class="p-2 text-center">
+                          <img class="w-32 m-auto mt-3" src="./../../assets/notfound.png" alt="Image not found">
+                          <p class="mb-5">No ALumnis found!</p>
                       </td>
                   </tr>
               </tbody>
@@ -102,9 +103,9 @@ export default {
       return{
           listAlumnis:[],
           dataAlumnis:[
-              {username:'Sreymao Vron', major:'WEB', gender:'Male', batch:2021 , company:'Z1 Flexible Solution', position:'Laravel Developer'},
-              {username:'Theavy Vun', major:'SNA', gender:'Female', batch:2019 , company:'Source Max', position:'Web Developer'},
-              {username:'Vansao Hang', major:'IT', gender:'Other', batch:2020 , company:'Camsolution', position:'Web Developer'},
+              // {username:'Sreymao Vron', major:'WEB', gender:'Male', batch:2021 , company:'Z1 Flexible Solution', position:'Laravel Developer'},
+              // {username:'Theavy Vun', major:'SNA', gender:'Female', batch:2019 , company:'Source Max', position:'Web Developer'},
+              // {username:'Vansao Hang', major:'IT', gender:'Other', batch:2020 , company:'Camsolution', position:'Web Developer'},
           
           ],
           company: 'All',
@@ -190,7 +191,7 @@ export default {
   },
   methods:{
       displayAlumnis(){
-        axios.get('alumnis').then((res) => {
+        axios.get('getAlumnis').then((res) => {
           console.log(res.data)
           this.dataAlumnis=res.data
         })
@@ -200,7 +201,7 @@ export default {
         this.major = 'All';
         this.batch = 'All';
         this.company = 'All';
-      }
+      },
   },
   mounted(){
       this.displayAlumnis()

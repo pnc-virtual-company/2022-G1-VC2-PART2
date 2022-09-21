@@ -232,4 +232,5 @@ class UserController extends Controller
         User::destroy($id);
         return response()->json(['message'=>"The alumni has been removed"]);
     }
+
 }

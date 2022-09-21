@@ -31,6 +31,7 @@
       <form-skill
         @closePopUp="closePopUp"
         v-if="isClickAddSkill"
+        :alumni_id="alu_id"
         @add-skill="addAlumniSkill"
       ></form-skill>
   </section>
@@ -68,6 +69,7 @@ export default {
     
     getAlumniSkill() {
       axios.get("alumniSkill/" + this.alu_id).then((res) => {
+        console.log("Alumni skill is ", res.data);
         this.alumniSkills = res.data;
       });
     },

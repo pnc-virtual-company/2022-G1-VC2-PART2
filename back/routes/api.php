@@ -39,6 +39,7 @@ Route::group(['middleware'=>['auth:sanctum']],function(){
     Route::get('workexperience/{id}',[WorkexperienceController::class,"show"]);
     Route::get("company/{id}",[CompanyController::class,"show"]);
     Route::get("companies",[CompanyController::class,"getAllCompanies"]);
+    Route::get("skills", [SkillController::class, "index"]);
 });
 
 // ======================Reset password==============================
@@ -80,8 +81,9 @@ Route::put("alumniSkill", [AlumniSkillController::class, "update"]);
 // Route::get("company/{id}",[CompanyController::class,"show"]);
 Route::get("companies",[CompanyController::class,"getAllCompanies"]);
 Route::get("getinfo",[UserController::class, 'getInfoByToken']);
+Route::get("getAlumnis",[UserController::class, 'getAlumniUsers']);
 Route::get("universities", [UniversityController::class, "getUniversities"]);
-Route::get("skills", [SkillController::class, "index"]);
+
 Route::get("alumniSkill/{alumni_id}", [AlumniSkillController::class, "show"]);
 
 // ============================Remove=====================================

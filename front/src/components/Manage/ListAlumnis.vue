@@ -1,89 +1,71 @@
 <template>
-    <!--  list Form-->
-    <form class="border-2 border-blue-500 w-[76%] m-auto mt-5 rounded-sm">
-        <!-- header -->
-        <div class="w-[93%] flex flex-wrap m-auto mt-5">
-            <div class="w-[25%]">
-                <select @click="showAlumni"  class="w-[90%] border-2 border-gray-500 p-2 shadow-md rounded-md cursor-pointer">
+    <div class="rounded p-6">
+        <div class="flex justify-between">
+            <div class="flex">
+                <select @click="showAlumni"  class="w-[14rem] border-[1px] border-gray-500 p-2 shadow-md rounded cursor-pointer focus:border-skyblue outline-none">
                     <option value="all">All</option>
                     <option value="actived">Active</option>
                     <option value="invited">invite</option>
-                    <option value="pedding">pedding</option>
+                    <option value="pending">peding</option>
                 </select>
-            </div>
-            <div class="w-[50%] border-2 border-gray-700 mr-5 rounded-md shadow-sm p-2 flex flex-wrap">
-                <div class="w-[80%] m-auto">
-                    <input v-model="search" type="text" placeholder="Search..." class="w-[100%] outline-none">
-                </div>
-                <div class="w-[15%] m-auto">
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" class="w-[30%] m-auto" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
-                        <path strokeLinecap="round" strokeLinejoin="round" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z" />
+                <div class="w-[30rem] flex justify-start ml-3">
+                    <input v-model="search" type="text" placeholder="Search..." class="w-64 border border-stone-400 rounded px-5 py-2 pr-11 outline-none shadow focus:border-skyblue focus:w-full transition-all duration-700">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-7 relative right-9 top-2 text-stone-400 rounded" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
                     </svg>
                 </div>
             </div>
-            <div class="w-[20%] ml-7">
-                <button class="w-[100%] p-1 bg-blue-500 rounded-md text-white text-2xl text-bold shadow-md">Invite</button>
+            <div class="w-[20%]">
+                <button class="w-[100%] p-1 bg-orange rounded text-white text-2xl text-bold shadow-md">Invite</button>
             </div>
         </div>
         <!-- Card list -->
-    <table class=" table-auto w-[98%] flex flex-wrap m-auto mt-5">
-        <thead class="w-[95%] flex flex-wrap m-auto shadow-sm p-4 cursor-pointer bg-skyblue">
-            <tr class="w-[25%] m-auto">
+        <table class=" w-full  mt-5">
+        <thead tabindex="0" class="h-14 w-full text-sm leading-none text-gray-800 bg-skyblue">
+            <tr class="text-center">
                 <th>USERNAME</th>
-            </tr>
-            <tr class="w-[30%] m-auto">
                 <th>EMAIL</th>
-            </tr>
-            <tr class="w-[15%] m-auto">
                 <th>MAJOR</th>
-            </tr>
-            <tr class="w-[15%] m-auto">
                 <th>STATUS</th>
-            </tr>
-            <tr class="w-[15%] m-auto">
                 <th>ACTION</th>
             </tr>
         </thead>
-        <tbody class="w-[95%] flex flex-wrap m-auto mt-5 mb-10 p-2 border-b-2" 
-
-        v-for:="alumni in alumnis">
-                <tr class="w-[20%] m-auto flex flex-wrap">
-                    <td class="w-[40%] m-1">
-                        <div class="w-16 h-16 border-2 border-blue-500  rounded-full">
-                            <img src="../../assets/logo.png" class="w-[50%] m-auto mt-3">
-                        </div>
-                    </td>
-                    <td class="w-[55%] m-auto">
-                        <h5 class="text-md">{{alumni.first_name + " "+ alumni.last_name}}</h5>
-                    </td>
-                </tr>
-                <tr class="w-[35%] m-auto">
-                    <td class="w-[60%] m-auto">
-                        <p>{{alumni.email}}</p>
-                    </td>
-                </tr>
-                <tr class="w-[15%] m-auto">
-                    <td class="w-[100%]">
-                        <h5>{{alumni.major==undefined? '?':alumni.major}}</h5>
-                    </td>
-                </tr>
-                <tr class="w-[15%] m-auto">
-                    <td class="w-[100%]">
-                        <p class="text-bold" :class="alumni['status'].toLowerCase()">{{alumni.status}}</p>
-                    </td>
-                </tr>
-                <tr class="w-[15%] m-auto">
-                    <td class="w-[100%]">
-                        <div @click="$emit('removeAlumni', alumni['user_id'])" class="w-[40%] bg-red-500 rounded-md cursor-pointer p-1 shadow-sm border-b">
-                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" class="w-[30%] m-auto" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
-                                <path strokeLinecap="round" strokeLinejoin="round" d="M14.74 9l-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 01-2.244 2.077H8.084a2.25 2.25 0 01-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 00-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 013.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 00-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 00-7.5 0" />
-                            </svg>
-                        </div>
-                    </td>
-                </tr>
+        <tbody v-if="alumnis.length > 0" class="w-full">
+            <tr v-for:="alumni in alumnis" :key="alumni" tabindex="0" class="h-12 text-sm leading-none text-gray-800 border-b-[1px] border-gray-400 bg-gray-300">
+                <td class="text-center pl-4 w-[20%]">
+                    <div class="flex items-center space-x-2 p-2">
+                        <img class="rounded-full w-14 h-14 border-[1px] border-skyblue object-cover" :src="'http://127.0.0.1:8000/images/profile/'+ alumni.profile" alt="">
+                        <p class="pl-6">{{alumni.first_name + " "+ alumni.last_name}}</p>
+                    </div>
+                </td>
+                <td class="text-center w-[25%]">
+                    {{alumni.email}}
+                </td>
+                <td class="text-center w-[20%]">
+                    {{alumni.major==undefined? '?':alumni.major}}
+                </td>
+                <td class="text-center w-[20%]" :class="alumni['status']">
+                    {{alumni.status}}
+                </td>
+                <td class="text-center relative w-[15%]">
+                    <button @click="$emit('removeAlumni', alumni['user_id'])"  class= " bg-red-500 hover:bg-red-600 shadow  rounded px-5 py-2 ml-3">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+                        </svg>
+                    </button>
+                </td>
+            </tr>
+        </tbody>
+        <tbody v-if="alumnis.length <= 0">
+            <tr class="bg-gray-300">
+                <td colspan="5" class="p-2 text-center">
+                    <img class="w-32 m-auto mt-3" src="./../../assets/notfound.png" alt="Image not found">
+                    <p class="mb-5">No ALumnis found!</p>
+                </td>
+            </tr>
         </tbody>
     </table>
-  </form>
+  </div>
 </template>
 <script>
 export default {
@@ -117,7 +99,7 @@ export default {
     .invited{
         color:blue
     }
-    .pedding{
+    .pending{
         color:orange;
     }
 
