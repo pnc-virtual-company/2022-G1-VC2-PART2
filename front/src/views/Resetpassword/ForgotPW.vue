@@ -7,10 +7,10 @@
         <div class="flex rounded w-[50%]">
             <form class="w-[70%] p-5 bg-[#CCE7F6] rounded m-auto" @submit.prevent="forgetpassword">
                 <img src="../../assets/alumnilogo.png" alt="logo" class="w-[100px] m-auto">
-                <h1 class="text-2xl font-semibold text-center p-1">Forgot Passord</h1>
+                <h1 class="text-2xl font-semibold text-center p-1">Forget Password</h1>
                 <div class="mb-6 relative">
-                    <label class="block text-gray-700 text-lg mb-1" for="password">
-                        Email *
+                    <label class="block text-gray-700 text-lg mb-1 mt-4" for="password">
+                        Email <span class="text-red-500">*</span>
                     </label>
                     <input
                         class="rounded w-full py-2 px-3 mb-1  focus:outline-skyblue "
@@ -19,21 +19,27 @@
                       <p class="text-red-500 mb-[-10px] mt-[3px]">{{inValidEmail}}</p>
                 </div>
                 <button
-                    class="bg-skyblue text-white py-2 w-full px-4 rounded focus:outline-primary focus:shadow-outline"
+                    class="bg-skyblue text-white py-2 w-full px-4 rounded focus:outline-primary focus:shadow-outline mt-1"
                     type="submit">
                     Submit
                 </button>
+                <p class="text-gray-800 mt-6 text-center mb-2">
+                  <router-link to="login"
+                      class="text-blue-600 hover:text-blue-700 focus:text-blue-700 transition duration-200 ease-in-out">
+                      Try to login again !
+                  </router-link>
+                </p>
             </form>
         </div>
       </div>
       <!-- Verication code -->
-      <varication @varication-code="veriFycode" :verifyError="verifyError" v-if="showverification" />
+      <verifycation @verifycation-code="veriFycode" :verifyError="verifyError" @cancel="showverification=false" v-if="showverification" />
       <!-- show reset password -->
-      <resetpassword @reset-password="resetPS" v-if="showresetpassword"/>
+      <resetpassword @reset-password="resetPS" @cancelChange="showresetpassword=false" v-if="showresetpassword"/>
     </section>
 </template>
 <script>
-import varication from "./VerificationView.vue";
+import verifycation from "./VerificationView.vue";
 import resetpassword from "./Resetpassword.vue";
 import axios from '../../axios-http';
 export default {
@@ -50,18 +56,15 @@ export default {
     }
   },
   components:{
-    varication,
+    verifycation,
     resetpassword,
   },
   methods:{
     forgetpassword(){
       axios.post("forgetPassword",{email:this.email})
       .then((res) => {
-        console.log(res);
         if(res.data.message == "successfully") {
           axios.post("sendVerifyCode",{email:this.email})
-          .then((res) => {console.log(res.data.message)});
-          this.email = '';
           this.user_id = res.data.user_id;
           this.codeverify = res.data.verifyCode;
           this.showverification = !this.showverification;

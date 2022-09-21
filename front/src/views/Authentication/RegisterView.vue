@@ -65,7 +65,7 @@
                   />
                 </svg>
               </div>
-              <button @click.prevent="next()" class="bg-[#22BBEA] text-white py-2 w-[98%] px-4 rounded focus:shadow-outline ml-1 mb-2 mt-4">
+              <button @click.prevent="next()" class="bg-[#22BBEA] text-white py-2 w-[98%] px-4 rounded focus:shadow-outline ml-1 mt-4">
               Next
               </button> 
         </div>
@@ -161,12 +161,18 @@
         </div>
         </div>
         <button
-        class="bg-[#22BBEA] text-white py-2 w-[98%] px-4 rounded focus:shadow-outline ml-1 mb-2 mt-4"
+        class="bg-[#22BBEA] text-white py-2 w-[98%] px-4 rounded focus:shadow-outline ml-1 mt-4"
         @click.prevent="register"
         >
         Register
         </button>
-          </div>
+        </div>
+        <p class="text-gray-800 mt-6 text-center mb-2">Already have an account?
+           <router-link to="login"
+              class="text-blue-600 hover:text-blue-700 focus:text-blue-700 transition duration-200 ease-in-out">
+              Login here
+            </router-link>
+        </p>
         </form>
       </div>
     </div>
