@@ -9,11 +9,11 @@
             </div>
             <p></p>
         </div>
-        <div v-if="isActive == 0" class="text-center mt-4">
+        <div v-if="isActive == 0" class="text-center">
             <filterAlumni
             :countAlumnis="dataAlumnis"
             @matchAlumni="displayAlumni"/>
-        <listAlumni
+        <listAlumni class="w-[80%] m-auto mt-3"
         @matchAlumni="displayAlumni"
         @searchAlumni="queryAlumni"
         @removeAlumni="removeAlumni"

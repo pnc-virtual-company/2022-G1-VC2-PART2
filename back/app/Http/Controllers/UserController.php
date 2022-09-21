@@ -57,7 +57,6 @@ class UserController extends Controller
     public function forgetPassword(Request $request)
     {
         $email = $request->email;
-        // $verifyCode = Str::random(8);
         $verifyCode = sprintf("%06d", mt_rand(1, 999999));
         $user = User::where('email', $email)->first();
         if ($user) {
@@ -225,4 +224,5 @@ class UserController extends Controller
         User::destroy($id);
         return response()->json(['message'=>"The alumni has been removed"]);
     }
+
 }

@@ -91,22 +91,20 @@
               </svg>
               <p v-if="isInValid" class="text-[14px] text-red-500">{{loginError}}</p>
             </div>
-
           </div>
+            <router-link to="forgot"
+                class="text-blue-600 hover:text-blue-700 focus:text-blue-700 transition duration-200 ease-in-out">
+                Forget Password
+            </router-link>
             <button
               class="bg-[#22bbea] text-white py-2 w-full rounded focus:outline-primary focus:shadow-outline mt-4 text-[1.2rem]"
               type="submit"
             >
               Login
             </button>
-            <div class="flex justify-between mt-4">
-              <router-link to="forgot" class="inline-block cursor-pointer align-baseline text-sm text-blue-500 hover:text-blue-800 text-[1.1rem]">
-                Forgot Password
-              </router-link>
-              <router-link to="register" class="inline-block cursor-pointer align-baseline text-sm text-blue-500 hover:text-blue-800 text-[1.1rem]">
-                Create Account
-              </router-link>
-          </div>
+            <p class="text-gray-800 mt-6 text-center">Don't have an account? <router-link to="register"
+                class="text-blue-600 hover:text-blue-700 focus:text-blue-700 transition duration-200 ease-in-out">Register</router-link>
+            </p>
         </form>
       </div>
     </div>
