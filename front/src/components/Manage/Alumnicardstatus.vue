@@ -47,10 +47,10 @@
             <div class="w-[20%] flex flex-wrap bg-gray-300 m-auto  mt-5 rounded-xl cursor-pointer" @click="this.$emit('matchAlumni', 'pedding')">
                 <div class="w-[55%] flex flex-wrap p-2">
                     <div class="w-[88%]  p-2 text-start">
-                        <h1 class="text-4xl">{{countAlumnis.length?countAlumnis.filter(active => active['status'].toLowerCase()=='pedding').length:0}}</h1>
+                        <h1 class="text-4xl">{{countAlumnis.length?countAlumnis.filter(active => active['status'].toLowerCase()=='pending').length:0}}</h1>
                     </div>
                     <div class="w-[88%] m-auto">
-                        <h5 class="text-md text-yellow-500 text-start">Pendding</h5>
+                        <h5 class="text-md  text-yellow-500">Pending</h5>
                     </div>
                 </div>
                 <div class="w-[40%] m-auto">

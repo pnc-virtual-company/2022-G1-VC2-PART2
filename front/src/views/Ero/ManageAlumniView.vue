@@ -21,17 +21,20 @@
         />
         </div>
         <company-list v-if="isActive == 1" class="text-center mt-4" />
-        <h1 v-if="isActive == 2" class="text-center mt-4">school list</h1>
+        <university-list v-if="isActive == 2" class="text-center mt-4" />
     </section>
 </template>
 <script>
-import Company from './EroView.vue'
+import Company from './CompanyView.vue'
+import University from './UniversityView.vue'
 import listAlumni from '../../components/Manage/ListAlumnis.vue'
 import filterAlumni from '../../components/Manage/Alumnicardstatus.vue'
 import axios from "../../axios-http"
+import swal from 'sweetalert';
 export default{
     components:{
         'company-list': Company,
+        'university-list': University,
         listAlumni,
         filterAlumni
     },
@@ -50,8 +53,21 @@ export default{
             })
         },
         removeAlumni(id){
-            axios.delete('removeAlumni/'+id).then((res )=> {
-                this.getListAlumni()});
+            swal({
+                title: "Are you sure?",
+                    text: "You want to remove this alumni !!",
+                    icon: "warning",
+                    buttons: true,
+                    dangerMode: true,
+                })
+                .then((willDelete) => {
+                    if (willDelete) {
+                        axios.delete('removeAlumni/'+id).then((res )=> {
+                            this.getListAlumni()
+                            swal("removed !", "Your work experince is removed !", "success");
+                        });
+                    } 
+            });
         },
         displayAlumni(status){
             if(status.toLowerCase()=='all'){
