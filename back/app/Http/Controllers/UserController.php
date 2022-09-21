@@ -120,6 +120,28 @@ class UserController extends Controller
 
         return Response()->json(['message' => 'successful'], 200);
     }
+    public function inviteAlumni(Request $request)
+    {
+        $user = new User();
+        $user->email = $request->email;
+        $user->password = Str::random(8);
+        $user->role = 'alumni';
+        $user->status = 'invite';
+        $user->save();
+        
+        if ($user->role == 'alumni') {
+            $alumni = new Alumni();
+            $alumni->user_id = $user->id;
+            $alumni->save();
+        }
+
+        // return $user->password;
+        if($user){
+            return Response()->json(['message' => 'successful'], 200);
+        }else{
+            return Response()->json(['message' => 'error'], 200);
+        }
+    }
 
 // =========================================================Upload Profile
 

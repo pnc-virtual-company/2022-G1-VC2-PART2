@@ -49,6 +49,7 @@ Route::post('resetPwAfterVerify/{id}',[UserController::class, 'resetPwAfterVerif
 
 // =======================Create New===============================
 Route::post('useralumni', [UserController::class, "store"]);
+Route::post('inviteAlumni', [UserController::class, "inviteAlumni"]);
 Route::post('skill', [SkillController::class, "store"]);
 Route::post('company', [CompanyController::class, "createCompany"]);
 Route::post("workexperience", [WorkexperienceController::class, "addExperience"]);
