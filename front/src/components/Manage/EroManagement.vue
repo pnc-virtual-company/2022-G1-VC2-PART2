@@ -76,6 +76,7 @@
     v-if="isRegisterEro"
     @register="register"
     @popUp="popUp"
+    :inviteMessage="inviteMessage"
     ></registerEro>
 </section>
 </template>
@@ -92,15 +93,19 @@ export default {
         isRegisterEro: false,
         dataEro: [],
         searchKeyword: "",
+        inviteMessage: "",
       };
     },
   
     methods: {
       register(user){
+        this.inviteMessage = 'Sending invite ...'
         axios.post('register', user).then(()=>{
           this.dislplayEro()
+          this.isRegisterEro=false;
+          swal("Invited !", "This ero email has been invited !", "success");
+          this.inviteMessage = ''
         })
-        this.isRegisterEro=false;
     },
 
     removedEro(id){
@@ -130,7 +135,6 @@ export default {
       },
       dislplayEro(){
         axios.get("userEro").then((res)=>{
-          console.log("ERO", res.data);
           this.dataEro = res.data
            this.filterEro=this.dataEro})
        },
