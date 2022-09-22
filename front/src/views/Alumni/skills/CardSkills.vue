@@ -73,6 +73,7 @@ export default {
         this.alumniSkills = res.data;
       });
     },
+   
     removeAlumniSkill(remove) {
       axios.delete("alumniSkill/" + remove.id).then(() => {
         console.log("Removed ");

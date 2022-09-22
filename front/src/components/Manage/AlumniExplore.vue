@@ -14,9 +14,7 @@
                     class="w-full border-[1px] outline-none border-gray-400 p-2 shadow-md rounded cursor-pointer mr-2 focus:border-skyblue"
                   >
                     <option value="All" selected>Company</option>
-                    <option value="Z1 Flexible Solution">Z1 Flexible Solution</option>
-                    <option value="sss">Source Max</option>
-                    <option value="Camsolution">Camsolution</option>
+                    <option v-if="companies.length" v-for:="company in companies" :value="company['name']" selected>{{company['name']}}</option>
                   </select>
                   <select v-model="major"
                     class="w-full border-[1px] outline-none border-gray-400 p-2 shadow-md rounded cursor-pointer mr-2 focus:border-skyblue"
@@ -58,9 +56,9 @@
                 </tr>
               </thead>
               <tbody 
-              v-if="filterAlumni.length > 0"
-              v-for:="alumni in filterAlumni">
-                <tr @click="detail=true"
+              v-if="filterAlumnis.length > 0"
+              v-for:="alumni in filterAlumnis">
+                <tr @click="onClickDetial(alumni)"
                   tabindex="0"
                   class="h-16 w-full text-sm leading-none shadow-sm border-b-[1px] border-gray-400 bg-gray-300 hover:cursor-pointer hover:bg-gray-400"
                 >
@@ -72,12 +70,12 @@
                   </div>
                   </td>
                   <td class="text-center w-[25%]">{{alumni.major}}-{{alumni.batch}}</td>
-                  <td class="text-center w-[25%]">{{alumni.company}}</td>
-                  <td class="text-center w-[25%]">{{alumni.position}}</td>
+                  <td class="text-center w-[25%]">?</td>
+                  <td class="text-center w-[25%]">?</td>
                 </tr>
               </tbody>
 
-              <tbody v-if="filterAlumni.length <= 0">
+              <tbody v-if="filterAlumnis.length <= 0">
                   <tr class="bg-gray-300">
                       <td colspan="5" class="p-2 text-center">
                           <img class="w-32 m-auto mt-3" src="./../../assets/notfound.png" alt="Image not found">
@@ -88,7 +86,10 @@
             </table>
           </div>
         </div>
-        <alumni-detail v-if="detail" @close="detail=false" />
+        <alumni-detail 
+        v-if="detail" 
+        :alumni="detialAlumni"
+        @close="detail=false" />
     </section>
 </template>
 
@@ -101,13 +102,10 @@ export default {
   },
   data(){
       return{
-          listAlumnis:[],
-          dataAlumnis:[
-              // {username:'Sreymao Vron', major:'WEB', gender:'Male', batch:2021 , company:'Z1 Flexible Solution', position:'Laravel Developer'},
-              // {username:'Theavy Vun', major:'SNA', gender:'Female', batch:2019 , company:'Source Max', position:'Web Developer'},
-              // {username:'Vansao Hang', major:'IT', gender:'Other', batch:2020 , company:'Camsolution', position:'Web Developer'},
-          
-          ],
+          detialAlumni:[],
+          experiences:[],
+          companies:[],
+          dataAlumnis:[],
           company: 'All',
           batch: 'All',
           major: 'All',
@@ -116,8 +114,10 @@ export default {
           
       }
   },
+
   computed: {
-    filterAlumni() {
+    
+    filterAlumnis() {
       if(this.company == 'All' && this.major == 'All' && this.batch == 'All') {
         return this.dataAlumnis.filter(alumni => 
         alumni.first_name.toLowerCase().includes(this.inputSearch.toLowerCase())
@@ -192,7 +192,6 @@ export default {
   methods:{
       displayAlumnis(){
         axios.get('getAlumnis').then((res) => {
-          console.log(res.data)
           this.dataAlumnis=res.data
         })
       },
@@ -202,9 +201,35 @@ export default {
         this.batch = 'All';
         this.company = 'All';
       },
+
+      onClickDetial(alumni) {
+      this.detialAlumni=alumni;
+      this.detail=true;
+    },
+     getExperiences(){
+        axios.get('workexperience').then(res => {
+          console.log(res.data);
+          this.experiences=res.data
+        });
+      },
+
+      getCompanies(){
+         axios.get('companies').then(res => {
+          console.log(res.data);
+          this.companies=res.data
+        });
+      },
+
+      show(id){
+         return this.experiences.find(experience =>experience['alumni_id']==id)['position'];
+        }
+   
+
   },
   mounted(){
       this.displayAlumnis()
+      this.getExperiences()
+      this.getCompanies()
   }
 };
 </script>
