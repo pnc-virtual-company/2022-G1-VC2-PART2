@@ -182,7 +182,6 @@ class UserController extends Controller
     {
         $alumni = Alumni::find($id);
         $path = public_path('images/profile');
-
         if ($alumni->profile !== 'female.jpg' && $alumni->profile !== 'male.png') {
             $previousProfilePublicPath = public_path('images/profile/' . $alumni->profile);
 
