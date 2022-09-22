@@ -14,7 +14,8 @@
       <form class="w-full flex flex-wrap m-auto p-2 mb-2" @submit.prevent="addCompany">
           <div class="relative mx-auto">
             <div class="w-[5rem] h-[5rem] rounded-full">
-              <img :src="logo? logo:''" class="w-[5rem] h-[5rem] rounded-full border-[1px] border-skyblue object-cover">
+              <img v-if="logo == ''" src="../../../assets/company.png" class="w-[5rem] h-[5rem] rounded-full border-[1px] border-skyblue object-cover">
+              <img v-else :src="logo" class="w-[5rem] h-[5rem] rounded-full border-[1px] border-skyblue object-cover">
             </div>
             <label for="uploadimg">
               <span class="absolute h-6 w-6 rounded-full cursor-pointer bg-gray-300 p-[3px] bottom-0 right-0">
@@ -53,10 +54,10 @@ export default {
     emits:['add-company','popUp'],
   data(){
       return {
-        logo: 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAOEAAADhCAMAAAAJbSJIAAAAFVBMVEUAAAD///+lpaWtra2pqalra2udnZ3XsOkrAAACH0lEQVR4nO3ZQXLjMAwEwKzj5P9PzkEnlywuAIm0SfccUdAIfUop/vq3er5efUD3EM4fwvlDOH8It6Wr01v1cHxoiZCQsGcItyVCQsKeIdyWCAkJe4ZwWyKcTHi557VmQkJCQkJCQkJCQkJCQkLCxh0nJ4RXhpCwNiG8MoSEtcn7CvuFkJCQkJCQ8KOEV/UQDg9huqco/L5t+T45aVx2QvfQUxTud2qTSHMthISE0UmkuRZCQsLoJNJcCyEhYXQSaa5lAuHJQkLC9YUDvvFfLOwXQsJGD+GgXPV2QsJ+eReh/+pHJ5HmWggJCaOT0GWlQkJCQkJCQsIphI2dSAgJ1xeu/43fL4TpHsLh+SDh/ozIpNVDOCiEo4Tr/45fe32qmZCQ8PXCxk4khISE0UmkuRZCQsLoJNJcywTCk4WEhOsL1//G7xdCwkYP4aBc9XZCwn55F+H6v+Pvd2qTSHMthISE0UnoslIhISEhISEh4RTCxk4khITrC9f/xu8XwnQP4fB8kHB/RmTS6iEcFMJRwud/u3/ut8fcfwJPvafw+c59V3EPPDWT8LaruBESrixs7ERCSEhImG3Oh5CQ8ALhfjkyISQkJCQkJLxQ+Dz/E0ZSf/tBD2EqhKnL0k8e9BCmQpi6LP3kQQ9hKoSpy9JPHvQQpkKYuiz95EEPYSqEqcvSTx70EKbyu6v4rV+WfvKgpyVcLITzh3D+EM4fwvnzB/6pXTl+Bj9xAAAAAElFTkSuQmCC',
         company_name:this.name!=""?this.name:"",
         company_address:'',
         profile:"",
+        logo: '',
       }
   },
   methods:{
@@ -69,7 +70,7 @@ export default {
         this.$emit('add-company',body);
     },
     uploadImg(e){
-      this.profile=e.target.files[0];
+      this.profile =e.target.files[0];
       this.logo=URL.createObjectURL(this.profile)
     }
   }
