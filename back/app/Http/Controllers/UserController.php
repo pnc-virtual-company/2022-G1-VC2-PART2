@@ -9,6 +9,8 @@ use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
 use \App\Mail\VerifyCode;
+use \App\Mail\InviteAlumni;
+use \App\Mail\RemoveUser;
 
 class UserController extends Controller
 {
@@ -128,6 +130,35 @@ class UserController extends Controller
 
         return Response()->json(['message' => 'successful'], 200);
     }
+    public function inviteAlumni(Request $request)
+    {
+        $user = new User();
+        $email = $request->email;
+        $user->email = $email;
+        $random_password = Str::random(8); 
+        $user->password = bcrypt($random_password);
+        $user->role = 'alumni';
+        $user->status = 'invite';
+        $user->save();
+        
+        if ($user->role == 'alumni') {
+            $alumni = new Alumni();
+            $alumni->user_id = $user->id;
+            $alumni->save();
+        }
+
+        // return $user->password;
+        if($user){
+            $details = [
+                'email' => $email,
+                'password' => $random_password
+            ];
+            \Mail::to($email)->send(new InviteAlumni($details));
+            return Response()->json(['message' => 'successful'], 200);
+        }else{
+            return Response()->json(['message' => 'error'], 200);
+        }
+    }
 
 // =========================================================Upload Profile
 
@@ -228,7 +259,7 @@ class UserController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function destroy(Request $request, $id)
-    {
+    {   
         User::destroy($id);
         return response()->json(['message'=>"The alumni has been removed"]);
     }

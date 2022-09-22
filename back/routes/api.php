@@ -49,6 +49,7 @@ Route::post('resetPwAfterVerify/{id}',[UserController::class, 'resetPwAfterVerif
 
 
 // =======================Create New===============================
+Route::post('inviteAlumni', [UserController::class, "inviteAlumni"]);
 Route::post('register', [UserController::class, "store"]);
 Route::post('skill', [SkillController::class, "store"]);
 Route::post('company', [CompanyController::class, "createCompany"]);
@@ -97,5 +98,6 @@ Route::delete("university/{id}",[UniversityController::class,"destroy"]);
 // =================================================================SendMailController
 Route::post('sendVerifyCode',[SendMailController::class, "sendVerifyCode"]);
 Route::post('sendRegister',[SendMailController::class, "sendRegister"]);
+Route::post('sendRemoveAccount/{id}',[SendMailController::class, "sendRemoveAccount"]);
 
 

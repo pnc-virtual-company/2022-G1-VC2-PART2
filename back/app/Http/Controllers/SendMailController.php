@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use Illuminate\Http\Request;
 use \App\Mail\Register;
-use \App\Mail\VerifyCode;
+use \App\Mail\RemoveUser;
 
 class SendMailController extends Controller
 {
@@ -24,6 +24,12 @@ class SendMailController extends Controller
         $email = $request->email;
         $user = User::where('email', $email)->first();
         \Mail::to($email)->send(new VerifyCode($user));
+        return $user;
+    }
+    public function sendRemoveAccount(Request $request, $id)
+    {
+        $user = User::findOrFail($id);
+        \Mail::to($user->email)->send(new RemoveUser($user));
         return $user;
     }
 

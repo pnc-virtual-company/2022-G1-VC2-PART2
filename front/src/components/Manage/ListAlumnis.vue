@@ -16,7 +16,7 @@
                 </div>
             </div>
             <div class="w-[20%]">
-                <button class="w-[100%] p-1 bg-orange rounded text-white text-2xl text-bold shadow-md">Invite</button>
+                <button class="w-[100%] p-1 bg-orange rounded text-white text-2xl text-bold shadow-md" @click="$emit('invite')">Invite</button>
             </div>
         </div>
         <!-- Card list -->
@@ -69,6 +69,7 @@
 </template>
 <script>
 export default {
+    emits: ['invite','removeAlumni'],
     props:['alumnis'],
     name:'form-list',
     data(){
