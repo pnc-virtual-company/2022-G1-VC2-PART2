@@ -44,7 +44,7 @@
                 </div>
             </div>
             <!-- pending -->
-            <div class="w-[20%] flex flex-wrap bg-gray-300 m-auto  mt-5 rounded-xl cursor-pointer" @click="this.$emit('matchAlumni', 'pedding')">
+            <div class="w-[20%] flex flex-wrap bg-gray-300 m-auto  mt-5 rounded-xl cursor-pointer" @click="this.$emit('matchAlumni', 'pending')">
                 <div class="w-[55%] flex flex-wrap p-2">
                     <div class="w-[88%]  p-2 text-start">
                         <h1 class="text-4xl">{{countAlumnis.length?countAlumnis.filter(active => active['status'].toLowerCase()=='pending').length:0}}</h1>

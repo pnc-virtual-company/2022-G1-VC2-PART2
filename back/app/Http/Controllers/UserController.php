@@ -8,9 +8,8 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
-use \App\Mail\VerifyCode;
 use \App\Mail\InviteAlumni;
-use \App\Mail\RemoveUser;
+use \App\Mail\VerifyCode;
 
 class UserController extends Controller
 {
@@ -23,7 +22,7 @@ class UserController extends Controller
             return response()->json(['sms' => 'invalid', 'email' => $request->email, 'password' => $request->password], 404);
         }
         $token = $user->createToken('mytoken')->plainTextToken;
-        return response()->json(['token' => $token, 'role' => $user->role,'status'=>$user->status], 202);
+        return response()->json(['token' => $token, 'role' => $user->role, 'status' => $user->status], 202);
     }
 
     public function getInfoByToken()
@@ -93,8 +92,8 @@ class UserController extends Controller
     public function getEroUsers()
     {
         $alumnis = User::where('users.role', '=', 'ero')
-        ->orderBy('users.created_at', 'desc')
-        ->get();
+            ->orderBy('users.created_at', 'desc')
+            ->get();
         return $alumnis;
     }
 
@@ -113,17 +112,17 @@ class UserController extends Controller
         $user->role = $request->role;
         $user->status = $request->status;
         $user->verifyCode = $request->verifyCode;
-        
+
         if ($user->role == 'ero') {
-            $random_password = Str::random(8); 
+            $random_password = Str::random(8);
             $user->password = bcrypt($random_password);
             $details = [
                 'role' => 'Ero',
                 'email' => $user->email,
-                'password' => $random_password
+                'password' => $random_password,
             ];
             \Mail::to($user->email)->send(new InviteAlumni($details));
-        }else{
+        } else {
             $user->password = bcrypt($request->password);
         }
         $user->save();
@@ -139,9 +138,9 @@ class UserController extends Controller
             $alumni->major = $request->major;
             $alumni->save();
         }
-        if($user){
+        if ($user) {
             return Response()->json(['message' => 'successful'], 200);
-        }else{
+        } else {
             return Response()->json(['message' => 'erro'], 200);
         }
     }
@@ -150,12 +149,12 @@ class UserController extends Controller
         $user = new User();
         $email = $request->email;
         $user->email = $email;
-        $random_password = Str::random(8); 
+        $random_password = Str::random(8);
         $user->password = bcrypt($random_password);
         $user->role = 'alumni';
         $user->status = 'invited';
         $user->save();
-        
+
         if ($user->role == 'alumni') {
             $alumni = new Alumni();
             $alumni->user_id = $user->id;
@@ -163,15 +162,15 @@ class UserController extends Controller
         }
 
         // return $user->password;
-        if($user){
+        if ($user) {
             $details = [
                 'role' => 'Alumni',
                 'email' => $email,
-                'password' => $random_password
+                'password' => $random_password,
             ];
             \Mail::to($email)->send(new InviteAlumni($details));
             return Response()->json(['message' => 'successful'], 200);
-        }else{
+        } else {
             return Response()->json(['message' => 'error'], 200);
         }
     }
@@ -267,6 +266,13 @@ class UserController extends Controller
         $user->save();
         return Response()->json(['message' => 'successful'], 200);
     }
+    public function approve(Request $request, $id)
+    {
+        $user = User::findOrFail($id);
+        $user->status = 'actived';
+        $user->save();
+        return Response()->json(['message' => 'successful'], 200);
+    }
 
     /**
      * Remove the specified resource from storage.
@@ -275,9 +281,9 @@ class UserController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function destroy(Request $request, $id)
-    {   
+    {
         User::destroy($id);
-        return response()->json(['message'=>"The alumni has been removed"]);
+        return response()->json(['message' => "The alumni has been removed"]);
     }
 
 }
