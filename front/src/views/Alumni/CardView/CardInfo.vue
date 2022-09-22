@@ -17,9 +17,9 @@
             <p class="p-1 mb-2">Major:</p>
           </div>
           <div class="w-[54%]">
-            <p class="border-b-[1px] border-[#a9aaaaa3] w-full px-2 py-1 mb-2">{{user.first_name}}</p>
-            <p class="border-b-[1px] border-[#a9aaaaa3] w-full px-2 py-1 mb-2">{{gender}}</p>
-            <p class="border-b-[1px] border-[#a9aaaaa3] w-full px-2 py-1 mb-2">{{user.major}}</p>
+            <p class="w-full px-2 py-1 mb-2 font-semibold">{{user.first_name}}</p>
+            <p class="w-full px-2 py-1 mb-2 font-semibold">{{gender}}</p>
+            <p class="w-full px-2 py-1 mb-2 font-semibold">{{user.major}}</p>
           </div>
         </div>
         <div class="w-[50%] flex">
@@ -29,9 +29,9 @@
             <p class="p-1 mb-2">Tel:</p>
           </div>
           <div class="w-[54%]">
-            <p class="border-b-[1px] border-[#a9aaaaa3] w-full px-2 py-1 mb-2 ">{{user.last_name}}</p>
-            <p class="border-b-[1px] border-[#a9aaaaa3] w-full px-2 py-1 mb-2">{{user.batch}}</p>
-            <p class="border-b-[1px] border-[#a9aaaaa3] w-full px-2 py-1 mb-2">{{user.phone}}</p>
+            <p class="w-full px-2 py-1 mb-2 font-semibold">{{user.last_name}}</p>
+            <p class="w-full px-2 py-1 mb-2 font-semibold">{{user.batch}}</p>
+            <p class="w-full px-2 py-1 mb-2 font-semibold">{{user.phone}}</p>
           </div>
         </div>
       </div>
@@ -40,7 +40,7 @@
           <p class="p-1">Email:</p>
         </div>
         <div class="w-[77%]">
-          <p class="border-b-[1px] border-[#a9aaaaa3] w-full px-2 py-1">{{user.email}}</p>
+          <p class="w-full px-2 py-1 font-semibold">{{user.email}}</p>
         </div>
       </div>
     </div>
@@ -78,7 +78,7 @@
         this.isEdit = true;
       },
       updateInfo(alumni) {
-        axios.put('/alumni/1', alumni).then(res => {
+        axios.put('/alumni/' + this.$store.state.userId, alumni).then(res => {
             console.log(res);
             this.$emit('getData');
             this.isEdit = false;
