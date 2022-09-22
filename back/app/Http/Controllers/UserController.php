@@ -190,7 +190,7 @@ class UserController extends Controller
             }
         }
         $file = $request->profile;
-        $fileName = uniqid() . '_' . trim($file->getClientOriginalName());
+        $fileName = date('F-j-Y-H-i-s-A') . '_' . trim($file->getClientOriginalName());
         $alumni->profile = $fileName;
         $file->move($path, $fileName);
         $alumni->save();
@@ -212,7 +212,7 @@ class UserController extends Controller
             }
         }
         $file = $request->coverimage;
-        $fileName = uniqid() . '_' . trim($file->getClientOriginalName());
+        $fileName = date('F-j-Y-H-i-s-A') . '_' . trim($file->getClientOriginalName());
         $alumni->coverimage = $fileName;
         $file->move($path, $fileName);
         $alumni->save();
