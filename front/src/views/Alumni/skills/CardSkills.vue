@@ -16,14 +16,15 @@
       </div>
     </div>
     <div class="" :class="{'h-32 overflow-auto':role == 'amin'}">
-      <div class="flex p-2 flex-wrap gap-2">
-        <card-skill
+      <div class="flex py-2 flex-wrap gap-2">
+        <card-skill v-if="alumniSkills.length >0"
           v-for:="(alumniSkill, i) in alumniSkills"
           :id="alumniSkill.id"
           :index="i"
           @remove="removeAlumniSkill"
           >{{ alumniSkill.name }}</card-skill
         >
+        <p v-else class="text-gray-600">No Skills for now</p>
       </div>
 
     </div>
@@ -62,13 +63,16 @@ export default {
     },
 
     addAlumniSkill(skill){
-      axios.post("alumniSkill/", skill).then(()=>{
+      console.log(skill)
+      axios.post("alumniSkill", skill).then((res)=>{
         this.getAlumniSkill();
-        console.log("Successfully");});
+        console.log("Successfully");
+        console.log(res);
+      });
     },
     
     getAlumniSkill() {
-      axios.get("alumniSkill/" + this.alu_id).then((res) => {
+      axios.get("alumniSkill/" + this.$store.state.alumniId).then((res) => {
         console.log("Alumni skill is ", res.data);
         this.alumniSkills = res.data;
       });

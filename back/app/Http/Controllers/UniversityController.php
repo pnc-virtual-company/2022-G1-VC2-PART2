@@ -28,17 +28,15 @@ class UniversityController extends Controller
     {
         $university = new University();
         $path = public_path('images/profile');
-        if ($university->profile !== 'female.jpg' && $university->profile !== 'male.png') {
-            $previousProfilePublicPath = public_path('images/profile/' . $university->profile);
-
-            if (File::exists($previousProfilePublicPath)) {
-                File::delete($previousProfilePublicPath);
-            }
+    
+        if($request->profile == '') {
+            $university->profile = 'university.png';
+        }else {
+            $file = $request->profile;
+            $fileName = date('F-j-Y-H-i-s-A') . '_' . trim($file->getClientOriginalName());
+            $university->profile = $fileName;
+            $file->move($path, $fileName);
         }
-        $file = $request->profile;
-        $fileName = uniqid() . '_' . trim($file->getClientOriginalName());
-        $university->profile = $fileName;
-        $file->move($path, $fileName);
         $university->name = $request->name;
         $university->address = $request->address;
         $university->save();

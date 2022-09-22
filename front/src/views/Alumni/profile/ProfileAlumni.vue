@@ -7,7 +7,7 @@
                     <img v-if="user.coverimage != undefined" class="w-full h-full  border border-1 border-gray-300 object-cover object-center" :src="'http://127.0.0.1:8000/images/Cover/'+ user.coverimage" alt="">
                 </div>
                 <div class="flex justify-end mt-[-40px]">
-                    <input @change="tageImage($event,'cover')" id="cover-upload" type="file" accept="image/*" hidden>
+                    <input @change="tageImage($event,'cover')" @click="value" id="cover-upload" type="file" accept="image/*" hidden>
                     <label for="cover-upload">
                         <div class="flex bg-gray-200 px-4 py-1 rounded-md mr-2 hover:cursor-pointer">
                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6 text-gray-600">
@@ -26,7 +26,7 @@
                     <img v-if="user.profile!=undefined" class="w-full rounded-full h-40 mt-[-130px] object-cover border-[1px] border-skyblue" :src="'http://127.0.0.1:8000/images/profile/'+ user.profile" alt="">
                 </div>
                 <div>
-                    <input @change="tageImage($event,'profile')" id="university-profile" type="file" accept="image/*" hidden>
+                    <input @change="tageImage($event,'profile')" @click="value" id="university-profile" type="file" accept="image/*" hidden>
                     <label for="university-profile">
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-8 h-8 hover:cursor-pointer bg-gray-300 p-1 rounded-full ml-[-40px] mt-[-16px]">
                             <path stroke-linecap="round" stroke-linejoin="round" d="M6.827 6.175A2.31 2.31 0 015.186 7.23c-.38.054-.757.112-1.134.175C2.999 7.58 2.25 8.507 2.25 9.574V18a2.25 2.25 0 002.25 2.25h15A2.25 2.25 0 0021.75 18V9.574c0-1.067-.75-1.994-1.802-2.169a47.865 47.865 0 00-1.134-.175 2.31 2.31 0 01-1.64-1.055l-.822-1.316a2.192 2.192 0 00-1.736-1.039 48.774 48.774 0 00-5.232 0 2.192 2.192 0 00-1.736 1.039l-.821 1.316z" />
@@ -151,13 +151,17 @@ export default {
             });
         },
         tageImage(event, update){
-            this.image = event.target.files[0];
-            if(update == "profile" && this.image){
-                this.isUpdate = true;
-                this.profile = URL.createObjectURL(this.image);
-            }else{
-                this.isUpdateCover = true;
-                this.cover = URL.createObjectURL(this.image);
+            let img = event.target.files[0];
+            console.log(img)
+            if (img != undefined) {
+                this.image = img;
+                if(update == "profile"){
+                    this.isUpdate = true;
+                    this.profile = URL.createObjectURL(this.image);
+                }else{
+                    this.isUpdateCover = true;
+                    this.cover = URL.createObjectURL(this.image);
+                }
             }
 
         },
@@ -262,6 +266,9 @@ export default {
         },
         addedNewUniver(){
             this.getUniversities();
+        },
+        value(event) {
+            event.target.value = null;
         }
     },
     watch: {

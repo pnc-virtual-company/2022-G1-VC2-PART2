@@ -27,17 +27,15 @@ class CompanyController extends Controller
     {
         $company = new Company();
         $path = public_path('images/profile');
-        if ($company->profile !== 'female.jpg' && $company->profile !== 'male.png') {
-            $previousProfilePublicPath = public_path('images/profile/' . $company->profile);
-
-            if(File::exists($previousProfilePublicPath)){
-                File::delete($previousProfilePublicPath);
-            }
+        
+        if($request->profile == '') {
+            $company->profile = 'company.png';
+        }else {
+            $file = $request->profile;
+            $fileName = date('F-j-Y-H-i-s-A') . '_' . trim($file->getClientOriginalName());
+            $company->profile = $fileName;
+            $file->move($path, $fileName);
         }
-        $file = $request->profile;
-        $fileName = uniqid() . '_' . trim($file->getClientOriginalName());
-        $company->profile = $fileName;
-        $file->move($path, $fileName);
         $company->name = $request->name;
         $company->address=$request->address;
         $company->save();

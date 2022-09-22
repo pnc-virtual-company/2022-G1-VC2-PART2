@@ -65,7 +65,6 @@ import axios from "../../../axios-http"
 import addSkill from "./AutoComplete.vue"
 export default {
   components: { addSkill },
-  props:['alumni_id'],
   data() {
     return {
       matched: [],
@@ -95,7 +94,7 @@ export default {
     },
 
     addSkill(skill_id) {
-      this.$emit("add-skill", { skill_id: skill_id, alumni_id: this.alumni_id});
+      this.$emit("add-skill", { skill_id: skill_id, alumni_id: this.$store.state.alumniId});
       this.$emit("closePopUp", false);
     },
     clickedOutside() {
