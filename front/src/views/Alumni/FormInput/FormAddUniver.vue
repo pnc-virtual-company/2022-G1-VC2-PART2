@@ -6,7 +6,7 @@
         </div>
         <div class="w-16 h-16 m-auto ">
             <div class="flex justify-center mt-4 relative">
-                <img v-if="profile==''" class="w-16 h-16 rounded-full border-[1px] border-gray-400 object-cover" :src="imgURL? imgURL:imgEdu" alt="">
+                <img v-if="profile==''" class="w-16 h-16 rounded-full border-[1px] border-skyblue object-cover" src="../../../assets/university.png" alt="">
                 <img v-else class="w-16 h-16 rounded-full border-[1px] border-gray-400 object-cover" :src="imgURL" alt="">
                 <input @change="tageImage($event)" id="profile-upload" type="file" accept="image/*" hidden>
                 <label for="profile-upload">    
@@ -50,7 +50,6 @@ import axios from '../../../axios-http'
 export default {
     data(){
         return {
-            imgEdu: 'https://previews.123rf.com/images/anthonycz/anthonycz1612/anthonycz161200005/68815871-school-vector-icon-isolated-building-on-white-background.jpg',
             profile:'',
             imgURL:'',
             name:'',
@@ -59,8 +58,11 @@ export default {
     },
     methods:{
         tageImage(event){
-            this.profile = event.target.files[0];
-            this.imgURL = URL.createObjectURL(this.profile);
+            let img = event.target.files[0];
+            if (img != undefined) {
+                this.profile = img;
+                this.imgURL = URL.createObjectURL(this.profile);
+            }
         },
         addUniversity(){
             let newUniversity = new FormData();

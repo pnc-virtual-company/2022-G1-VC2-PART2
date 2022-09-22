@@ -70,8 +70,11 @@ export default {
         this.$emit('add-company',body);
     },
     uploadImg(e){
-      this.profile =e.target.files[0];
-      this.logo=URL.createObjectURL(this.profile)
+      let img = e.target.files[0];
+      if (img != undefined) {
+        this.profile =e.target.files[0];
+        this.logo=URL.createObjectURL(this.profile)
+      }
     }
   }
 }
