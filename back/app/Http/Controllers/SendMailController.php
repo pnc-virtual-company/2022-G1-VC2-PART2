@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use Illuminate\Http\Request;
 use \App\Mail\Register;
+use \App\Mail\VerifyCode;
 use \App\Mail\RemoveUser;
 
 class SendMailController extends Controller
