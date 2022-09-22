@@ -37,7 +37,7 @@
         methods:{
             cancelUpdate(){
                 this.$emit('cancelUpdate');
-            }
+            },
         }
         
     }
