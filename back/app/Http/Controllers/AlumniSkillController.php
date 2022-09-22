@@ -41,7 +41,7 @@ class AlumniSkillController extends Controller
      * @param  \App\Models\AlumniSkill  $alumniSkill
      * @return \Illuminate\Http\Response
      */
-    public function show(Request $request, $alumni_id)
+    public function show($alumni_id)
     {
         //
         $alumniExperience = alumniSkill::join('alumnis', 'alumnis.id', '=', 'alumni_skills.alumni_id')
