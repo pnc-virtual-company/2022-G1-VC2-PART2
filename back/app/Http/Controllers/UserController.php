@@ -104,18 +104,30 @@ class UserController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function register(Request $request)
     {
         $user = new User();
         $user->first_name = $request->first_name;
         $user->last_name = $request->last_name;
         $user->email = $request->email;
-        $user->password = bcrypt($request->password);
         $user->role = $request->role;
         $user->status = $request->status;
         $user->verifyCode = $request->verifyCode;
-        $user->save();
         
+        if ($user->role == 'ero') {
+            $random_password = Str::random(8); 
+            $user->password = bcrypt($random_password);
+            $details = [
+                'role' => 'Ero',
+                'email' => $user->email,
+                'password' => $random_password
+            ];
+            \Mail::to($user->email)->send(new InviteAlumni($details));
+        }else{
+            $user->password = bcrypt($request->password);
+        }
+        $user->save();
+
         if ($user->role == 'alumni') {
             $alumni = new Alumni();
             $alumni->profile = $request->profile;
@@ -127,8 +139,11 @@ class UserController extends Controller
             $alumni->major = $request->major;
             $alumni->save();
         }
-
-        return Response()->json(['message' => 'successful'], 200);
+        if($user){
+            return Response()->json(['message' => 'successful'], 200);
+        }else{
+            return Response()->json(['message' => 'erro'], 200);
+        }
     }
     public function inviteAlumni(Request $request)
     {
@@ -138,7 +153,7 @@ class UserController extends Controller
         $random_password = Str::random(8); 
         $user->password = bcrypt($random_password);
         $user->role = 'alumni';
-        $user->status = 'invite';
+        $user->status = 'invited';
         $user->save();
         
         if ($user->role == 'alumni') {
@@ -150,6 +165,7 @@ class UserController extends Controller
         // return $user->password;
         if($user){
             $details = [
+                'role' => 'Alumni',
                 'email' => $email,
                 'password' => $random_password
             ];

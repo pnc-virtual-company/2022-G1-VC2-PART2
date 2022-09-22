@@ -256,7 +256,7 @@ export default {
           role: "alumni",
           status: "pending",
         };
-        axios.post("useralumni", user);
+        axios.post("register", user);
         axios.post("sendRegister", { email: this.email });
         this.$router.push("login");
       }
