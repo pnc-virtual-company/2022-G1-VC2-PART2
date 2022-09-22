@@ -3,6 +3,9 @@
 - [x] cd /front
 > <code> npm install or npm i </code>
 
+- [x] Install tailwindcss
+> <code> vue add tailwind </code>
+
 ### Step 2: Update Environment Variables
 - [x] Update <code>env.production</code> and <code>env.development</code> with IP Address of your Backend server
 
@@ -16,9 +19,6 @@ VUE_APP_API_URL=http://localhost:8000/api
 ### Step 3: Running Application
 - [x] If you are in the development environment (Compiles and hot-reloads for development)
 
-> <code>npm run dev </code> (Vue + Vite)
-- [x] If you are in the production environment (Compiles and minifies for production)
-- Vue + Vite: 
 > <code>npm run dev </code>
 
 # II. Backend
@@ -30,8 +30,6 @@ VUE_APP_API_URL=http://localhost:8000/api
 - [x] copy <code>.env.example </code> file to the <code>.env </code> file
   
 DB_DATABASE= alumni_db
-DB_USERNAME= YOUR_DB_USERNAME
-DB_PASSWORD= YOUR_DB_PASSWORD
 
 ### Step 3: Migrate migrateion table to database
 > <code> php artisan migrate </code>
@@ -46,7 +44,5 @@ DB_PASSWORD= YOUR_DB_PASSWORD
 - [x] If you are in production environments
 
 > <code> http:://YOUR_IP_ADDRESS/PROJECT/back/public </code>
-
-
 #### Example for <code>your port</code> :
 http://localhost:8000
