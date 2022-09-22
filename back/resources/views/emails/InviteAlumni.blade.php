@@ -18,7 +18,7 @@
                 </div>
             </header>
             <div style="width:90%; margin:auto; margin-top: 1rem; ">
-                <p>Dear Alumni {{$details}},</p>
+                <p>Dear {{$details['role']}},</p>
                 <p>You are invited into PNC ALUMNI APPLICATION, please use the email and password below for login to your account</p>
                 <p>Email : <a href="#"  style="text-decoration: none; color:black;"><strong>{{$details['email']}} </strong></a></p>
                 <p>Password : <strong>{{$details['password']}}</strong></p>

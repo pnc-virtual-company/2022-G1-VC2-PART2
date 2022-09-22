@@ -64,6 +64,7 @@ export default {
       });
     },
     removeAlumni(id) {
+      console.log("Removing alumnist " + id + " from ");
       swal({
         title: "Are you sure?",
         text: "You want to remove this alumni !!",
