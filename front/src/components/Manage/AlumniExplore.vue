@@ -70,8 +70,8 @@
                   </div>
                   </td>
                   <td class="text-center w-[25%]">{{alumni.major}}-{{alumni.batch}}</td>
-                  <td class="text-center w-[25%]">?</td>
-                  <td class="text-center w-[25%]">?</td>
+                  <td class="text-center w-[25%]">{{alumni.name!=null?alumni.name:'?'}}</td>
+                  <td class="text-center w-[25%]">{{alumni.position!=null?alumni.position:'?'}}</td>
                 </tr>
               </tbody>
 
@@ -188,10 +188,14 @@ export default {
         );
       }
     },
+    getUniqueYear() {
+      return this.dataAlumnis.map(x => x.batch).filter((v,i,s) => s.indexOf(v) === i);
+    },
   },
   methods:{
-      displayAlumnis(){
-        axios.get('getAlumnis').then((res) => {
+      getAlumniExplores(){
+        axios.get('alumniExplores').then((res) => {
+          console.log('My data is : ', res.data);
           this.dataAlumnis=res.data
         })
       },
@@ -208,26 +212,19 @@ export default {
     },
      getExperiences(){
         axios.get('workexperience').then(res => {
-          console.log(res.data);
           this.experiences=res.data
         });
       },
 
       getCompanies(){
          axios.get('companies').then(res => {
-          console.log(res.data);
           this.companies=res.data
         });
       },
 
-      show(id){
-         return this.experiences.find(experience =>experience['alumni_id']==id)['position'];
-        }
-   
-
   },
   mounted(){
-      this.displayAlumnis()
+      this.getAlumniExplores()
       this.getExperiences()
       this.getCompanies()
   }
