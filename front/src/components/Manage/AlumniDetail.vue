@@ -59,6 +59,7 @@
 
 <script>
 export default {
+  emits: ['reject','approve'],
   props: ["alumniDetail"],
 };
 </script>

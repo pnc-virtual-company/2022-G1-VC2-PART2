@@ -77,7 +77,7 @@
     import AlumniDetail from "./AlumniDetail.vue"
 export default {
 
-    emits: ['invite','removeAlumni',],
+    emits: ['invite','removeAlumni','approve'],
     props:['alumnis'],
     components:{'alumni-detail': AlumniDetail},
     name:'form-list',

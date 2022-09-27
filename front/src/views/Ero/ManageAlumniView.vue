@@ -108,11 +108,13 @@ export default {
       setTimeout(() => this.inviteMessage='' , 5000)
     },
     approve(user_id){
+      axios.post("approveAlumni/" + user_id)
       axios.put("approve/" + user_id).then(() => {
         this.getListAlumni();
       });
     },
     reject(user_id){
+      axios.post("rejectAlumni/" + user_id)
       axios.delete("removeUser/" + user_id).then(() => {
         this.getListAlumni();
       });
