@@ -1,6 +1,7 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import HomeView from "../views/HomeView.vue"
 import AlumniProfile from "../views/Alumni/AlumniView.vue"
+import AllAlumniView from "../views/Alumni/AllAlumniView.vue"
 import LoginView from '../views/Authentication/LoginView.vue'
 import ForgotView from '../views/Resetpassword/ForgotPW.vue'
 import RegisterView from '../views/Authentication/RegisterView.vue'
@@ -58,6 +59,11 @@ const routes = [
     name: 'ero-explore',
     component: AdminExplore,
     meta:{ middleware: [ero] }
+  },
+  {
+    path: '/allAlumniView',
+    name: 'allAlumniView',
+    component: AllAlumniView,
   },
   {
     path: '/ero-manage',
