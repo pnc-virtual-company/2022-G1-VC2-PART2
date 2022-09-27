@@ -31,7 +31,7 @@
             </tr>
         </thead>
         <tbody v-if="alumnis.length > 0" class="w-full">
-            <tr v-for:="alumni in alumnis" :key="alumni" tabindex="0" class="h-12 text-sm leading-none text-gray-800 border-b-[1px] border-gray-400 bg-gray-300">
+            <tr v-for:="alumni in alumnis" :key="alumni" tabindex="0" class=" h-12 text-sm leading-none text-gray-800 border-b-[1px] border-gray-400 bg-gray-300">
                 <td class="text-center pl-4 w-[20%]">
                     <div class="flex items-center space-x-2 p-2">
                         <img class="rounded-full w-14 h-14 border-[1px] border-skyblue object-cover" :src="'http://127.0.0.1:8000/images/profile/'+ alumni.profile" alt="">
@@ -48,6 +48,11 @@
                     {{alumni.status}}
                 </td>
                 <td class="text-center relative w-[15%]">
+                    <button @click="showDetail(alumni)"  class= "bg-skyblue hover:bg-[#23afda] shadow  rounded px-5 py-2 ml-3">
+                        <svg class="h-4 w-4 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" >
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 14.25v-2.625a3.375 3.375 0 00-3.375-3.375h-1.5A1.125 1.125 0 0113.5 7.125v-1.5a3.375 3.375 0 00-3.375-3.375H8.25m5.231 13.481L15 17.25m-4.5-15H5.625c-.621 0-1.125.504-1.125 1.125v16.5c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 00-9-9zm3.75 11.625a2.625 2.625 0 11-5.25 0 2.625 2.625 0 015.25 0z" />
+                        </svg>
+                    </button>
                     <button @click="$emit('removeAlumni', alumni['user_id'])"  class= " bg-red-500 hover:bg-red-600 shadow  rounded px-5 py-2 ml-3">
                         <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                             <path stroke-linecap="round" stroke-linejoin="round" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
@@ -65,16 +70,22 @@
             </tr>
         </tbody>
     </table>
+    <alumni-detail v-if="isDetail" :alumniDetail="alumniDetail" @approve="approve" @reject="reject"  @cancel="cancel"></alumni-detail> 
   </div>
 </template>
 <script>
+    import AlumniDetail from "./AlumniDetail.vue"
 export default {
-    emits: ['invite','removeAlumni'],
+
+    emits: ['invite','removeAlumni',],
     props:['alumnis'],
+    components:{'alumni-detail': AlumniDetail},
     name:'form-list',
     data(){
         return{
-            search:""
+            search:"",
+            alumniDetail:{},
+            isDetail:false,
         }
     },
 
@@ -87,7 +98,22 @@ export default {
     methods:{
         showAlumni(e){
             this.$emit('matchAlumni',e.target.value)
-        }
+        },
+        showDetail(alumni){
+            this.alumniDetail = alumni;
+            this.isDetail = true;
+        },
+        approve(user_id){
+            this.$emit('approve',user_id)
+            this.isDetail = false;
+        },
+        reject(user_id){
+            this.$emit('reject',user_id)
+            this.isDetail = false;
+        },
+        cancel(){
+            this.isDetail = false;
+        },
     }
 };
 

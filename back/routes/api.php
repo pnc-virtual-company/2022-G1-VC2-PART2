@@ -73,6 +73,7 @@ Route::put("university", [UniversityController::class, "update"]);
 Route::put("education", [EducationController::class, "update"]);
 Route::put("skill", [SkillController::class, "update"]);
 Route::put("alumniSkill", [AlumniSkillController::class, "update"]);
+Route::put("approve/{id}", [UserController::class, "approve"]);
 
 // ===========================Get========================================
 

@@ -17,7 +17,9 @@
     </div>
     <div v-if="isActive == 0" class="text-center">
       <filterAlumni :countAlumnis="dataAlumnis" @matchAlumni="displayAlumni" />
-      <listAlumni
+      <listAlumni 
+        @approve="approve" 
+        @reject="reject"
         class="w-[80%] m-auto mt-3"
         @matchAlumni="displayAlumni"
         @searchAlumni="queryAlumni"
@@ -104,6 +106,16 @@ export default {
       });
       this.inviteMessage = "Sending invite ..."
       setTimeout(() => this.inviteMessage='' , 5000)
+    },
+    approve(user_id){
+      axios.put("approve/" + user_id).then(() => {
+        this.getListAlumni();
+      });
+    },
+    reject(user_id){
+      axios.delete("removeUser/" + user_id).then(() => {
+        this.getListAlumni();
+      });
     },
   },
   mounted() {
