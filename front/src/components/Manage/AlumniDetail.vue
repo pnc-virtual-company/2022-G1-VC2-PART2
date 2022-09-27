@@ -1,6 +1,6 @@
 <template>
   <div class="w-[100%] bg-[#000000b9] rounded fixed z-50 md:inset-0 h-[100%] m-auto">
-    <div class="bg-white h-auto rounded m-auto w-[60%] z-10 mt-[5rem] pb-[2%]">
+    <div class="bg-white h-auto rounded m-auto w-[60%] z-10 mt-[5rem] pb-[2%]" v-click-outside="onClickOutside">
       <div class="flex justify-end p-2" @click="$emit('cancel')">
           <svg class="w-8 h-8 py-1 hover:cursor-pointer shadow hover:bg-gray-200 text-gray-900 rounded-full" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"></path></svg>
       </div>
@@ -43,8 +43,6 @@
             </div>
           </div>
         </div>
-
-
         <div v-if="alumniDetail.status=='pending'" class="w-full  flex justify-end mt-8">
           <button @click="$emit('reject',alumniDetail['user_id'])" class="hover:bg-[#cecece] border-[1px] border-gray-300 text-gray-500 shadow py-1 px-8  rounded focus:outline-none focus:shadow-outline">
               Reject
@@ -59,8 +57,11 @@
 
 <script>
 export default {
-  emits: ['reject','approve'],
+  emits: ['reject','approve','cancel',],
   props: ["alumniDetail"],
+  methods: {
+    onClickOutside(){this.$emit('cancel')},
+  }
 };
 </script>
 
