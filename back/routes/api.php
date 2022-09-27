@@ -101,5 +101,7 @@ Route::delete("university/{id}",[UniversityController::class,"destroy"]);
 Route::post('sendVerifyCode',[SendMailController::class, "sendVerifyCode"]);
 Route::post('sendRegister',[SendMailController::class, "sendRegister"]);
 Route::post('sendRemoveAccount/{id}',[SendMailController::class, "sendRemoveAccount"]);
+Route::post('rejectAlumni/{id}',[SendMailController::class, "rejectAlumni"]);
+Route::post('approveAlumni/{id}',[SendMailController::class, "approveAlumni"]);
 
 

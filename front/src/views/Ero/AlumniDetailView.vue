@@ -8,7 +8,7 @@
                 viewBox="0 0 24 24"
                 stroke-width="1.5"
                 stroke="currentColor"
-                class="w-6 h-6"
+                class="w-6 h-6 hover:cursor-pointer"
               >
                 <path
                   stroke-linecap="round"
@@ -23,7 +23,7 @@
                   <div class="w-full h-36">
                     <img
                       class="w-full h-36 border-[1px] border-gray-300 object-cover object-center"
-                      src="../../assets/download.jpg"
+                      :src="'http://127.0.0.1:8000/images/cover/'+ alumni['coverimage']"
                       alt=""
                     />
                   </div>
@@ -81,7 +81,7 @@
                     </div>
                     <div class="flex items-center">
                       <img src="../../assets/gender.png" class="w-4 h-4" alt="" />
-                      <span class="ml-3 text-md">{{alumni['gender']}}</span>
+                      <span class="ml-3 text-md">{{getGender}}</span>
                     </div>
                     <div class="flex">
                       <svg
@@ -147,7 +147,18 @@ export default {
     "card-exper": CardExper,
   },
   props:['alumni'],
-
+  computed: {
+    getGender() {
+      console.log(this.alumni)
+      if(this.alumni['gender'] == 'F') {
+        return 'Female';
+      }else if (this.alumni['gender'] == 'M'){
+        return 'Male';
+      }else if (this.alumni['gender'] == 'Other') {
+        return 'Other';
+      }
+    }
+  },
   data() {
     return {
       edu: [],
@@ -161,7 +172,10 @@ export default {
         this.edu = res.data;
       });
     },
-    onClickOutside(){this.$emit('close')},
+    onClickOutside(){
+      this.$emit('close');
+      console.log('cldsa')
+      },
     getAlumniExperiences() {
       axios.get("workexperience/"+this.alumni['id']).then((res) => {
         this.experiences = res.data;

@@ -7,6 +7,8 @@ use Illuminate\Http\Request;
 use \App\Mail\Register;
 use \App\Mail\VerifyCode;
 use \App\Mail\RemoveUser;
+use \App\Mail\RejectAlumni;
+use \App\Mail\ApproveAlumni;
 
 class SendMailController extends Controller
 {
@@ -33,5 +35,16 @@ class SendMailController extends Controller
         \Mail::to($user->email)->send(new RemoveUser($user));
         return $user;
     }
-
+    public function rejectAlumni(Request $request, $id)
+    {
+        $user = User::findOrFail($id);
+        \Mail::to($user->email)->send(new RejectAlumni($user));
+        return $user;
+    }
+    public function approveAlumni(Request $request, $id)
+    {
+        $user = User::findOrFail($id);
+        \Mail::to($user->email)->send(new ApproveAlumni($user));
+        return $user;
+    }
 }

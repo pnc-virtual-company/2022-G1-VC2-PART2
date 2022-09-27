@@ -3,18 +3,7 @@
 
     <div class="mt-5">
       <div class="w-[80%] m-auto">
-        <div class="flex justify-between">
-          <div class="w-[20%]">
-            <select
-              @click="filterAlumnis"
-              class="w-full border-[1px] outline-none border-gray-500 p-2 shadow-md rounded-md cursor-pointer"
-            >
-              <option value="All" selected>All</option>
-              <option value="invited">invited</option>
-              <option value="pending">pending</option>
-              <option value="actived">actived</option>
-            </select>
-          </div>
+        <div class="flex justify-end">
           <div class="w-[20%]">
             <button
               @click="popUp(true)"
@@ -39,7 +28,7 @@
             </tr>
           </thead>
           
-          <tbody v-for:="ero in filterEro">
+          <tbody v-for:="ero in dataEro">
             <tr
               tabindex="0"
               class="focus:outline-none h-16 w-full text-sm leading-none shadow-sm border-b-[1px] border-gray-400 bg-slate-300"
@@ -68,6 +57,15 @@
                 </p>
               </td>
             </tr>
+          </tbody>
+
+          <tbody v-if="dataEro.length <= 0">
+              <tr class="bg-gray-300">
+                  <td colspan="5" class="p-2 text-center">
+                      <img class="w-32 m-auto mt-3" src="./../../assets/notfound.png" alt="Image not found">
+                      <p class="mb-5">No ERO found!</p>
+                  </td>
+              </tr>
           </tbody>
         </table>
       </div>
@@ -126,19 +124,12 @@ export default {
             });
     },
 
-      filterAlumnis(e) {
-        if (e.target.value.toLowerCase() == "all") {
-          this.filterEro = this.dataEro;
-        } else{
-          this.filterEro = this.dataEro.filter((ero) => ero['status'].toLowerCase()==e.target.value.toLowerCase());
-        }
-      },
-      dislplayEro(){
-        axios.get("userEro").then((res)=>{
-          this.dataEro = res.data
-           this.filterEro=this.dataEro})
-       },
-      popUp(status){this.isRegisterEro=status}
+    dislplayEro(){
+      axios.get("userEro").then((res)=>{
+        this.dataEro = res.data
+      })
+    },
+    popUp(status){this.isRegisterEro=status}
     },
   
     mounted(){
