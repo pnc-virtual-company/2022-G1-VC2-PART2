@@ -18,10 +18,9 @@
     <div v-if="isActive == 0" class="text-center">
       <filterAlumni :countAlumnis="dataAlumnis" @matchAlumni="displayAlumni" />
       <listAlumni 
-        @approve="approve" 
-        @reject="reject"
         class="w-[80%] m-auto mt-3"
         @matchAlumni="displayAlumni"
+        @showDetail="showDetail"
         @searchAlumni="queryAlumni"
         @removeAlumni="removeAlumni"
         @invite="isInvite = true"
@@ -31,6 +30,7 @@
     <company-list v-if="isActive == 1" class="text-center mt-4" />
     <university-list v-if="isActive == 2" class="text-center mt-4" />
     <invite-alumni v-if="isInvite" @cancelInvite="isInvite=false" @inviteAlumni="inviteAlumni" :inviteMessage="inviteMessage"></invite-alumni>
+    <alumni-detail v-if="isDetail" :alumniDetail="alumniDetail" @approve="approve" @reject="reject"  @cancel="cancel"></alumni-detail> 
   </section>
 </template>
 <script>
@@ -39,6 +39,7 @@ import University from "./UniversityView.vue";
 import listAlumni from "../../components/Manage/ListAlumnis.vue";
 import filterAlumni from "../../components/Manage/Alumnicardstatus.vue";
 import InviteAlumni from "../Alumni/FormInput/FormInviteAlumniView.vue";
+import AlumniDetail from "../../components/Manage/AlumniDetail.vue"
 import axios from "../../axios-http";
 import swal from "sweetalert";
 export default {
@@ -48,6 +49,7 @@ export default {
     "invite-alumni": InviteAlumni,
     listAlumni,
     filterAlumni,
+    'alumni-detail': AlumniDetail
   },
   data() {
     return {
@@ -56,6 +58,8 @@ export default {
       filterAlumnis: [],
       isInvite: false,
       inviteMessage: '',
+      isDetail:false,
+      alumniDetail:[],
     };
   },
   methods: {
@@ -108,14 +112,30 @@ export default {
       setTimeout(() => this.inviteMessage='' , 5000)
     },
     approve(user_id){
+      axios.post("approveAlumni/" + user_id)
+      .then(() => {
+        this.isDetail = false;
+      });
       axios.put("approve/" + user_id).then(() => {
         this.getListAlumni();
       });
     },
     reject(user_id){
-      axios.delete("removeUser/" + user_id).then(() => {
+      axios.post("rejectAlumni/" + user_id)
+      .then(() => {
+        this.isDetail = false;
+      });
+      axios.delete("removeUser/" + user_id)
+      .then(() => {
         this.getListAlumni();
       });
+    },
+    showDetail(alumni){
+      this.alumniDetail = alumni;
+      this.isDetail = true;
+    },
+    cancel(){
+      this.isDetail = false;
     },
   },
   mounted() {

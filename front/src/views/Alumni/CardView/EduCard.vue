@@ -15,9 +15,9 @@
                         <img class="w-16 h-16 rounded-full border-[1px] border-gray-400 object-cover" :src="'http://127.0.0.1:8000/images/profile/' + education.university.profile " alt="">
                     </div>
                     <div class="ml-4">
-                        <p class="text-sm leading-3 font-medium">{{education.university.name}}</p>
-                        <h1 class="font-semibold">{{education.degree}}</h1>
-                        <p class="text-[13px] ">{{education.start_year}} - {{education.end_year}}</p>
+                        <h1 class="text-sm leading-3 font-bold">{{education.university.name}}</h1>
+                        <p class="font-medium">{{education.degree}}</p>
+                        <p class="text-[13px] ">{{education.start_month}}/{{education.start_year}} - {{education.end_month}}/{{education.end_year}}</p>
                     </div>
                 </div>
                 <div>
