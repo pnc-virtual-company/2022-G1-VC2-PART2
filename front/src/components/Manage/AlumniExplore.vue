@@ -65,7 +65,7 @@
           
                 <td class="text-center w-[25%]">
                   <div class="flex items-center space-x-2">
-                      <img class="ml-5 rounded-full w-14 h-14 border-[1px] border-skyblue" :src="'http://127.0.0.1:8000/images/profile/' +alumni.profile" alt="">
+                      <img class="ml-5 rounded-full w-14 h-14 border-[1px] border-skyblue object-cover" :src="'http://127.0.0.1:8000/images/profile/' +alumni.profile" alt="">
                       <p class="pl-6">{{alumni.first_name + ' '+alumni.last_name}}</p>
                   </div>
                   </td>

@@ -69,6 +69,15 @@
               </td>
             </tr>
           </tbody>
+
+          <tbody v-if="filterEro.length <= 0">
+              <tr class="bg-gray-300">
+                  <td colspan="5" class="p-2 text-center">
+                      <img class="w-32 m-auto mt-3" src="./../../assets/notfound.png" alt="Image not found">
+                      <p class="mb-5">No ALumnis found!</p>
+                  </td>
+              </tr>
+          </tbody>
         </table>
       </div>
     </div>
