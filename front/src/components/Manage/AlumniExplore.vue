@@ -220,18 +220,8 @@ export default {
       }
     },
 
-    getStartBatch(){
-      let startBatch = this.dataAlumnis[0]['batch'];
-      if(this.dataAlumnis.length){
-        for(let i=1; i<this.dataAlumnis.length; i++){
-          if(startBatch > this.dataAlumnis[i]['batch']){startBatch = this.dataAlumnis[i]['batch'];}
-        }
-        return startBatch;
-      }
-    },
-
     uniqueBatch(){
-    let startBatch=parseInt(this.getStartBatch())
+    let startBatch=2007
     let latestBatch=parseInt(this.getLatestBatch())
     while(startBatch <= latestBatch){
       this.uniquesbatches.push(startBatch);
