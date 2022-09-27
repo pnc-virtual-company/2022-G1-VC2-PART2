@@ -1,18 +1,15 @@
 <template>
   <section>
     <navbar-view :role="this.$store.state.role" :user_id="this.$store.state.userId" />
-    <!-- <form-login></form-login> -->
     <router-view :user_id="this.$store.state.userId" :alu_id="this.$store.state.alumniId" :role="this.$store.state.role" />
   </section>
 </template>
 <script>
 import NavbarVue from "./components/navbar/NavbarView.vue";
-// import FormLogin from "./views/Login&Logout/LoginView.vue";
 import axios from "./axios-http"
 export default {
   components: {
     "navbar-view": NavbarVue,
-    // "form-login": FormLogin
   },
   methods: {
     async getUserInfo(){

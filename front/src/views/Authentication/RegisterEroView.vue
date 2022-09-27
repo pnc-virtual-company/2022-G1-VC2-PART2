@@ -46,6 +46,7 @@
                 <input v-model="email" class="border-[1px] border-gray-300 rounded w-full py-2.5 px-2 text-sm text-gray-700 mb-1 leading-tight outline-none focus:shadow-outline focus:border-[#22bbea]" :class="{ 'border-red-500 bg-red-100': is_email}" id="email" type="email" placeholder="email..."
                 />
               </div>
+              <div class="text-red-500 text-sm mb-2 m-1">{{sms_erorr_email}}</div>
               <p class="text-medium">{{inviteMessage}}</p>
               <button class="bg-[#22BBEA] text-white py-2 w-[98%] px-4 rounded focus:shadow-outline ml-1 mb-2 mt-4">
               Invite
@@ -69,43 +70,47 @@ export default {
       is_firstname:false,
       is_lastname:false,
       is_email:false,
-      erorr_email:'',
+      sms_erorr_email: '',
     }
   },
   methods:{
     onClickOutSide(){this.$emit('popUp', false)},
     register(){
       if(this.validate()){
-        var user = {
-        'first_name': this.first_name, 
-        'last_name': this.last_name, 
-        'email':this.email,
-        'role':'ero',
-        'status':'actived',
+        if (this.email.match(/^[\w.]+@([\w-]+\.)+[\w-]{2,3}$/)) {
+          var user = {
+          'first_name': this.first_name, 
+          'last_name': this.last_name, 
+          'email':this.email,
+          'role':'ero',
+          'status':'actived',
+          }
+          this.$emit('register', user)
+        }else {
+          this.is_email = true;
+          this.sms_erorr_email = 'This email address is not valid';
         }
-        this.$emit('register', user)
       }
     },   
-        validate() {
-        this.is_firstname = false;
-        if(this.first_name.trim() == '') {
-            this.is_firstname = true;
-        }
-        this.is_lastname = false;
-        if(this.last_name.trim() == '') {
-            this.is_lastname = true;
-        }
-        this.is_email = false;
-        if (this.email.match(/^[\w.]+@([\w-]+\.)+[\w-]{2,3}$/)) {
-            this.is_email = false;
-        }else{
-            this.is_email = true;
-        }
-        let message = true;
-        if (this.is_firstname || this.is_lastname || this.is_email || this.is_password ) {
-            message = false;
-        }
-        return message;
+    validate() {
+      this.is_firstname = false;
+      if(this.first_name.trim() == '') {
+          this.is_firstname = true;
+      }
+      this.is_lastname = false;
+      if(this.last_name.trim() == '') {
+          this.is_lastname = true;
+      }
+      this.is_email = false;
+      this.sms_erorr_email = '';
+      if (this.email.trim() == '') {
+          this.is_email = true;
+      }
+      let message = true;
+      if (this.is_firstname || this.is_lastname || this.is_email || this.is_password ) {
+          message = false;
+      }
+      return message;
     },
   }
 };

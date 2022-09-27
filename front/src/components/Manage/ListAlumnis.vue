@@ -15,7 +15,7 @@
                     </svg>
                 </div>
             </div>
-            <div class="w-[20%]">
+            <div v-if="this.$store.state.role== 'ero'" class="w-[20%]">
                 <button class="w-[100%] p-1 bg-orange rounded text-white text-2xl text-bold shadow-md" @click="$emit('invite')">Invite</button>
             </div>
         </div>

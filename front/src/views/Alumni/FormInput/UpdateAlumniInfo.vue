@@ -19,7 +19,7 @@
                             First Name <span class="text-red-600">*</span>
                         </label>
                         <input v-model="firstname"
-                            class="block appearance-none w-full bg-white border border-gray-400 px-4 py-2 pr-8 rounded shadow leading-tight  focus:shadow-outline focus:outline-[#22bbea]"
+                            class="block appearance-none w-full bg-white border-[1px] border-gray-400 px-4 py-2 pr-8 rounded shadow leading-tight  focus:shadow-outline focus:outline-[#22bbea]"
                             :class="{ 'border-red-500 bg-red-100': is_firstname}"
                             type="text" placeholder="First name...">
                     </div>
@@ -28,7 +28,7 @@
                             Last Name <span class="text-red-600">*</span>
                         </label>
                         <input v-model="lastname"
-                            class="block appearance-none w-full bg-white border border-gray-400 px-4 py-2 pr-8 rounded shadow leading-tight  focus:shadow-outline focus:outline-[#22bbea]"
+                            class="block appearance-none w-full bg-white border-[1px] border-gray-400 px-4 py-2 pr-8 rounded shadow leading-tight  focus:shadow-outline focus:outline-[#22bbea]"
                             :class="{ 'border-red-500 bg-red-100': is_lastname}"
                             type="text" placeholder="Last name...">
                     </div>
@@ -38,7 +38,7 @@
                         Email <span class="text-red-600">*</span>
                     </label>
                     <input v-model="email"
-                        class="block appearance-none w-full bg-white border border-gray-400 px-4 py-2 rounded shadow leading-tight  focus:shadow-outline focus:outline-[#22bbea]"
+                        class="block appearance-none w-full bg-white border-[1px] border-gray-400 px-4 py-2 rounded shadow leading-tight  focus:shadow-outline focus:outline-[#22bbea]"
                         :class="{ 'border-red-500 bg-red-100': is_email}"
                         id="email" type="email" placeholder="Email..." required>
                 </div>
@@ -48,7 +48,7 @@
                         Phone <span class="text-red-600">*</span>
                     </label>
                     <input v-model="phone"
-                        class="block appearance-none w-full bg-white border border-gray-400 px-4 py-2 pr-8 rounded shadow leading-tight  focus:shadow-outline focus:outline-[#22bbea]"
+                        class="block appearance-none w-full bg-white border-[1px] border-gray-400 px-4 py-2 pr-8 rounded shadow leading-tight  focus:shadow-outline focus:outline-[#22bbea]"
                         :class="{ 'border-red-500 bg-red-100': is_phone}"
                         id="phone" type="tel" maxlength="10" placeholder="Tel..." required>
                 </div>
@@ -57,7 +57,7 @@
                     <div class="w-[50%] m-1 relative">
                         <label class="block text-gray-700 text-[15px] mb-1">Batch <span class="text-red-600">*</span></label>
                         <div class="inline-block relative w-full">
-                            <select v-model="batch" class="block appearance-none w-full bg-white border border-gray-400 px-4 py-2 pr-8 rounded shadow leading-tight  focus:shadow-outline focus:outline-[#22bbea]" :class="{ 'border-red-500 bg-red-100': is_batch}">
+                            <select v-model="batch" class="block appearance-none w-full bg-white border-[1px] border-gray-400 px-4 py-2 pr-8 rounded shadow leading-tight  focus:shadow-outline focus:outline-[#22bbea]" :class="{ 'border-red-500 bg-red-100': is_batch}">
                                 <option value="2007">2007</option>
                                 <option value="2008">2008</option>
                                 <option value="2009">2009</option>
@@ -82,7 +82,7 @@
                     <div class="w-[50%] m-1 relative">
                         <label class="block text-gray-700 text-[15px] mb-1">Major <span class="text-red-600">*</span></label>
                         <div class="inline-block relative w-full">
-                            <select v-model="major" class="block appearance-none w-full bg-white border border-gray-400 px-4 py-2 pr-8 rounded shadow leading-tight  focus:shadow-outline focus:outline-[#22bbea]" :class="{ 'border-red-500 bg-red-100': is_major}">
+                            <select v-model="major" class="block appearance-none w-full bg-white border-[1px] border-gray-400 px-4 py-2 pr-8 rounded shadow leading-tight  focus:shadow-outline focus:outline-[#22bbea]" :class="{ 'border-red-500 bg-red-100': is_major}">
                                 <option value="WEB">WEB</option>
                                 <option value="SNA">SNA</option>
                             </select>

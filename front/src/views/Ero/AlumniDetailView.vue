@@ -8,7 +8,7 @@
                 viewBox="0 0 24 24"
                 stroke-width="1.5"
                 stroke="currentColor"
-                class="w-6 h-6"
+                class="w-6 h-6 hover:cursor-pointer"
               >
                 <path
                   stroke-linecap="round"
@@ -172,7 +172,10 @@ export default {
         this.edu = res.data;
       });
     },
-    onClickOutside(){this.$emit('close')},
+    onClickOutside(){
+      this.$emit('close');
+      console.log('cldsa')
+      },
     getAlumniExperiences() {
       axios.get("workexperience/"+this.alumni['id']).then((res) => {
         this.experiences = res.data;
