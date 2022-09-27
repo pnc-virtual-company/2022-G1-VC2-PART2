@@ -295,5 +295,9 @@ class UserController extends Controller
         User::destroy($id);
         return response()->json(['message' => "The alumni has been removed"]);
     }
-
+    
+    public function getEmail($email) 
+    {
+        return User::where('email', $email)->get();
+    }
 }

@@ -49,6 +49,7 @@
                 placeholder="email..."
               />
             </div>
+            <div class="text-red-500 text-sm mb-2">{{error_email}}</div>
             <div class="mb-2 relative w-[99%] m-atuo">
               <label class="block text-gray-700 text-lg mb-1 ml-1" for="password">
                 Password <span class="text-red-500">*</span>
@@ -108,9 +109,9 @@
               </label>
               <input
                 v-model="phone"
-                class="shadow border rounded w-full py-2.5 px-2 text-sm text-gray-700 mb-1 leading-tight outline-none focus:shadow-outline focus:border-[#22bbea]"
+                class="shadow border rounded w-full p-2 text-sm text-gray-700 mb-1 leading-tight outline-none focus:shadow-outline focus:border-[#22bbea]"
                 :class="{'border-red-500 bg-red-100': is_phone }"
-                id="phone"
+                id="phone" maxlength="10"
                 type="text"
                 placeholder="phone..."
               />
@@ -123,7 +124,7 @@
                 <select
                   v-model="batch"
                   id="batch"
-                  class="w-full rounded border p-2 outline-none text-gray-500 tesx-sm"
+                  class="w-full rounded border p-2 outline-none text-gray-500 text-sm"
                   :class="{ 'border-red-500 bg-red-100': is_batch }"
                 >
                   <option value="" selected disabled>Select Your batch</option>
@@ -193,6 +194,7 @@
                   >
                 </div>
               </div>
+              <div class="text-red-500 text-sm mb-2">{{gender_not_input}}</div>
             </div>
             <button
               class="bg-[#22BBEA] text-white py-2 w-[98%] px-4 rounded focus:shadow-outline ml-1 mt-4"
@@ -238,7 +240,9 @@ export default {
       is_phone: false,
       is_batch: false,
       is_major: false,
-      erorr_email: "",
+      is_gender: false,
+      error_email: "",
+      gender_not_input: '',
     };
   },
   methods: {
@@ -268,9 +272,16 @@ export default {
         this.showpassword = "password";
       }
     },
-    next() {
+    async next() {
       if (this.validateStep1()) {
-        this.step1 = false;
+        await axios.get('getEmail/' + this.email).then(res=> {
+          if(res.data.length== 0) {
+            this.step1 = false;
+          }else {
+            this.is_email = true;
+            this.error_email = 'The email has already been taken.'
+          }
+        })
       }
     },
     validateStep1() {
@@ -286,10 +297,15 @@ export default {
       if (this.password.trim() == "") {
         this.is_password = true;
       }
+
       this.is_email = false;
+      this.error_email = ''
       if (this.email.match(/^[\w.]+@([\w-]+\.)+[\w-]{2,3}$/)) {
         this.is_email = false;
       } else {
+        if(this.email.trim() != '') {
+          this.error_email = 'This email address is not valid'
+        }
         this.is_email = true;
       }
       let message = true;
@@ -309,12 +325,18 @@ export default {
       if (this.batch == "") {
         this.is_batch = true;
       }
+      this.is_gender = false;
+      this.gender_not_input = ''
+      if (this.gender == "") {
+        this.is_gender = true;
+        this.gender_not_input = 'please chose your gender'
+      }
       this.is_major = false;
       if (this.major.trim() == "") {
         this.is_major = true;
       }
       let message = true;
-      if (this.is_phone || this.is_batch || this.is_major) {
+      if (this.is_phone || this.is_batch || this.is_major || this.is_gender) {
         message = false;
       }
       return message;
