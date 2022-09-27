@@ -15,8 +15,8 @@
                 </div>
                 <div class="ml-4">
                     <h1 class="font-semibold">{{experience.position}}</h1>
-                    <p class="text-sm leading-3">{{experience.name}}</p>
-                    <p class="text-[13px] font-medium">{{experience.start_month+'/'+ experience.start_year}} - {{experience.end_month==null? experience.end_year:experience.end_month+'/'+  experience.end_year}}</p>
+                    <p class="font-medium">{{experience.name}}</p>
+                    <p class="text-[13px]">{{experience.start_month+'/'+ experience.start_year}} - {{experience.end_month==null? experience.end_year:experience.end_month+'/'+  experience.end_year}}</p>
                 </div>
             </div>
             <div>

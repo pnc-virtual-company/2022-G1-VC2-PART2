@@ -14,23 +14,21 @@
                     class="w-full border-[1px] outline-none border-gray-400 p-2 shadow-md rounded cursor-pointer mr-2 focus:border-skyblue"
                   >
                     <option value="All" selected>Company</option>
-                    <option v-if="companies.length" v-for:="company in companies" :value="company['name']" selected>{{company['name']}}</option>
+                    <option v-for:="company in companies" :value="company['name']" selected>{{company['name']}}</option>
                   </select>
                   <select v-model="major"
                     class="w-full border-[1px] outline-none border-gray-400 p-2 shadow-md rounded cursor-pointer mr-2 focus:border-skyblue"
                   >
-                    <option value="All" selected>Major</option>
-                    <option value="WEB">WEB</option>
+                    <option value="All">Major</option>
                     <option value="SNA">SNA</option>
-                    <option value="IT">IT</option>
+                    <option value="WEB">WEB</option>
                   </select>
-                  <select v-model="batch"
+                  <select v-model="batch" v-if="uniquesbatches.length"
                     class="w-full border-[1px] outline-none border-gray-400 p-2 shadow-md rounded cursor-pointer mr-2 focus:border-skyblue"
                   >
                     <option value="All" selected>Batch</option>
-                    <option value="2021">2021</option>
-                    <option value="2020">2020</option>
-                    <option value="2019">2019</option>
+                    <option v-for="batch in uniquesbatches" :key="batch" :value="batch" selected>{{batch}}</option>
+                   
                   </select>
                 </div>
                 <div>
@@ -62,7 +60,6 @@
                   tabindex="0"
                   class="h-16 w-full text-sm leading-none shadow-sm border-b-[1px] border-gray-400 bg-gray-300 hover:cursor-pointer hover:bg-gray-400"
                 >
-          
                 <td class="text-center w-[25%]">
                   <div class="flex items-center space-x-2">
                       <img class="ml-5 rounded-full w-14 h-14 border-[1px] border-skyblue object-cover" :src="'http://127.0.0.1:8000/images/profile/' +alumni.profile" alt="">
@@ -87,9 +84,9 @@
           </div>
         </div>
         <alumni-detail 
-        v-if="detail" 
+        v-if="isDetail" 
         :alumni="detialAlumni"
-        @close="detail=false" />
+        @close="isDetail=false" />
     </section>
 </template>
 
@@ -103,20 +100,19 @@ export default {
   data(){
       return{
           detialAlumni:[],
-          experiences:[],
-          companies:[],
           dataAlumnis:[],
+          companies:[],
           company: 'All',
           batch: 'All',
           major: 'All',
           inputSearch: '',
-          detail: false,
+          isDetail: false,
+          uniquesbatches:[],
           
       }
   },
 
   computed: {
-    
     filterAlumnis() {
       if(this.company == 'All' && this.major == 'All' && this.batch == 'All') {
         return this.dataAlumnis.filter(alumni => 
@@ -126,8 +122,9 @@ export default {
         || alumni.batch.toLowerCase().includes(this.inputSearch.toLowerCase()) 
         || alumni.major.toLowerCase().includes(this.inputSearch.toLowerCase())
         );
-
-      }else if (this.company == 'All' && this.major == 'All' && this.batch != 'All'){
+      }
+      
+      else if (this.company == 'All' && this.major == 'All' && this.batch != 'All'){
         return this.dataAlumnis.filter(alumni => 
         alumni.batch == this.batch &&
         (alumni.first_name.toLowerCase().includes(this.inputSearch.toLowerCase()) 
@@ -170,10 +167,10 @@ export default {
         || alumni.major.toLowerCase().includes(this.inputSearch.toLowerCase()))      
         );
       }else if (this.company != 'All' && this.major == 'All' && this.batch == 'All'){
-        return this.dataAlumnis.filter(alumni => alumni.company == this.company &&
+        return this.dataAlumnis.filter(alumni => alumni.name == this.company &&
         (alumni.first_name.toLowerCase().includes(this.inputSearch.toLowerCase()) 
         || alumni.last_name.toLowerCase().includes(this.inputSearch.toLowerCase()) 
-        || alumni.company.toLowerCase().includes(this.inputSearch.toLowerCase()) 
+        || alumni.name.toLowerCase().includes(this.inputSearch.toLowerCase()) 
         || alumni.batch.toLowerCase().includes(this.inputSearch.toLowerCase()) 
         || alumni.major.toLowerCase().includes(this.inputSearch.toLowerCase()))
         
@@ -188,44 +185,53 @@ export default {
         );
       }
     },
-    getUniqueYear() {
-      return this.dataAlumnis.map(x => x.batch).filter((v,i,s) => s.indexOf(v) === i);
-    },
+
   },
   methods:{
-      getAlumniExplores(){
-        axios.get('alumniExplores').then((res) => {
-          console.log('My data is : ', res.data);
-          this.dataAlumnis=res.data
-        })
-      },
-      clear() {
-        this.inputSearch = '';
-        this.major = 'All';
-        this.batch = 'All';
-        this.company = 'All';
-      },
-
-      onClickDetial(alumni) {
-      this.detialAlumni=alumni;
-      this.detail=true;
+    getAlumniExplores(){
+      axios.get('alumniExplores').then((res) => {
+        this.dataAlumnis=res.data
+        this.uniqueBatch()
+      })
     },
-     getExperiences(){
-        axios.get('workexperience').then(res => {
-          this.experiences=res.data
-        });
-      },
+    clear() {
+      this.inputSearch = '';
+      this.major = 'All';
+      this.batch = 'All';
+      this.company = 'All';
+    },
 
-      getCompanies(){
-         axios.get('companies').then(res => {
-          this.companies=res.data
-        });
-      },
+    onClickDetial(alumni) {
+    this.detialAlumni=alumni;
+    this.isDetail=true;
+    },
+
+    getCompanies(){
+      axios.get('companies').then(res => {this.companies=res.data})
+    },
+
+    getLatestBatch(){
+      let latestBatch = this.dataAlumnis[0]['batch'];
+      if(this.dataAlumnis.length){
+        for(let i=1; i<this.dataAlumnis.length; i++){
+          if(latestBatch < this.dataAlumnis[i]['batch']){latestBatch = this.dataAlumnis[i]['batch'];}
+        }
+        return latestBatch;
+      }
+    },
+
+    uniqueBatch(){
+    let startBatch=2007
+    let latestBatch=parseInt(this.getLatestBatch())
+    while(startBatch <= latestBatch){
+      this.uniquesbatches.push(startBatch);
+      startBatch++;
+    }
+  },
 
   },
   mounted(){
       this.getAlumniExplores()
-      this.getExperiences()
       this.getCompanies()
   }
 };
