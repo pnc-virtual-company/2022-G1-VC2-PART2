@@ -118,43 +118,41 @@ export default {
         return this.dataAlumnis.filter(alumni => 
         alumni.first_name.toLowerCase().includes(this.inputSearch.toLowerCase())
         || alumni.last_name.toLowerCase().includes(this.inputSearch.toLowerCase()) 
-        || alumni.company.toLowerCase().includes(this.inputSearch.toLowerCase()) 
+        || alumni.name.toLowerCase().includes(this.inputSearch.toLowerCase()) 
         || alumni.batch.toLowerCase().includes(this.inputSearch.toLowerCase()) 
         || alumni.major.toLowerCase().includes(this.inputSearch.toLowerCase())
         );
-      }
-      
-      else if (this.company == 'All' && this.major == 'All' && this.batch != 'All'){
+      }else if (this.company == 'All' && this.major == 'All' && this.batch != 'All'){
         return this.dataAlumnis.filter(alumni => 
         alumni.batch == this.batch &&
         (alumni.first_name.toLowerCase().includes(this.inputSearch.toLowerCase()) 
         || alumni.last_name.toLowerCase().includes(this.inputSearch.toLowerCase()) 
-        || alumni.company.toLowerCase().includes(this.inputSearch.toLowerCase()) 
+        || alumni.name.toLowerCase().includes(this.inputSearch.toLowerCase()) 
         || alumni.batch.toLowerCase().includes(this.inputSearch.toLowerCase()) 
         || alumni.major.toLowerCase().includes(this.inputSearch.toLowerCase()))
         );
       }else if (this.company == 'All' && this.major != 'All' && this.batch != 'All'){
         return this.dataAlumnis.filter(alumni => 
-        alumni.batch == this.batch && alumni.major == this.batch &&
+        alumni.batch == this.batch && alumni.major == this.major &&
         (alumni.first_name.toLowerCase().includes(this.inputSearch.toLowerCase()) 
         || alumni.last_name.toLowerCase().includes(this.inputSearch.toLowerCase()) 
-        || alumni.company.toLowerCase().includes(this.inputSearch.toLowerCase()) 
+        || alumni.name.toLowerCase().includes(this.inputSearch.toLowerCase()) 
         || alumni.batch.toLowerCase().includes(this.inputSearch.toLowerCase()) 
         || alumni.major.toLowerCase().includes(this.inputSearch.toLowerCase()))        
         );
       }else if (this.company != 'All' && this.major == 'All' && this.batch != 'All'){
-        return this.dataAlumnis.filter(alumni => alumni.batch == this.batch && alumni.company == this.company &&
+        return this.dataAlumnis.filter(alumni => alumni.batch == this.batch && alumni.name == this.company &&
         (alumni.first_name.toLowerCase().includes(this.inputSearch.toLowerCase()) 
         || alumni.last_name.toLowerCase().includes(this.inputSearch.toLowerCase()) 
-        || alumni.company.toLowerCase().includes(this.inputSearch.toLowerCase()) 
+        || alumni.name.toLowerCase().includes(this.inputSearch.toLowerCase()) 
         || alumni.batch.toLowerCase().includes(this.inputSearch.toLowerCase()) 
         || alumni.major.toLowerCase().includes(this.inputSearch.toLowerCase()))
         );
       }else if (this.company != 'All' && this.major != 'All' && this.batch == 'All'){
-        return this.dataAlumnis.filter(alumni => alumni.major == this.major && alumni.company == this.company &&
+        return this.dataAlumnis.filter(alumni => alumni.major == this.major && alumni.name == this.company &&
         (alumni.first_name.toLowerCase().includes(this.inputSearch.toLowerCase()) 
         || alumni.last_name.toLowerCase().includes(this.inputSearch.toLowerCase()) 
-        || alumni.company.toLowerCase().includes(this.inputSearch.toLowerCase()) 
+        || alumni.name.toLowerCase().includes(this.inputSearch.toLowerCase()) 
         || alumni.batch.toLowerCase().includes(this.inputSearch.toLowerCase()) 
         || alumni.major.toLowerCase().includes(this.inputSearch.toLowerCase()))
         );
@@ -162,7 +160,7 @@ export default {
         return this.dataAlumnis.filter(alumni => alumni.major == this.major &&
         (alumni.first_name.toLowerCase().includes(this.inputSearch.toLowerCase()) 
         || alumni.last_name.toLowerCase().includes(this.inputSearch.toLowerCase()) 
-        || alumni.company.toLowerCase().includes(this.inputSearch.toLowerCase()) 
+        || alumni.name.toLowerCase().includes(this.inputSearch.toLowerCase()) 
         || alumni.batch.toLowerCase().includes(this.inputSearch.toLowerCase()) 
         || alumni.major.toLowerCase().includes(this.inputSearch.toLowerCase()))      
         );
@@ -176,10 +174,10 @@ export default {
         
         );
       }else{
-        return this.dataAlumnis.filter(alumni => alumni.batch == this.batch && alumni.company == this.company && alumni.major == this.major &&
+        return this.dataAlumnis.filter(alumni => alumni.batch == this.batch && alumni.name == this.company && alumni.major == this.major &&
         (alumni.first_name.toLowerCase().includes(this.inputSearch.toLowerCase()) 
         || alumni.last_name.toLowerCase().includes(this.inputSearch.toLowerCase()) 
-        || alumni.company.toLowerCase().includes(this.inputSearch.toLowerCase()) 
+        || alumni.name.toLowerCase().includes(this.inputSearch.toLowerCase()) 
         || alumni.batch.toLowerCase().includes(this.inputSearch.toLowerCase()) 
         || alumni.major.toLowerCase().includes(this.inputSearch.toLowerCase()))       
         );
