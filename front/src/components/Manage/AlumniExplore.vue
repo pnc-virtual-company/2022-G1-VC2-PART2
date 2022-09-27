@@ -65,13 +65,13 @@
           
                 <td class="text-center w-[25%]">
                   <div class="flex items-center space-x-2">
-                      <img class="ml-5 rounded-full w-14 h-14 border-[1px] border-skyblue" :src="'http://127.0.0.1:8000/images/profile/' +alumni.profile" alt="">
+                      <img class="ml-5 rounded-full w-14 h-14 border-[1px] border-skyblue object-cover" :src="'http://127.0.0.1:8000/images/profile/' +alumni.profile" alt="">
                       <p class="pl-6">{{alumni.first_name + ' '+alumni.last_name}}</p>
                   </div>
                   </td>
                   <td class="text-center w-[25%]">{{alumni.major}}-{{alumni.batch}}</td>
-                  <td class="text-center w-[25%]">?</td>
-                  <td class="text-center w-[25%]">?</td>
+                  <td class="text-center w-[25%]">{{alumni.name!=null?alumni.name:'?'}}</td>
+                  <td class="text-center w-[25%]">{{alumni.position!=null?alumni.position:'?'}}</td>
                 </tr>
               </tbody>
 
@@ -188,10 +188,14 @@ export default {
         );
       }
     },
+    getUniqueYear() {
+      return this.dataAlumnis.map(x => x.batch).filter((v,i,s) => s.indexOf(v) === i);
+    },
   },
   methods:{
-      displayAlumnis(){
-        axios.get('getAlumnis').then((res) => {
+      getAlumniExplores(){
+        axios.get('alumniExplores').then((res) => {
+          console.log('My data is : ', res.data);
           this.dataAlumnis=res.data
         })
       },
@@ -208,26 +212,19 @@ export default {
     },
      getExperiences(){
         axios.get('workexperience').then(res => {
-          console.log(res.data);
           this.experiences=res.data
         });
       },
 
       getCompanies(){
          axios.get('companies').then(res => {
-          console.log(res.data);
           this.companies=res.data
         });
       },
 
-      show(id){
-         return this.experiences.find(experience =>experience['alumni_id']==id)['position'];
-        }
-   
-
   },
   mounted(){
-      this.displayAlumnis()
+      this.getAlumniExplores()
       this.getExperiences()
       this.getCompanies()
   }
