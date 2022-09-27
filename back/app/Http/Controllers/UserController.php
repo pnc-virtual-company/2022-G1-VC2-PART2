@@ -89,6 +89,7 @@ class UserController extends Controller
         return $alumnis;
     }
 
+   
     public function getEroUsers()
     {
         $alumnis = User::where('users.role', '=', 'ero')
@@ -97,6 +98,14 @@ class UserController extends Controller
         return $alumnis;
     }
 
+    public function getExploreAlumni()
+    {
+        $explores = User::rightJoin('alumnis', 'users.id', '=', 'alumnis.user_id')
+        ->leftJoin("workexperiences", 'alumnis.id', '=', 'workexperiences.alumni_id')
+        ->leftJoin("companies", 'companies.id', '=', 'workexperiences.company_id')
+        ->get(["users.*", "alumnis.*", "workexperiences.position", "companies.name"])->All();
+        return $explores;
+    }
     /**
      * Store a newly created resource in storage.
      *
@@ -200,10 +209,8 @@ class UserController extends Controller
 
     public function uploadAlumniCover(Request $request, $id)
     {
-
         $alumni = Alumni::find($id);
         $path = public_path('images/Cover');
-
         if ($alumni->coverimage !== 'cover.jpg') {
             $previousProfilePublicPath = public_path('images/cover/' . $alumni->coverimage);
             if (File::exists($previousProfilePublicPath)) {

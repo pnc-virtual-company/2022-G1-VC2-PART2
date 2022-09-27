@@ -16,9 +16,10 @@ class WorkexperienceController extends Controller
      */
     public function index()
     {
-        return Workexperience::get();
+        return Workexperience::width('companies')->get();
     }
 
+   
     /**
      * Store a newly created resource in storage.
      *
@@ -54,6 +55,8 @@ class WorkexperienceController extends Controller
         ->get(['companies.name','companies.profile','workexperiences.*'])->all();
         return $alumniExperience;
     }
+
+    
 
     /**
      * Update the specified resource in storage.

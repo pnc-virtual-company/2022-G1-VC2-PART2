@@ -85,8 +85,9 @@ Route::get("companies",[CompanyController::class,"getAllCompanies"]);
 Route::get("getinfo",[UserController::class, 'getInfoByToken']);
 Route::get("getAlumnis",[UserController::class, 'getAlumniUsers']);
 Route::get("universities", [UniversityController::class, "getUniversities"]);
-
 Route::get("alumniSkill/{alumni_id}", [AlumniSkillController::class, "show"]);
+Route::get("alumniExplores", [UserController::class, "getExploreAlumni"]);
+
 
 // ============================Remove=====================================
 Route::delete("alumniSkill/{id}", [AlumniSkillController::class, "destroy"]);
