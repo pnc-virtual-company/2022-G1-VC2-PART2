@@ -138,10 +138,14 @@ class UserController extends Controller
 
         if ($user->role == 'alumni') {
             $alumni = new Alumni();
-            $alumni->profile = $request->profile;
             $alumni->user_id = $user->id;
-            $alumni->coverimage = $request->coverimage;
+            $alumni->coverimage = 'cover.jpg';
             $alumni->gender = $request->gender;
+            if($request->gender == 'M') {
+                $alumni->profile = 'male.jpg';
+            }else {
+                $alumni->profile = 'female.jpg';
+            }
             $alumni->phone = $request->phone;
             $alumni->batch = $request->batch;
             $alumni->major = $request->major;
