@@ -23,13 +23,13 @@
         @showDetail="showDetail"
         @searchAlumni="queryAlumni"
         @removeAlumni="removeAlumni"
-        @invite="isInvite = true"
+        @invite="isInvite = true, sms = ''"
         :alumnis="filterAlumnis"
       />
     </div>
     <company-list v-if="isActive == 1" class="text-center mt-4" />
     <university-list v-if="isActive == 2" class="text-center mt-4" />
-    <invite-alumni v-if="isInvite" @cancelInvite="isInvite=false" @inviteAlumni="inviteAlumni" :inviteMessage="inviteMessage"></invite-alumni>
+    <invite-alumni v-if="isInvite" @cancelInvite="isInvite=false" @inviteAlumni="inviteAlumni" :inviteMessage="inviteMessage" :sms="sms" @sms="sms=''"></invite-alumni>
     <alumni-detail v-if="isDetail" :alumniDetail="alumniDetail" @approve="approve" @reject="reject"  @cancel="cancel"></alumni-detail> 
   </section>
 </template>
@@ -60,6 +60,7 @@ export default {
       inviteMessage: '',
       isDetail:false,
       alumniDetail:[],
+      sms: '',
     };
   },
   methods: {
@@ -70,7 +71,6 @@ export default {
       });
     },
     removeAlumni(id) {
-      console.log("Removing alumnist " + id + " from ");
       swal({
         title: "Are you sure?",
         text: "You want to remove this alumni !!",
@@ -81,8 +81,8 @@ export default {
         if (willDelete) {
           axios.post("sendRemoveAccount/" + id) 
           axios.delete("removeUser/" + id).then(() => {
-            this.getListAlumni();
             swal("removed !", "Your work experince is removed !", "success");
+            this.getListAlumni();
           });
         }
       });
@@ -104,9 +104,13 @@ export default {
     },
     
     inviteAlumni(email) {
+      this.sms = '';
       axios.post("inviteAlumni",{email:email}).then(() => {
-        swal("Invited !", "This ero account has been invited !", "success");
         this.isInvite = false;
+        this.getListAlumni();
+        swal("Invited !", "This ero account has been invited !", "success");
+      }).catch(err=> {
+        this.sms = 'This email has already token!'
       });
       this.inviteMessage = "Sending invite ..."
       setTimeout(() => this.inviteMessage='' , 5000)
