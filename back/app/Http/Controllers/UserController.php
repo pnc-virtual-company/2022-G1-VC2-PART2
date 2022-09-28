@@ -83,7 +83,7 @@ class UserController extends Controller
      */
     public function getAlumniUsers()
     {
-        $alumnis = User::join('alumnis', 'users.id', '=', 'alumnis.user_id')->where('users.status', '=', 'actived')
+        $alumnis = User::join('alumnis', 'users.id', '=', 'alumnis.user_id')
             ->get(['users.first_name', 'users.last_name', 'users.status', 'users.email', 'alumnis.*'])
             ->All();
         return $alumnis;
