@@ -115,22 +115,30 @@ export default {
     },
     approve(user_id){
       axios.post("approveAlumni/" + user_id)
-      .then(() => {
-        this.isDetail = false;
-      });
       axios.put("approve/" + user_id).then(() => {
+        swal("Approved !", "This alumni account has been approved !", "success");
+        this.isDetail = false;
         this.getListAlumni();
       });
     },
     reject(user_id){
-      axios.post("rejectAlumni/" + user_id)
-      .then(() => {
-        this.isDetail = false;
+      swal({
+        title: "Are you sure?",
+        text: "You want to reject this alumni !!",
+        icon: "warning",
+        buttons: true,
+        dangerMode: true,
+      }).then((willDelete) => {
+          if (willDelete) {
+            axios.post("rejectAlumni/" + user_id)
+            axios.delete("removeUser/" + user_id)
+            .then(() => {
+              this.isDetail = false;
+              this.getListAlumni();
+            });
+          }
       });
-      axios.delete("removeUser/" + user_id)
-      .then(() => {
-        this.getListAlumni();
-      });
+
     },
     showDetail(alumni){
       this.alumniDetail = alumni;

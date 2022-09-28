@@ -2,7 +2,7 @@
     <section>
 
             <div>
-                <div class="flex w-[80%] m-auto">
+                <div class="flex">
                     <!-- Total alumni -->
                     <div class="w-[20%] flex flex-wrap bg-gray-300 m-auto  mt-5 rounded-xl cursor-pointer" @click="matchingStaus('all')">
                         <div class="w-[55%] flex flex-wrap p-2">
