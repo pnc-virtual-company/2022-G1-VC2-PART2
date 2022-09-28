@@ -83,7 +83,7 @@ class UserController extends Controller
      */
     public function getAlumniUsers()
     {
-        $alumnis = User::join('alumnis', 'users.id', '=', 'alumnis.user_id')
+        $alumnis = User::join('alumnis', 'users.id', '=', 'alumnis.user_id')->where('users.status', '=', 'actived')
             ->get(['users.first_name', 'users.last_name', 'users.status', 'users.email', 'alumnis.*'])
             ->All();
         return $alumnis;
@@ -98,14 +98,6 @@ class UserController extends Controller
         return $alumnis;
     }
 
-    public function getExploreAlumni()
-    {
-        $explores = User::rightJoin('alumnis', 'users.id', '=', 'alumnis.user_id')
-        ->leftJoin("workexperiences", 'alumnis.id', '=', 'workexperiences.alumni_id')
-        ->leftJoin("companies", 'companies.id', '=', 'workexperiences.company_id')
-        ->get(["users.*", "alumnis.*", "workexperiences.position", "companies.name"])->All();
-        return $explores;
-    }
     /**
      * Store a newly created resource in storage.
      *

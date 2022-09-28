@@ -10,12 +10,7 @@
           <div class="rounded mt-4">
             <div class="w-full flex justify-between m-auto">
                 <div class="w-[70%] flex justify-between">
-                  <select v-model="company"
-                    class="w-full border-[1px] outline-none border-gray-400 p-2 shadow-md rounded cursor-pointer mr-2 focus:border-skyblue"
-                  >
-                    <option value="All" selected>Company</option>
-                    <option v-for:="company in companies" :value="company['name']" selected>{{company['name']}}</option>
-                  </select>
+                  
                   <select v-model="major"
                     class="w-full border-[1px] outline-none border-gray-400 p-2 shadow-md rounded cursor-pointer mr-2 focus:border-skyblue"
                   >
@@ -49,8 +44,7 @@
                 >
                   <th class="font-semibold text-center w-[25%]">USERNAME</th>
                   <th class="font-semibold text-center w-[25%]">MAJOR</th>
-                  <th class="font-semibold text-center w-[25%]">COMPANY</th>
-                  <th class="font-semibold text-center w-[25%]">POSITION</th>
+                  <th class="font-semibold text-center w-[25%]">BATCH</th>
                 </tr>
               </thead>
               <tbody 
@@ -66,12 +60,10 @@
                       <p class="pl-6">{{alumni.first_name + ' '+alumni.last_name}}</p>
                   </div>
                   </td>
-                  <td class="text-center w-[25%]">{{alumni.major}}-{{alumni.batch}}</td>
-                  <td class="text-center w-[25%]">{{alumni.name!=null?alumni.name:'?'}}</td>
-                  <td class="text-center w-[25%]">{{alumni.position!=null?alumni.position:'?'}}</td>
+                  <td class="text-center w-[25%]">{{alumni.major}}</td>
+                  <td class="text-center w-[25%]">{{alumni.batch}}</td>
                 </tr>
               </tbody>
-
               <tbody v-if="filterAlumnis.length <= 0">
                   <tr class="bg-gray-300">
                       <td colspan="5" class="p-2 text-center">
@@ -86,7 +78,7 @@
         <alumni-detail 
         v-if="isDetail" 
         :alumni="detialAlumni"
-        @close="isDetail=false" />
+        @close="isDetail=false"/>
     </section>
 </template>
 
@@ -101,8 +93,6 @@ export default {
       return{
           detialAlumni:[],
           dataAlumnis:[],
-          companies:[],
-          company: 'All',
           batch: 'All',
           major: 'All',
           inputSearch: '',
@@ -114,70 +104,31 @@ export default {
 
   computed: {
     filterAlumnis() {
-      if(this.company == 'All' && this.major == 'All' && this.batch == 'All') {
+      if(this.major == 'All' && this.batch == 'All') {
         return this.dataAlumnis.filter(alumni => 
         alumni.first_name.toLowerCase().includes(this.inputSearch.toLowerCase())
-        || alumni.last_name.toLowerCase().includes(this.inputSearch.toLowerCase()) 
-        || alumni.name.toLowerCase().includes(this.inputSearch.toLowerCase()) 
+        || alumni.last_name.toLowerCase().includes(this.inputSearch.toLowerCase())  
         || alumni.batch.toLowerCase().includes(this.inputSearch.toLowerCase()) 
         || alumni.major.toLowerCase().includes(this.inputSearch.toLowerCase())
         );
-      }else if (this.company == 'All' && this.major == 'All' && this.batch != 'All'){
-        return this.dataAlumnis.filter(alumni => 
-        alumni.batch == this.batch &&
+      }else if (this.major == 'All' && this.batch != 'All'){
+        return this.dataAlumnis.filter(alumni => alumni.batch == this.batch && alumni.company == this.company &&
         (alumni.first_name.toLowerCase().includes(this.inputSearch.toLowerCase()) 
-        || alumni.last_name.toLowerCase().includes(this.inputSearch.toLowerCase()) 
-        || alumni.name.toLowerCase().includes(this.inputSearch.toLowerCase()) 
+        || alumni.last_name.toLowerCase().includes(this.inputSearch.toLowerCase())  
         || alumni.batch.toLowerCase().includes(this.inputSearch.toLowerCase()) 
         || alumni.major.toLowerCase().includes(this.inputSearch.toLowerCase()))
         );
-      }else if (this.company == 'All' && this.major != 'All' && this.batch != 'All'){
-        return this.dataAlumnis.filter(alumni => 
-        alumni.batch == this.batch && alumni.major == this.major &&
-        (alumni.first_name.toLowerCase().includes(this.inputSearch.toLowerCase()) 
-        || alumni.last_name.toLowerCase().includes(this.inputSearch.toLowerCase()) 
-        || alumni.name.toLowerCase().includes(this.inputSearch.toLowerCase()) 
-        || alumni.batch.toLowerCase().includes(this.inputSearch.toLowerCase()) 
-        || alumni.major.toLowerCase().includes(this.inputSearch.toLowerCase()))        
-        );
-      }else if (this.company != 'All' && this.major == 'All' && this.batch != 'All'){
-        return this.dataAlumnis.filter(alumni => alumni.batch == this.batch && alumni.name == this.company &&
-        (alumni.first_name.toLowerCase().includes(this.inputSearch.toLowerCase()) 
-        || alumni.last_name.toLowerCase().includes(this.inputSearch.toLowerCase()) 
-        || alumni.name.toLowerCase().includes(this.inputSearch.toLowerCase()) 
-        || alumni.batch.toLowerCase().includes(this.inputSearch.toLowerCase()) 
-        || alumni.major.toLowerCase().includes(this.inputSearch.toLowerCase()))
-        );
-      }else if (this.company != 'All' && this.major != 'All' && this.batch == 'All'){
-        return this.dataAlumnis.filter(alumni => alumni.major == this.major && alumni.name == this.company &&
-        (alumni.first_name.toLowerCase().includes(this.inputSearch.toLowerCase()) 
-        || alumni.last_name.toLowerCase().includes(this.inputSearch.toLowerCase()) 
-        || alumni.name.toLowerCase().includes(this.inputSearch.toLowerCase()) 
-        || alumni.batch.toLowerCase().includes(this.inputSearch.toLowerCase()) 
-        || alumni.major.toLowerCase().includes(this.inputSearch.toLowerCase()))
-        );
-      }else if (this.company == 'All' && this.major != 'All' && this.batch == 'All'){
+      }else if (this.major != 'All' && this.batch == 'All'){
         return this.dataAlumnis.filter(alumni => alumni.major == this.major &&
         (alumni.first_name.toLowerCase().includes(this.inputSearch.toLowerCase()) 
         || alumni.last_name.toLowerCase().includes(this.inputSearch.toLowerCase()) 
-        || alumni.name.toLowerCase().includes(this.inputSearch.toLowerCase()) 
         || alumni.batch.toLowerCase().includes(this.inputSearch.toLowerCase()) 
         || alumni.major.toLowerCase().includes(this.inputSearch.toLowerCase()))      
-        );
-      }else if (this.company != 'All' && this.major == 'All' && this.batch == 'All'){
-        return this.dataAlumnis.filter(alumni => alumni.name == this.company &&
-        (alumni.first_name.toLowerCase().includes(this.inputSearch.toLowerCase()) 
-        || alumni.last_name.toLowerCase().includes(this.inputSearch.toLowerCase()) 
-        || alumni.name.toLowerCase().includes(this.inputSearch.toLowerCase()) 
-        || alumni.batch.toLowerCase().includes(this.inputSearch.toLowerCase()) 
-        || alumni.major.toLowerCase().includes(this.inputSearch.toLowerCase()))
-        
         );
       }else{
         return this.dataAlumnis.filter(alumni => alumni.batch == this.batch && alumni.name == this.company && alumni.major == this.major &&
         (alumni.first_name.toLowerCase().includes(this.inputSearch.toLowerCase()) 
         || alumni.last_name.toLowerCase().includes(this.inputSearch.toLowerCase()) 
-        || alumni.name.toLowerCase().includes(this.inputSearch.toLowerCase()) 
         || alumni.batch.toLowerCase().includes(this.inputSearch.toLowerCase()) 
         || alumni.major.toLowerCase().includes(this.inputSearch.toLowerCase()))       
         );
@@ -187,7 +138,7 @@ export default {
   },
   methods:{
     getAlumniExplores(){
-      axios.get('alumniExplores').then((res) => {
+      axios.get('getAlumnis').then((res) => {
         this.dataAlumnis=res.data
         this.uniqueBatch()
       })
@@ -202,10 +153,6 @@ export default {
     onClickDetial(alumni) {
     this.detialAlumni=alumni;
     this.isDetail=true;
-    },
-
-    getCompanies(){
-      axios.get('companies').then(res => {this.companies=res.data})
     },
 
     getLatestBatch(){
@@ -230,7 +177,6 @@ export default {
   },
   mounted(){
       this.getAlumniExplores()
-      this.getCompanies()
   }
 };
 </script>

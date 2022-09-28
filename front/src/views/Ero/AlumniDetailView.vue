@@ -57,7 +57,7 @@ export default {
   props:['alumni'],
   computed: {
     getGender() {
-      console.log(this.alumni)
+      console.log('alumni_Id: ', this.alumni['id'])
       if(this.alumni['gender'] == 'F') {
         return 'Female';
       }else if (this.alumni['gender'] == 'M'){

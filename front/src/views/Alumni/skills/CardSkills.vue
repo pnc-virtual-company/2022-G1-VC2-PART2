@@ -63,7 +63,7 @@ export default {
     },
 
     addAlumniSkill(skill){
-      axios.post("alumniSkill", skill).then(()=>{
+      axios.post("alumniSkill", skill).then((res)=>{
         this.getAlumniSkill();
       });
     },
