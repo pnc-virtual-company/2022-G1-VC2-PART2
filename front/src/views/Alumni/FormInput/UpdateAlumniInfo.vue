@@ -83,6 +83,7 @@
                         <label class="block text-gray-700 text-[15px] mb-1">Major <span class="text-red-600">*</span></label>
                         <div class="inline-block relative w-full">
                             <select v-model="major" class="block appearance-none w-full bg-white border-[1px] border-gray-400 px-4 py-2 pr-8 rounded shadow leading-tight  focus:shadow-outline focus:outline-[#22bbea]" :class="{ 'border-red-500 bg-red-100': is_major}">
+                                {{major}}
                                 <option value="WEB">WEB</option>
                                 <option value="SNA">SNA</option>
                             </select>
@@ -99,20 +100,20 @@
                             <input v-model="gender" type="radio" value="M" :class="{ 'border-red-500 bg-red-100': is_gender}"
                                 class="w-4 h-4 bg-gray-100 border-gray-300   dark:ring-offset-gray-800 focus:ring-2" id="m">
                             <label 
-                                class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300" for="m"
+                                class="ml-2 text-sm text-gray-900 " for="m"
                                 >Male</label>
                         </div>
                         <div class="flex items-center mb-4 ml-2">
                             <input v-model="gender"  type="radio" id="f" value="F" :class="{ 'border-red-500 bg-red-100': is_gender}"
                                 class="w-4 h-4 bg-gray-100 border-gray-300   dark:ring-offset-gray-800 focus:ring-2">
                             <label
-                                class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300" for="f">Female</label>
+                                class="ml-2 text-sm text-gray-900 " for="f">Female</label>
                         </div>
                         <div class="flex items-center mb-4 ml-2">
                             <input v-model="gender"  type="radio" id="others" value="Others" :class="{ 'border-red-500 bg-red-100': is_gender}"
                                 class="w-4 h-4 bg-gray-100 border-gray-300   dark:ring-offset-gray-800 focus:ring-2">
                             <label
-                                class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300" for="others">Others</label>
+                                class="ml-2 text-sm text-gray-900 " for="others">Others</label>
                         </div>
                     </div>
                 </div>
@@ -138,7 +139,7 @@
 </template>
 <script>
 export default {
-    emits: ['alumniInfo'],
+    emits: ['alumniInfo','closePopup'],
     props: ['user'],
     data() {
         return {

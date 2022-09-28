@@ -1,6 +1,6 @@
 <template>
     <section class="mt-4">
-        <div class="w-[80%] m-auto">
+        <div class="w-[60%] m-auto">
           <div class="w-[30rem] flex justify-start">
               <input v-model="inputSearch" type="text" placeholder="Search..." class="w-64 border border-stone-400 rounded px-5 py-2 pr-11 outline-none shadow focus:border-skyblue focus:w-full transition-all duration-700">
               <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-7 relative right-9 top-2 text-stone-400 rounded" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
@@ -48,20 +48,21 @@
                 </tr>
               </thead>
               <tbody 
-              v-if="filterAlumnis.length > 0"
+              v-if="filterAlumnis.length>0"
               v-for:="alumni in filterAlumnis">
-                <tr @click="onClickDetial(alumni)"
+                <tr 
+                  @click="onClickDetial(alumni)"
                   tabindex="0"
-                  class="h-16 w-full text-sm leading-none shadow-sm border-b-[1px] border-gray-400 bg-gray-300 hover:cursor-pointer hover:bg-gray-400"
-                >
-                <td class="text-center w-[25%]">
-                  <div class="flex items-center space-x-2">
-                      <img class="ml-5 rounded-full w-14 h-14 border-[1px] border-skyblue object-cover" :src="'http://127.0.0.1:8000/images/profile/' +alumni.profile" alt="">
-                      <p class="pl-6">{{alumni.first_name + ' '+alumni.last_name}}</p>
-                  </div>
-                  </td>
-                  <td class="text-center w-[25%]">{{alumni.major}}</td>
-                  <td class="text-center w-[25%]">{{alumni.batch}}</td>
+                  class="h-16 w-full text-sm leading-none shadow-sm border-b-[1px] border-gray-400 bg-gray-300 hover:cursor-pointer hover:bg-gray-400" 
+                  v-if="alumni['status']=='actived'"               >
+                    <td class="text-center w-[25%]">
+                      <div class="flex items-center space-x-2">
+                          <img class="ml-5 rounded-full w-14 h-14 border-[1px] border-skyblue object-cover" :src="'http://127.0.0.1:8000/images/profile/' +alumni.profile" alt="">
+                          <p class="pl-6">{{alumni.first_name + ' '+alumni.last_name}}</p>
+                      </div>
+                    </td>
+                    <td class="text-center w-[25%]">{{alumni.major}}</td>
+                    <td class="text-center w-[25%]">{{alumni.batch}}</td>
                 </tr>
               </tbody>
               <tbody v-if="filterAlumnis.length <= 0">

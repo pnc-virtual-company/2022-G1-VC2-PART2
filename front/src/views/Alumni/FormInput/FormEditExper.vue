@@ -80,11 +80,10 @@
     </section>
 </template>
 <script>
-import error from "../../../components/Widget/ErrorView.vue"
 import autocomplete from "./AutoComplete.vue"
 import addcompany from "./FormAddCompany.vue"
 export default({
-    components:{error,autocomplete,addcompany},
+    components:{autocomplete,addcompany},
     props:["experience", "companies"],
     data(){
         return {

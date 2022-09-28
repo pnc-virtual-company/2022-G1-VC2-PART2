@@ -200,7 +200,7 @@ export default {
         this.is_end_month = true;
       }
       this.is_end_year = false;
-      if (this.end_year == "") {
+      if (this.end_year == "" || this.start_year > this.end_year || (this.start_month == this.end_month && this.start_year == this.end_year)) {
         this.is_end_year = true;
       }
       
