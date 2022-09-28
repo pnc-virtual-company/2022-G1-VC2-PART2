@@ -51,12 +51,10 @@ class WorkexperienceController extends Controller
         $alumniExperience = Workexperience::join('alumnis', 'alumnis.id', '=', 'workexperiences.alumni_id')
         ->join('companies', 'companies.id', '=', 'workexperiences.company_id')
         ->where('workexperiences.alumni_id', '=', $alumni_id)
-        ->orderBy('workexperiences.created_at', 'desc')
+        ->orderBy('workexperiences.end_year', 'desc')
         ->get(['companies.name','companies.profile','workexperiences.*'])->all();
         return $alumniExperience;
-    }
-
-    
+    }  
 
     /**
      * Update the specified resource in storage.

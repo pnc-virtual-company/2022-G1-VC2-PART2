@@ -1,5 +1,5 @@
 <template>
-    <div :class="{'border-[2px] border-skyblue p-3 rounded mt-4':role=='alumni'}">
+    <div class="border-[2px] border-skyblue p-3 rounded mt-4">
         <div class="flex justify-between">
             <h1 class="font-bold text-lg">Experiences</h1>
             <div v-if="role=='alumni'" @click="$emit('clickPopUp', 'Add')">
@@ -48,8 +48,11 @@
             <span v-if="!isMore" @click="isShow=true; isMore=true" class="font-semibold hover:cursor-pointer">show more</span>
             <span v-if="isMore" @click="isShow=false; isMore=false" class="font-semibold hover:cursor-pointer">show less</span>
         </div>
-        <div v-else-if="experiences.length == 0" class="text-center mt-2">
+        <div v-else-if="experiences.length == 0 && role == 'alumni'" class="text-center mt-2">
             <span class="text-[14px] text-gray-500">No Work experience !! Please add your work background</span>
+        </div>
+        <div v-else-if="experiences.length == 0" class=" mt-2">
+            <span class="text-[14px] text-gray-500">No Work experience !!</span>
         </div>
     </div>      
 </template>

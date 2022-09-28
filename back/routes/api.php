@@ -87,6 +87,7 @@ Route::get("getAlumnis",[UserController::class, 'getAlumniUsers']);
 Route::get("universities", [UniversityController::class, "getUniversities"]);
 Route::get("alumniSkill/{alumni_id}", [AlumniSkillController::class, "show"]);
 Route::get("alumniExplores", [UserController::class, "getExploreAlumni"]);
+Route::get("getEmail/{email}", [UserController::class, "getEmail"]);
 
 
 // ============================Remove=====================================

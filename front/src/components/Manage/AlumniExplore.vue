@@ -126,7 +126,7 @@ export default {
         || alumni.major.toLowerCase().includes(this.inputSearch.toLowerCase()))      
         );
       }else{
-        return this.dataAlumnis.filter(alumni => alumni.batch == this.batch && alumni.company == this.company && alumni.major == this.major &&
+        return this.dataAlumnis.filter(alumni => alumni.batch == this.batch && alumni.name == this.company && alumni.major == this.major &&
         (alumni.first_name.toLowerCase().includes(this.inputSearch.toLowerCase()) 
         || alumni.last_name.toLowerCase().includes(this.inputSearch.toLowerCase()) 
         || alumni.batch.toLowerCase().includes(this.inputSearch.toLowerCase()) 

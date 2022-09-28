@@ -130,10 +130,14 @@ class UserController extends Controller
 
         if ($user->role == 'alumni') {
             $alumni = new Alumni();
-            $alumni->profile = $request->profile;
             $alumni->user_id = $user->id;
-            $alumni->coverimage = $request->coverimage;
+            $alumni->coverimage = 'cover.jpg';
             $alumni->gender = $request->gender;
+            if($request->gender == 'M') {
+                $alumni->profile = 'male.jpg';
+            }else {
+                $alumni->profile = 'female.jpg';
+            }
             $alumni->phone = $request->phone;
             $alumni->batch = $request->batch;
             $alumni->major = $request->major;
@@ -283,5 +287,9 @@ class UserController extends Controller
         User::destroy($id);
         return response()->json(['message' => "The alumni has been removed"]);
     }
-
+    
+    public function getEmail($email) 
+    {
+        return User::where('email', $email)->get();
+    }
 }

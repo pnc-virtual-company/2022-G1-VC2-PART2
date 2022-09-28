@@ -38,10 +38,8 @@
             <h1 class="font-bold text-xl">{{user.first_name}} {{user.last_name}}</h1>
         </div>        
         <div class="flex justify-between mt-8 items-start">
-            <div class="w-[32%] border-[2px] border-skyblue p-3 rounded mt-14">
-                <CardSkills :alu_id="alu_id" :role="role" />
-            </div>
-            <div class="w-[64%]">
+            <CardSkills :alu_id="alu_id" :role="role" />
+             <div class="w-[64%]">
                 <CardInfo :user="user" @getData="getUser" />
                 
                 <!-- +++++++++++ Alumni Education +++++++++++++ -->
