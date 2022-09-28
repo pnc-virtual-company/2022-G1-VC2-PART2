@@ -122,7 +122,6 @@
                   :alu_id="alumni['id']" 
                   :role="role" class="mt-2"></card-skill>
                 </div>
-        
                 <div class="w-[60%] mt-2 ">
                   <card-edu :edu="edu" :role="role"></card-edu>
                   <card-exper :experiences="experiences" :role="role" class="mt-2"></card-exper>
@@ -149,7 +148,7 @@ export default {
   props:['alumni'],
   computed: {
     getGender() {
-      console.log(this.alumni)
+      console.log('alumni_Id: ', this.alumni['id'])
       if(this.alumni['gender'] == 'F') {
         return 'Female';
       }else if (this.alumni['gender'] == 'M'){

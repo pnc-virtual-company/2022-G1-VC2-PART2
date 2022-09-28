@@ -12,8 +12,8 @@
                     :message="experience['name']"
                     @selected="editCompany"
                     class="mt-4 w-[100%] bg-white">
-                    <span>Not found, please </span>
-                    <button  class="mx-auto rounded-md text-blue-800" @click="popUp(true)">click here</button>
+                    <span>No Matching Company, please </span>
+                    <button  class="mx-auto rounded-md text-blue-800" @click="popUp(true)">add here</button>
                 </autocomplete>
             </div>
             <div class="w-[100%] my-2 p-2">

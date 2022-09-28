@@ -63,7 +63,6 @@ export default {
     },
 
     addAlumniSkill(skill){
-      console.log(skill)
       axios.post("alumniSkill", skill).then((res)=>{
         this.getAlumniSkill();
         console.log("Successfully");
@@ -72,8 +71,7 @@ export default {
     },
     
     getAlumniSkill() {
-      axios.get("alumniSkill/" + this.$store.state.alumniId).then((res) => {
-        console.log("Alumni skill is ", res.data);
+      axios.get("alumniSkill/" + this.alu_id).then((res) => {
         this.alumniSkills = res.data;
       });
     },

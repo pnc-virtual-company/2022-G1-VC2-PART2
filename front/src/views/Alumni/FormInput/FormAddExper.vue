@@ -15,8 +15,8 @@
                 @selected="getIdCompany"
                 @hasMatch='hasMatch'
                 class="mt-4 w-[100%] bg-white">
-                    <span>Not found, please </span>
-                    <button  class="mx-auto rounded-md text-blue-800" @click="popUp(true)">click here</button>
+                    <span>No Matching Company, please </span>
+                    <button  class="mx-auto rounded-md text-blue-800" @click="popUp(true)">add here</button>
                 </autocomplete>
             </div>
             <div class="w-[100%] items-center p-2" :class="hasMatch? 'mt-6':''">
