@@ -24,6 +24,9 @@
           <li class="text-sm font-bold text-gray-800" @click="showMenu = !showMenu">
             <router-link to="/alumni-profile" class="font-bold p-1">PROFILE</router-link>
           </li>
+          <li class="text-sm font-bold text-gray-800" @click="showMenu = !showMenu">
+            <router-link to="/allAlumniView" class="font-bold p-1">EXPLORE</router-link>
+          </li>
         </ul>
         <ul v-else-if="role == 'admin' || role == 'ero'"
           :class="showMenu ? 'flex' : 'hidden'"
