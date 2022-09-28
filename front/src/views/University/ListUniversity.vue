@@ -45,7 +45,6 @@ export default {
         getUniversity(){
             axios.get('universities').then((response)=>{
                 this.universities= response.data;
-                console.log(response.data)
             })
         },
         removeUniver(id){

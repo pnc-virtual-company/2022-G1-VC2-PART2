@@ -134,7 +134,6 @@ export default {
         },
         addAlumniExper(newExper){
             newExper['alumni_id']=this.alu_id;
-            console.log(newExper);
             axios.post("workexperience", newExper).then(() => {
                 this.getAlumniExperiences()
                 swal("Added !", "You add new work experience successfully !", "success");
