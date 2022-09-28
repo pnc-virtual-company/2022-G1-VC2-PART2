@@ -63,25 +63,19 @@ export default {
     },
 
     addAlumniSkill(skill){
-      console.log(skill)
-      axios.post("alumniSkill", skill).then((res)=>{
+      axios.post("alumniSkill", skill).then(()=>{
         this.getAlumniSkill();
-        console.log("Successfully");
-        console.log(res);
       });
     },
     
     getAlumniSkill() {
       axios.get("alumniSkill/" + this.alu_id).then((res) => {
-        console.log("Alumni skill is ", res.data);
         this.alumniSkills = res.data;
       });
     },
    
     removeAlumniSkill(remove) {
-      axios.delete("alumniSkill/" + remove.id).then(() => {
-        console.log("Removed ");
-      });
+      axios.delete("alumniSkill/" + remove.id)
       this.alumniSkills.splice(remove.index, 1);
     },
   },

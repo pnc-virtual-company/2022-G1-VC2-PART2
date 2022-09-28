@@ -51,7 +51,7 @@
         <div v-else-if="experiences.length == 0 && role == 'alumni'" class="text-center mt-2">
             <span class="text-[14px] text-gray-500">No Work experience !! Please add your work background</span>
         </div>
-        <div v-else class=" mt-2">
+        <div v-else-if="experiences.length == 0" class=" mt-2">
             <span class="text-[14px] text-gray-500">No Work experience !!</span>
         </div>
     </div>      
