@@ -174,7 +174,6 @@ export default {
     },
     onClickOutside(){
       this.$emit('close');
-      console.log('cldsa')
       },
     getAlumniExperiences() {
       axios.get("workexperience/"+this.alumni['id']).then((res) => {
