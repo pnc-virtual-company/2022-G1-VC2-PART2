@@ -40,7 +40,7 @@
         <div class="flex justify-between mt-8 items-start">
             <CardSkills :alu_id="alu_id" :role="role" />
              <div class="w-[64%]">
-                <CardInfo :user="user" @getData="getUser" />
+                <CardInfo :user="user" @getData="getUser" @update-nav="$emit('update-nav')" />
                 
                 <!-- +++++++++++ Alumni Education +++++++++++++ -->
                 <edu-card-view :edu="edu" @is-add-edu="isAddEdu=true" @isEdit-edu="isEditEduction" :alu_id="alu_id" @removeEdu="removeEdu" :role="role"></edu-card-view>
@@ -94,6 +94,7 @@ export default {
         alu_id: Number,
         role: String,
     },
+    emits: ['update-nav'],
     components:{
         CardInfo,
         CardSkills,
@@ -169,7 +170,9 @@ export default {
         formData.append("_method", "PUT");
         axios.post("alumniprofile/" + this.alu_id, formData).then((res) => {
             this.getUser();
-            this.isUpdate=false;});
+            this.isUpdate=false;
+            this.$emit('update-nav');
+        });
         },
         saveCover() {
         let formData = new FormData();

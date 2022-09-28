@@ -1,7 +1,7 @@
 <template>
   <section>
-    <navbar-view :role="this.$store.state.role" :user_id="this.$store.state.userId" />
-    <router-view :user_id="this.$store.state.userId" :alu_id="this.$store.state.alumniId" :role="this.$store.state.role" />
+    <navbar-view :role="this.$store.state.role" :user_id="this.$store.state.userId" ref="navigation" />
+    <router-view :user_id="this.$store.state.userId" :alu_id="this.$store.state.alumniId" :role="this.$store.state.role" @update-nav="$refs.navigation.getuser()" />
   </section>
 </template>
 <script>
