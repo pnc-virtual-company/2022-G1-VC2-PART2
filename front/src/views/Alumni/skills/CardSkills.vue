@@ -22,14 +22,12 @@
           v-for:="(alumniSkill, i) in alumniSkills"
           :id="alumniSkill.id"
           :index="i"
+          :role="role"
           @remove="removeAlumniSkill"
-          >{{ alumniSkill.name }}</card-skill
-        >
+          >{{ alumniSkill.name }}</card-skill>
         <p v-else class="text-gray-600">No Skills for now</p>
       </div>
-
     </div>
-
       <form-skill
         @closePopUp="closePopUp"
         v-if="isClickAddSkill"
@@ -74,7 +72,7 @@ export default {
     },
     
     getAlumniSkill() {
-      axios.get("alumniSkill/" + this.$store.state.alumniId).then((res) => {
+      axios.get("alumniSkill/" + this.alu_id).then((res) => {
         console.log("Alumni skill is ", res.data);
         this.alumniSkills = res.data;
       });

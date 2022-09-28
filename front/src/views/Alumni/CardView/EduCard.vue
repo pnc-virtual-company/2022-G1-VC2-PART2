@@ -47,10 +47,12 @@
             <span v-if="!isMore" @click="isShow=true; isMore=true" class="font-semibold hover:cursor-pointer">show more</span>
             <span v-if="isMore" @click="isShow=false; isMore=false" class="font-semibold hover:cursor-pointer">show less</span>
         </div>
-        <div v-else-if="edu.length == 0" class="text-center mt-2">
+        <div v-else-if="edu.length == 0 && role == 'alumni'" class="text-center mt-2">
             <span class="text-[14px] text-gray-500">No Education background !! Please add your school background</span>
         </div>
-    
+        <div class="mt-2">
+            <span class="text-[14px] text-gray-500">No Education background !!</span>
+        </div>
     </div>      
 </template>
 
