@@ -191,7 +191,7 @@ export default {
                 }else if(this.$cookies.get('role') == 'ero'){
                     this.$router.push('/explore')
                 }else{
-                    this.$router.push('/')
+                    this.$router.push('/alumni-profile')
                 }
             }, 1000);
         }
