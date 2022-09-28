@@ -9,10 +9,8 @@
             <p></p>
         </div>
         <div v-if="isAlumni" class="text-center mt-4">
-            <filterAlumni
-            :countAlumnis="dataAlumnis"
-            @matchAlumni="displayAlumni"/>
             <listAlumni class="w-[80%] m-auto mt-3"
+            :countAlumnis="dataAlumnis"
             @matchAlumni="displayAlumni"
             @searchAlumni="queryAlumni"
             @removeAlumni="removeAlumni"
@@ -28,13 +26,11 @@
     import swal from 'sweetalert';
     import EroMagement from "../../components/Manage/EroManagement.vue";
     import listAlumni from '../../components/Manage/ListAlumnis.vue'
-    import filterAlumni from '../../components/Manage/Alumnicardstatus.vue'
     import axios from "../../axios-http"
     export default{
         components:{
             EroMagement,
             listAlumni,
-            filterAlumni
         },
         data(){
             return {

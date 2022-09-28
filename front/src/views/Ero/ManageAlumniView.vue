@@ -16,7 +16,6 @@
       <p></p>
     </div>
     <div v-if="isActive == 0" class="text-center">
-      <filterAlumni :countAlumnis="dataAlumnis" @matchAlumni="displayAlumni" />
       <listAlumni 
         class="w-[80%] m-auto mt-3"
         @matchAlumni="displayAlumni"
@@ -25,6 +24,7 @@
         @removeAlumni="removeAlumni"
         @invite="isInvite = true, sms = ''"
         :alumnis="filterAlumnis"
+        :countAlumnis="dataAlumnis"
       />
     </div>
     <company-list v-if="isActive == 1" class="text-center mt-4" />
@@ -37,7 +37,6 @@
 import Company from "./CompanyView.vue";
 import University from "./UniversityView.vue";
 import listAlumni from "../../components/Manage/ListAlumnis.vue";
-import filterAlumni from "../../components/Manage/Alumnicardstatus.vue";
 import InviteAlumni from "../Alumni/FormInput/FormInviteAlumniView.vue";
 import AlumniDetail from "../../components/Manage/AlumniDetail.vue"
 import axios from "../../axios-http";
@@ -48,7 +47,6 @@ export default {
     "university-list": University,
     "invite-alumni": InviteAlumni,
     listAlumni,
-    filterAlumni,
     'alumni-detail': AlumniDetail
   },
   data() {
