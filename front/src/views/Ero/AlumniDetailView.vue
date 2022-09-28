@@ -4,7 +4,7 @@
     <div class="flex justify-end p-2 mr-[1rem]">
       <svg class="w-8 h-8 py-1 hover:cursor-pointer shadow hover:bg-gray-200 text-gray-900 rounded-full" @click="$emit('close')" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"></path></svg>
     </div>
-    <div class="px-2 h-[85vh] overflow-auto">
+    <div class="px-2 h-[80vh] overflow-auto">
       <div class="">
         <div class="relative">
         <div class="w-full h-36">
