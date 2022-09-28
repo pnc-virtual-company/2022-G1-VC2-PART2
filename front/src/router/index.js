@@ -1,13 +1,13 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import HomeView from "../views/HomeView.vue"
 import AlumniProfile from "../views/Alumni/AlumniView.vue"
+import FillInfo from "../views/Alumni/profile/FillInfo.vue"
 import AllAlumniView from "../views/Alumni/AllAlumniView.vue"
 import LoginView from '../views/Authentication/LoginView.vue'
 import ForgotView from '../views/Resetpassword/ForgotPW.vue'
 import RegisterView from '../views/Authentication/RegisterView.vue'
 import AdminExplore from '../views/Admin/AdminView.vue'
 import ManageUser from '../views/Admin/ManageUserView.vue'
-// import EroView from '../views/Ero/EroView.vue'
 import ManageAlumni from '../views/Ero/ManageAlumniView.vue'
 import user from '../middleware/user'
 import ero from '../middleware/ero'
@@ -25,6 +25,12 @@ const routes = [
     path: '/alumni-profile',
     name: 'alumni-profile',
     component: AlumniProfile,
+    meta:{ middleware: [user] }
+  },
+  {
+    path: '/fill-info',
+    name: 'fill-info',
+    component: FillInfo,
     meta:{ middleware: [user] }
   },
   {
