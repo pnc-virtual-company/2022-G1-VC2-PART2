@@ -1,6 +1,7 @@
 <template>
   <section>
-    <div :class="{'flex justify-between border-b-[1px] border-[#a9aaaaa3]':role=='alumni'}">
+  <div class=" border-[2px] border-skyblue p-3 rounded" :class="role=='ero'?'w-full mt-[1.5rem]':'w-[22rem] mt-14'">
+    <div class='flex justify-between'>
       <h1 class="font-bold text-lg">Skills</h1>
       <div v-if="role == 'alumni'" @click="closePopUp(true)" class="hover:cursor-pointer">
         <svg
@@ -15,7 +16,7 @@
         </svg>
       </div>
     </div>
-    <div class="" :class="{'h-32 overflow-auto':role == 'amin'}">
+    <div class="" :class="{'h-32 overflow-auto':role == 'admin'}">
       <div class="flex py-2 flex-wrap gap-2">
         <card-skill v-if="alumniSkills.length >0"
           v-for:="(alumniSkill, i) in alumniSkills"
@@ -35,6 +36,7 @@
         :alumni_id="alu_id"
         @add-skill="addAlumniSkill"
       ></form-skill>
+  </div>
   </section>
 </template>
 

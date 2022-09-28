@@ -1,5 +1,5 @@
 <template>
-    <div :class="{'border-skyblue border-[2px] p-3 rounded mt-4':role=='alumni'}">
+    <div class="border-[2px] border-skyblue p-3 rounded mt-4">
         <div class="flex justify-between">
             <h1 class="font-bold text-lg">Education</h1>
             <div v-if="role == 'alumni'" @click="$emit('is-add-edu')">
