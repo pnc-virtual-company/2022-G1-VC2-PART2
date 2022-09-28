@@ -66,6 +66,7 @@ Route::put("education/{id}", [EducationController::class, "updateEducation"]);
 Route::put("alumniprofile/{id}", [UserController::class, "uploadAlumniProfile"]);
 Route::put('alumnicover/{id}', [UserController::class, "uploadAlumniCover"]);
 Route::put('alumni/{id}', [UserController::class, "update"]);
+Route::put('alumniInfo/{id}', [UserController::class, "fillInfo"]);
 Route::put('workexperience/{id}', [WorkexperienceController::class, "update"]);
 Route::put('company/{id}', [CompanyController::class, "update"]);
 

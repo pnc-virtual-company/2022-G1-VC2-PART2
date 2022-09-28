@@ -59,7 +59,7 @@
           </li>
           <li class="text-sm font-bold text-gray-800">
             <div
-              class="font-bold p-1 hover:border-b-0 flex items-center"
+              class="font-bold p-1 hover:border-b-0 flex items-center cursor-pointer"
             >
               <i @click="submitLogout" class="fa fa-sign-out fa-2x text-blue-400 ml-1"></i>
             </div>

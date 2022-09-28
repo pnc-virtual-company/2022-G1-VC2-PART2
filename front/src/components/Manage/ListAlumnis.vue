@@ -4,9 +4,9 @@
             <div class="flex">
                 <select @click="showAlumni"  class="w-[14rem] border-[1px] border-gray-500 p-2 shadow-md rounded cursor-pointer focus:border-skyblue outline-none">
                     <option value="all">All</option>
-                    <option value="actived">Active</option>
-                    <option value="invited">invite</option>
-                    <option value="pending">peding</option>
+                    <option value="actived">Actived</option>
+                    <option value="invited">Invited</option>
+                    <option value="pending">Pending</option>
                 </select>
                 <div class="w-[30rem] flex justify-start ml-3">
                     <input v-model="search" type="text" placeholder="Search..." class="w-64 border border-stone-400 rounded px-5 py-2 pr-11 outline-none shadow focus:border-skyblue focus:w-full transition-all duration-700">

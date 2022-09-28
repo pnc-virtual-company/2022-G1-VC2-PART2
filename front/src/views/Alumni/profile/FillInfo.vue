@@ -1,16 +1,9 @@
 <template>
     <div tabindex="-1" class=" bg-[#000000b9] fixed  flex items-center z-50 md:inset-0 h-modal md:h-full ">
-        <div class="modal bg-white h-auto shadow-md rounded  mt-2 mb-10 m-auto w-[34%] z-10">
+        <div class="modal bg-white h-auto shadow-md rounded  mt-2 mb-10 m-auto w-[38%] z-10">
             <form class="">
-                <div class="flex justify-between items-center p-2 rounded-t bg-skyblue text-white">
-                    <p></p>
-                    <h1 class="text-[20px] font-semibold">Edit Info</h1>
-                    <svg aria-hidden="true" class="w-5 h-5 cursor-pointer" @click="$emit('closePopup')"
-                        fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
-                        <path fill-rule="evenodd"
-                            d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
-                            clip-rule="evenodd"></path>
-                    </svg>
+                <div class="flex justify-center items-center p-2 rounded-t bg-skyblue text-white">
+                    <h1 class="text-[20px] font-semibold">Fill Info</h1>
                 </div>
                 <div class="px-4 py-1">
                     <div class="mb-1 flex">
@@ -33,25 +26,7 @@
                             type="text" placeholder="Last name...">
                     </div>
                 </div>
-                <div class="mb-1 m-1 relative">
-                    <label class="block text-gray-700 text-[15px] mb-1" for="email">
-                        Email <span class="text-red-600">*</span>
-                    </label>
-                    <input v-model="email"
-                        class="block appearance-none w-full bg-white border-[1px] border-gray-400 px-4 py-2 rounded shadow leading-tight  focus:shadow-outline focus:outline-[#22bbea]"
-                        :class="{ 'border-red-500 bg-red-100': is_email}"
-                        id="email" type="email" placeholder="Email..." required>
-                </div>
-                <div class="text-red-500 text-sm mb-2 m-1">{{sms_erorr_email}}</div>
-                <div class="mb-1 m-1 relative">
-                    <label class="block text-gray-700 text-[15px]  mb-1" for="number">
-                        Phone <span class="text-red-600">*</span>
-                    </label>
-                    <input v-model="phone"
-                        class="block appearance-none w-full bg-white border-[1px] border-gray-400 px-4 py-2 pr-8 rounded shadow leading-tight  focus:shadow-outline focus:outline-[#22bbea]"
-                        :class="{ 'border-red-500 bg-red-100': is_phone}"
-                        id="phone" type="tel" maxlength="10" placeholder="Tel..." required>
-                </div>
+
                 <div class="text-red-500 text-sm mb-2 m-1">{{sms_erorr_phone}}</div>
                 <div class=" flex">
                     <div class="w-[50%] m-1 relative">
@@ -83,7 +58,6 @@
                         <label class="block text-gray-700 text-[15px] mb-1">Major <span class="text-red-600">*</span></label>
                         <div class="inline-block relative w-full">
                             <select v-model="major" class="block appearance-none w-full bg-white border-[1px] border-gray-400 px-4 py-2 pr-8 rounded shadow leading-tight  focus:shadow-outline focus:outline-[#22bbea]" :class="{ 'border-red-500 bg-red-100': is_major}">
-                                {{major}}
                                 <option value="WEB">WEB</option>
                                 <option value="SNA">SNA</option>
                             </select>
@@ -93,44 +67,46 @@
                         </div>   
                     </div>
                 </div>
-                <div class="w-[50%] m-1">
+                <div class="mb-1 m-1 relative">
+                    <label class="block text-gray-700 text-[15px]  mb-1" for="number">
+                        Phone <span class="text-red-600">*</span>
+                    </label>
+                    <input v-model="phone"
+                        class="block appearance-none w-full bg-white border-[1px] border-gray-400 px-4 py-2 pr-8 rounded shadow leading-tight  focus:shadow-outline focus:outline-[#22bbea]"
+                        :class="{ 'border-red-500 bg-red-100': is_phone}"
+                        id="phone" type="tel" maxlength="10" placeholder="Tel..." required>
+                </div>
+                <div class="w-[50%] m-1 mt-3">
                     <label  class="block text-gray-700 text-[15px] mb-1">Gender <span class="text-red-600">*</span></label>
                     <div class="flex">
                         <div class="flex items-center mb-4 ">
                             <input v-model="gender" type="radio" value="M" :class="{ 'border-red-500 bg-red-100': is_gender}"
                                 class="w-4 h-4 bg-gray-100 border-gray-300   dark:ring-offset-gray-800 focus:ring-2" id="m">
                             <label 
-                                class="ml-2 text-sm text-gray-900 " for="m"
+                                class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300" for="m"
                                 >Male</label>
                         </div>
                         <div class="flex items-center mb-4 ml-2">
                             <input v-model="gender"  type="radio" id="f" value="F" :class="{ 'border-red-500 bg-red-100': is_gender}"
                                 class="w-4 h-4 bg-gray-100 border-gray-300   dark:ring-offset-gray-800 focus:ring-2">
                             <label
-                                class="ml-2 text-sm text-gray-900 " for="f">Female</label>
+                                class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300" for="f">Female</label>
                         </div>
                         <div class="flex items-center mb-4 ml-2">
                             <input v-model="gender"  type="radio" id="others" value="Others" :class="{ 'border-red-500 bg-red-100': is_gender}"
                                 class="w-4 h-4 bg-gray-100 border-gray-300   dark:ring-offset-gray-800 focus:ring-2">
                             <label
-                                class="ml-2 text-sm text-gray-900 " for="others">Others</label>
+                                class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300" for="others">Others</label>
                         </div>
                     </div>
                 </div>
                 
                 <div class="flex mb-3">
-                    <div class="flex justify-end w-full ">
-                        <button @click="$emit('closePopup')"
-                            class=" hover:bg-[#cecece] border-[1px] border-gray-300 text-gray-500 shadow py-1 px-8  rounded focus:outline-none focus:shadow-outline"
-                            type="button"> 
-                            Cancel
-                        </button>
-                        <button @click="updateInfo"
-                            class="bg-skyblue hover:bg-[#23afda] mx-2 text-white py-1 px-10 rounded focus:outline-none focus:shadow-outline"
-                            type="button">
-                            Save
-                        </button>
-                    </div>
+                    <button @click="fillInfo"
+                        class="bg-skyblue hover:bg-[#23afda] text-white py-2 px-10 rounded focus:outline-none focus:shadow-outline w-full"
+                        type="button">
+                        Submit
+                    </button>
                 </div>
                 </div>
             </form>
@@ -138,51 +114,45 @@
     </div>
 </template>
 <script>
+import axios from '../../../axios-http'
 export default {
-    emits: ['alumniInfo','closePopup'],
-    props: ['user'],
+    emits: ['already-fill'],
     data() {
         return {
-            firstname: this.user.first_name,
-            lastname: this.user.last_name,
-            email: this.user.email,
-            phone: this.user.phone,
-            batch: this.user.batch,
-            gender: this.user.gender,
-            major: this.user.major,
+            firstname: '',
+            lastname: '',
+            phone: '',
+            batch: '',
+            gender: '',
+            major: '',
             is_firstname: false,
             is_lastname: false,
-            is_email: false,
             is_phone: false,
             is_batch: false,
             is_gender: false,
             is_major: false,
             sms_erorr_phone: '',
-            sms_erorr_email: '',
         }
     },
     methods: {
-        updateInfo() {
+        fillInfo() {
             if (this.validate()) {
-                if (this.email.match(/^[\w.]+@([\w-]+\.)+[\w-]{2,3}$/)) {
-                    if (this.phone.match(/^[0]\d{9}$/) || this.phone.match(/^[0]\d{8}$/)) {
-                        let alumni = {
-                            'first_name': this.firstname,
-                            'last_name': this.lastname,
-                            'email': this.email,
-                            'phone': this.phone,
-                            'batch': this.batch,
-                            'gender': this.gender,
-                            'major': this.major
-                        }
-                        return this.$emit('alumniInfo', alumni);
-                    }else {
-                        this.is_phone = true;
-                        this.sms_erorr_phone = 'This phone number is not valid';
+                if (this.phone.match(/^[0]\d{9}$/) || this.phone.match(/^[0]\d{8}$/)) {
+                    let alumni = {
+                        'first_name': this.firstname,
+                        'last_name': this.lastname,
+                        'phone': this.phone,
+                        'batch': this.batch,
+                        'gender': this.gender,
+                        'major': this.major
                     }
+                    axios.put('/alumniInfo/' + this.$store.state.userId, alumni).then(res=> {
+                        this.$emit('already-fill');
+                        this.$emit('update-nav');
+                    })
                 }else {
-                    this.is_email = true;
-                    this.sms_erorr_email = 'This email address is not valid';
+                    this.is_phone = true;
+                    this.sms_erorr_phone = 'This phone number is not valid';
                 }
 
             }
@@ -196,11 +166,7 @@ export default {
             if(this.lastname.trim() == '') {
                 this.is_lastname = true;
             }
-            this.is_email = false;
-            this.sms_erorr_email = '';
-            if(this.email.trim() == '') {
-                this.is_email = true;
-            }
+
             this.is_phone = false;
             this.sms_erorr_phone = '';
             if(this.phone.trim() == '') {
@@ -219,7 +185,7 @@ export default {
                 this.is_major = true;
             }
             let message = true;
-            if (this.is_firstname || this.is_lastname || this.is_email || this.is_phone || this.is_batch || this.is_gender || this.is_major) {
+            if (this.is_firstname || this.is_lastname || this.is_phone || this.is_batch || this.is_gender || this.is_major) {
                 message = false;
             }
             return message;

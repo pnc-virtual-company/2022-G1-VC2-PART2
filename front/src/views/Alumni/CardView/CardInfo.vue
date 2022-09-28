@@ -52,8 +52,8 @@
   import axios from '../../../axios-http'
   import FormEdit from '../FormInput/UpdateAlumniInfo.vue'
   export default {
-    emits: ['getData'],
-    props: ['user','role'],
+    emits: ['getData','update-nav'],
+    props: ['user','role',],
     components:{
       'edit-info': FormEdit,
     },
@@ -79,7 +79,6 @@
       },
       updateInfo(alumni) {
         axios.put('/alumni/' + this.$store.state.userId, alumni).then(res => {
-            console.log(res);
             this.$emit('getData');
             this.$emit('update-nav');
             this.isEdit = false;
