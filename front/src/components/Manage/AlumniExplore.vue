@@ -99,6 +99,7 @@ export default {
           inputSearch: '',
           isDetail: false,
           uniquesbatches:[],
+          alumnis: [],
           
       }
   },
@@ -140,7 +141,8 @@ export default {
   methods:{
     getAlumniExplores(){
       axios.get('getAlumnis').then((res) => {
-        this.dataAlumnis=res.data
+        this.alumnis=res.data;
+        this.dataAlumnis = this.alumnis.filter(alumni => alumni.status == 'actived');
         this.uniqueBatch()
       })
     },

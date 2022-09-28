@@ -146,7 +146,7 @@ export default {
                         'gender': this.gender,
                         'major': this.major
                     }
-                    axios.put('/alumnin/' + this.$store.state.userId, alumni).then(res=> {
+                    axios.put('/alumniInfo/' + this.$store.state.userId, alumni).then(res=> {
                         this.$emit('already-fill');
                         this.$emit('update-nav');
                     })

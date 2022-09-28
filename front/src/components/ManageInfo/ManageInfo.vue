@@ -28,14 +28,14 @@
                             <div class="w-[50%]">
                                 <div class="flex items-center">
                                     <label class="switch" >
-                                    <input type="checkbox" id="phone">
+                                    <input type="checkbox" id="phone" checked>
                                     <span class="slider round"></span>
                                     </label>
                                     <label class="ml-3" for="phone">Phone</label>
                                 </div>
                                 <div class="mt-3 flex items-center">
                                     <label class="switch" >
-                                    <input type="checkbox" id="gender">
+                                    <input type="checkbox" id="gender" checked>
                                     <span class="slider round"></span>
                                     </label>
                                     <label class="ml-3" for="gender">Gender</label>
@@ -44,14 +44,14 @@
                             <div class="w-[50%]">
                                 <div class="flex items-center">
                                     <label class="switch" >
-                                    <input type="checkbox" id="email">
+                                    <input type="checkbox" id="email" checked>
                                     <span class="slider round"></span>
                                     </label>
                                     <label class="ml-3" for="email">Email</label>
                                 </div>
                                 <div class="mt-3 flex items-center">
                                     <label class="switch" >
-                                    <input type="checkbox" id="major">
+                                    <input type="checkbox" id="major" checked>
                                     <span class="slider round"></span>
                                     </label>
                                     <label class="ml-3" for="major">Major</label>
@@ -65,7 +65,7 @@
                             <h1 class="font-semibold text-[17px]">Work Experiences</h1>
                             <div class="flex items-center">
                                 <label class="switch" >
-                                <input type="checkbox">
+                                <input type="checkbox" checked>
                                 <span class="slider round"></span>
                                 </label>
                             </div>
@@ -93,7 +93,7 @@
                             <h1 class="font-semibold text-[17px]">Education Background</h1>
                             <div class="flex items-center">
                                 <label class="switch" >
-                                <input type="checkbox">
+                                <input type="checkbox" checked>
                                 <span class="slider round"></span>
                                 </label>
                             </div>
@@ -121,7 +121,7 @@
                             <h1 class="font-semibold text-[17px]">Skills</h1>
                             <div class="flex items-center">
                                 <label class="switch" >
-                                <input type="checkbox">
+                                <input type="checkbox" checked>
                                 <span class="slider round"></span>
                                 </label>
                             </div>
