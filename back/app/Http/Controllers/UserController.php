@@ -292,4 +292,29 @@ class UserController extends Controller
     {
         return User::where('email', $email)->get();
     }
+
+
+    public function fillInfo(Request $request, $id) 
+    {
+        $user = User::findOrFail($id);
+        $user->first_name = $request->first_name;
+        $user->last_name = $request->last_name;
+        $user->status = 'actived';
+        $user->save();
+
+        if($request->gender == 'M') {
+            $profile = 'male.jpg';
+        }else {
+            $profile = 'female.jpg';
+        }
+        $alumni = Alumni::where('user_id', $id)->update([
+            'batch' => $request->batch,
+            'gender' => $request->gender,
+            'major' => $request->major,
+            'phone' => $request->phone,
+            'coverimage' => 'cover.jpg',
+            'profile' => $profile,
+        ]);
+        return Response()->json(['message' => $alumni], 200);
+    }
 }

@@ -2,14 +2,22 @@
   <section>
     <navbar-view :role="this.$store.state.role" :user_id="this.$store.state.userId" ref="navigation" />
     <router-view :user_id="this.$store.state.userId" :alu_id="this.$store.state.alumniId" :role="this.$store.state.role" @update-nav="$refs.navigation.getuser()" />
+    <fill-info v-if="hasInfo" @already-fill="hasInfo=false" @update-nav="$refs.navigation.getuser()" />
   </section>
 </template>
 <script>
 import NavbarVue from "./components/navbar/NavbarView.vue";
 import axios from "./axios-http"
+import FillInfo from './views/Alumni/profile/FillInfo.vue'
 export default {
   components: {
     "navbar-view": NavbarVue,
+    'fill-info': FillInfo,
+  },
+  data() {
+    return {
+      hasInfo: false,
+    }
   },
   methods: {
     async getUserInfo(){
@@ -19,6 +27,9 @@ export default {
         if(data==null){
             this.$store.dispatch('logout')
             this.$router.push('/login')
+        }
+        if(data.first_name == null && data.role == 'alumni') {
+          this.hasInfo = true;
         }
         const alumni = await axios.get('/alumni/'+ data.id);
         this.$store.state.userId = data.id;
