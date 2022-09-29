@@ -83,7 +83,7 @@ export default {
           'last_name': this.last_name, 
           'email':this.email,
           'role':'ero',
-          'status':'actived',
+          'status':'invited',
           }
           this.$emit('register', user)
         }else {
