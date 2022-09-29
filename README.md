@@ -3,20 +3,15 @@
 ## BACK
 
 - On php MyAdmin, create a new database : example_db
-
 - Go to /back
 - Copy the .env.example to .env
-
 - on .env file, update the database name :
   DB_DATABASE=example_db
-
 - Launch composer install
 - Launch npm install
 - Launch php artisan migrate
-
 - Launch php artisan key:generate
 - Launch php artisan storage:link ( to allow the image folder to be public)
-
 - Launch php artisan serve
 
 ## FRONT

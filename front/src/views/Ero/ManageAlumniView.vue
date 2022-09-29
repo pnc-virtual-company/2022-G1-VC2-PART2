@@ -113,6 +113,7 @@ export default {
       this.inviteMessage = "Sending invite ..."
       setTimeout(() => this.inviteMessage='' , 5000)
     },
+    
     approve(user_id){
       axios.post("approveAlumni/" + user_id)
       axios.put("approve/" + user_id).then(() => {
@@ -121,6 +122,7 @@ export default {
         this.getListAlumni();
       });
     },
+
     reject(user_id){
       swal({
         title: "Are you sure?",

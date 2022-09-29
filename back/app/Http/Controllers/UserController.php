@@ -268,6 +268,7 @@ class UserController extends Controller
         $user->save();
         return Response()->json(['message' => 'successful'], 200);
     }
+    
     public function approve(Request $request, $id)
     {
         $user = User::findOrFail($id);
